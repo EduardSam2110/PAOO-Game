@@ -2,10 +2,16 @@ package PaooGame;
 
 import PaooGame.GameWindow.GameWindow;
 import PaooGame.Graphics.Assets;
+import PaooGame.Graphics.ImageLoader;
 import PaooGame.Tiles.Tile;
 
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.util.Scanner;
 
 /*! \class Game
     \brief Clasa principala a intregului proiect. Implementeaza Game - Loop (Update -> Draw)
@@ -73,6 +79,8 @@ public class Game implements Runnable
         \param width Latimea ferestrei in pixeli.
         \param height Inaltimea ferestrei in pixeli.
      */
+
+    //public KeyboardInput input;
     public Game(String title, int width, int height)
     {
             /// Obiectul GameWindow este creat insa fereastra nu este construita
@@ -90,13 +98,22 @@ public class Game implements Runnable
         Sunt construite elementele grafice (assets): dale, player, elemente active si pasive.
 
      */
-    private void InitGame()
-    {
+    private KeyboardInput input;
+    private MouseInput input2;
+
+    private void InitGame() {
         wnd = new GameWindow("Schelet Proiect PAOO", 800, 600);
-            /// Este construita fereastra grafica.
         wnd.BuildGameWindow();
-            /// Se incarca toate elementele grafice (dale)
         Assets.Init();
+        input = new KeyboardInput(this); // Inițializăm KeyboardInput
+        input2 = new MouseInput(this);
+        // Adăugăm KeyListener-ul în fereastra de joc pentru a intercepta evenimentele de tastatură
+        wnd.GetCanvas().addKeyListener(input);
+        wnd.GetCanvas().addMouseListener(input2);
+        // Asigurați-vă că fereastra de joc poate primi focusul tastaturii
+        wnd.GetCanvas().setFocusable(true);
+        // Faceți ca fereastra de joc să obțină focusul pentru a putea interacționa cu tastatura fără a face clic pe ea
+        wnd.GetCanvas().requestFocus();
     }
 
     /*! \fn public void run()
@@ -195,9 +212,11 @@ public class Game implements Runnable
 
         Metoda este declarata privat deoarece trebuie apelata doar in metoda run()
      */
-    private void Update()
-    {
 
+    public double x = 0;
+    public double y = 0;
+
+    private void Update() {
     }
 
     /*! \fn private void Draw()
@@ -228,18 +247,19 @@ public class Game implements Runnable
             /// Se obtine contextul grafic curent in care se poate desena.
         g = bs.getDrawGraphics();
             /// Se sterge ce era
-        g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
-
+        //g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0,1000,1000);
+        g.drawImage(ImageLoader.LoadImage("/textures/untitled.png"),0,0,null);
             /// operatie de desenare
             // ...............
-            Tile.grassTile.Draw(g, 0 * Tile.TILE_WIDTH, 0);
-            Tile.soilTile.Draw(g, 1 * Tile.TILE_WIDTH, 0);
-            Tile.waterTile.Draw(g, 2 * Tile.TILE_WIDTH, 0);
-            Tile.mountainTile.Draw(g, 3 * Tile.TILE_WIDTH, 0);
-            Tile.treeTile.Draw(g, 4 * Tile.TILE_WIDTH, 0);
+            Tile.grassTile.Draw(g, x, y);
+//            Tile.soilTile.Draw(g, 1 * Tile.TILE_WIDTH, 0);
+//            Tile.waterTile.Draw(g, 2 * Tile.TILE_WIDTH, 0);
+//            Tile.mountainTile.Draw(g, 3 * Tile.TILE_WIDTH, 0);
+//            Tile.treeTile.Draw(g, 4 * Tile.TILE_WIDTH, 0);
 
-            g.drawRect(1 * Tile.TILE_WIDTH, 1 * Tile.TILE_HEIGHT, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
-
+        //g.drawRect(1 * Tile.TILE_WIDTH, 1 * Tile.TILE_HEIGHT, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 
             // end operatie de desenare
             /// Se afiseaza pe ecran
