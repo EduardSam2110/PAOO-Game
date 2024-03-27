@@ -4,6 +4,7 @@ import PaooGame.GameWindow.GameWindow;
 import PaooGame.Graphics.Assets;
 import PaooGame.Graphics.ImageLoader;
 import PaooGame.Tiles.Tile;
+import utils.Constants;
 
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.awt.*;
@@ -11,7 +12,10 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.time.DayOfWeek;
 import java.util.Scanner;
+import static utils.Constants.PLayerConstants.*;
+import static utils.Constants.Directions.*;
 
 /*! \class Game
     \brief Clasa principala a intregului proiect. Implementeaza Game - Loop (Update -> Draw)
@@ -80,7 +84,13 @@ public class Game implements Runnable
         \param height Inaltimea ferestrei in pixeli.
      */
 
-    //public KeyboardInput input;
+    private KeyboardInput inputKeyboard;
+    private MouseInput inputMouse;
+    void initInput()
+    {
+        inputKeyboard = new KeyboardInput(this);
+        inputMouse = new MouseInput(this);
+    }
     public Game(String title, int width, int height)
     {
             /// Obiectul GameWindow este creat insa fereastra nu este construita
@@ -98,22 +108,59 @@ public class Game implements Runnable
         Sunt construite elementele grafice (assets): dale, player, elemente active si pasive.
 
      */
-    private KeyboardInput input;
-    private MouseInput input2;
 
+    private BufferedImage[][] idleAnimation;
+    private BufferedImage img;
+    private void loadAnimations()
+    {
+        idleAnimation = new BufferedImage[15][8];// 15 animatii si maxim 8 spirteuri
+        for(int i = 0; i<  idleAnimation.length; i++)
+        {
+            for(int j = 0; j < idleAnimation[i].length; j++)
+            {
+                idleAnimation[i][j] = img.getSubimage(j*48,i*48,48,48);
+            }
+        }
+    }
+
+    private  int playerDirection = -1; // nu se misca -> idle
+    private boolean moving = false;
+    public void setDirection(int direction)
+    {
+        this.playerDirection = direction;
+        moving = true;
+    }
+
+    public void setMoving(boolean setM)
+    {
+        this.moving = setM;
+    }
+
+    private  void  setAnimation()
+    {
+        if(moving)
+        {
+            playerAction = WALK;
+        }
+        else
+            playerAction = IDLE;
+    }
+
+    private int playerAction = SWIMMING;
     private void InitGame() {
-        wnd = new GameWindow("Schelet Proiect PAOO", 800, 600);
+        wnd = new GameWindow("Schelet Proiect PAOO", 1280, 800);
         wnd.BuildGameWindow();
         Assets.Init();
-        input = new KeyboardInput(this); // Inițializăm KeyboardInput
-        input2 = new MouseInput(this);
+        initInput();
         // Adăugăm KeyListener-ul în fereastra de joc pentru a intercepta evenimentele de tastatură
-        wnd.GetCanvas().addKeyListener(input);
-        wnd.GetCanvas().addMouseListener(input2);
+        wnd.GetCanvas().addKeyListener(inputKeyboard);
+        wnd.GetCanvas().addMouseListener(inputMouse);
         // Asigurați-vă că fereastra de joc poate primi focusul tastaturii
         wnd.GetCanvas().setFocusable(true);
         // Faceți ca fereastra de joc să obțină focusul pentru a putea interacționa cu tastatura fără a face clic pe ea
         wnd.GetCanvas().requestFocus();
+        img = ImageLoader.LoadImage("/textures/Cat Adventure.png");
+        loadAnimations();
     }
 
     /*! \fn public void run()
@@ -216,7 +263,45 @@ public class Game implements Runnable
     public double x = 0;
     public double y = 0;
 
+
+
+    private int aniTick, aniIndex, aniSpeed = 60/8;
+    private void updateAnimation()
+    {
+        aniTick++;
+        if(aniTick>= aniSpeed)
+        {
+            aniTick = 0;
+            aniIndex++;
+            if(aniIndex >= GetSpriteAmount(playerAction))
+                aniIndex = 0;
+        }
+    }
+
+    private void updatePos()
+    {
+        if(moving) {
+            switch (playerDirection)
+            {
+                case LEFT:
+                    x -= 5;
+                    break;
+                case UP:
+                    y -= 5;
+                    break;
+                case RIGHT:
+                    x += 5;
+                    break;
+                case DOWN:
+                    y += 5;
+                    break;
+            }
+        }
+    }
     private void Update() {
+        updateAnimation();
+        setAnimation();
+        updatePos();
     }
 
     /*! \fn private void Draw()
@@ -249,11 +334,13 @@ public class Game implements Runnable
             /// Se sterge ce era
         //g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
         g.setColor(Color.BLACK);
-        g.fillRect(0,0,1000,1000);
+        g.fillRect(0,0,wnd.GetWndWidth(),wnd.GetWndHeight());
         g.drawImage(ImageLoader.LoadImage("/textures/untitled.png"),0,0,null);
+        g.drawImage(idleAnimation[playerAction][aniTick], (int)x,(int) y,200,200,null);
             /// operatie de desenare
             // ...............
-            Tile.grassTile.Draw(g, x, y);
+
+            //Tile.grassTile.Draw(g, x, y);
 //            Tile.soilTile.Draw(g, 1 * Tile.TILE_WIDTH, 0);
 //            Tile.waterTile.Draw(g, 2 * Tile.TILE_WIDTH, 0);
 //            Tile.mountainTile.Draw(g, 3 * Tile.TILE_WIDTH, 0);

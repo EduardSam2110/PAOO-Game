@@ -12,7 +12,8 @@ public class MouseInput implements MouseListener, MouseInputListener {
     }
     @Override
     public void mouseClicked(MouseEvent e) {
-        gamepanel.x = e.getXOnScreen();
+        //gamepanel.x = e.getX();
+        //gamepanel.y = e.getY();
     }
 
     @Override
