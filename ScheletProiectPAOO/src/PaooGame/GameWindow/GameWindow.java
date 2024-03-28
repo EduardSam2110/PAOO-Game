@@ -1,7 +1,11 @@
 package PaooGame.GameWindow;
 
+import PaooGame.Game;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 /*! \class GameWindow
     \brief Implementeaza notiunea de fereastra a jocului.
@@ -44,7 +48,7 @@ public class GameWindow
         inchidere, invalideaza redimensionarea ferestrei, afiseaza fereastra.
 
      */
-    public void BuildGameWindow()
+    public void BuildGameWindow(Game game)
     {
             /// Daca fereastra a mai fost construita intr-un apel anterior
             /// se renunta la apel
@@ -95,6 +99,18 @@ public class GameWindow
             /// Urmatorul apel de functie are ca scop eventuala redimensionare a ferestrei
             /// ca tot ce contine sa poate fi afisat complet
         wndFrame.pack();
+
+        wndFrame.addWindowFocusListener(new WindowFocusListener() {
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                game.windowsFocusLost(); // cand dam click e alta fereastra, sa nu ramana o tasta apasata
+            }
+        });
     }
 
     /*! \fn public int GetWndWidth()

@@ -4,6 +4,7 @@ import PaooGame.GameWindow.GameWindow;
 import PaooGame.Graphics.Assets;
 import PaooGame.Graphics.ImageLoader;
 import PaooGame.Tiles.Tile;
+import entities.Player;
 import utils.Constants;
 
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
@@ -70,7 +71,7 @@ public class Game implements Runnable
 
     private Graphics        g;          /*!< Referinta catre un context grafic.*/
 
-
+    private Player player;
     private Tile tile; /*!< variabila membra temporara. Este folosita in aceasta etapa doar pentru a desena ceva pe ecran.*/
 
     /*! \fn public Game(String title, int width, int height)
@@ -109,47 +110,10 @@ public class Game implements Runnable
 
      */
 
-    private BufferedImage[][] idleAnimation;
-    private BufferedImage img;
-    private void loadAnimations()
-    {
-        idleAnimation = new BufferedImage[15][8];// 15 animatii si maxim 8 spirteuri
-        for(int i = 0; i<  idleAnimation.length; i++)
-        {
-            for(int j = 0; j < idleAnimation[i].length; j++)
-            {
-                idleAnimation[i][j] = img.getSubimage(j*48,i*48,48,48);
-            }
-        }
-    }
-
-    private  int playerDirection = -1; // nu se misca -> idle
-    private boolean moving = false;
-    public void setDirection(int direction)
-    {
-        this.playerDirection = direction;
-        moving = true;
-    }
-
-    public void setMoving(boolean setM)
-    {
-        this.moving = setM;
-    }
-
-    private  void  setAnimation()
-    {
-        if(moving)
-        {
-            playerAction = WALK;
-        }
-        else
-            playerAction = IDLE;
-    }
-
-    private int playerAction = SWIMMING;
     private void InitGame() {
         wnd = new GameWindow("Schelet Proiect PAOO", 1280, 800);
-        wnd.BuildGameWindow();
+        wnd.BuildGameWindow(this);
+        initClasses();
         Assets.Init();
         initInput();
         // Adăugăm KeyListener-ul în fereastra de joc pentru a intercepta evenimentele de tastatură
@@ -159,8 +123,10 @@ public class Game implements Runnable
         wnd.GetCanvas().setFocusable(true);
         // Faceți ca fereastra de joc să obțină focusul pentru a putea interacționa cu tastatura fără a face clic pe ea
         wnd.GetCanvas().requestFocus();
-        img = ImageLoader.LoadImage("/textures/Cat Adventure.png");
-        loadAnimations();
+    }
+
+    private void initClasses() {
+        player = new Player(200,200);
     }
 
     /*! \fn public void run()
@@ -263,45 +229,8 @@ public class Game implements Runnable
     public double x = 0;
     public double y = 0;
 
-
-
-    private int aniTick, aniIndex, aniSpeed = 60/8;
-    private void updateAnimation()
-    {
-        aniTick++;
-        if(aniTick>= aniSpeed)
-        {
-            aniTick = 0;
-            aniIndex++;
-            if(aniIndex >= GetSpriteAmount(playerAction))
-                aniIndex = 0;
-        }
-    }
-
-    private void updatePos()
-    {
-        if(moving) {
-            switch (playerDirection)
-            {
-                case LEFT:
-                    x -= 5;
-                    break;
-                case UP:
-                    y -= 5;
-                    break;
-                case RIGHT:
-                    x += 5;
-                    break;
-                case DOWN:
-                    y += 5;
-                    break;
-            }
-        }
-    }
     private void Update() {
-        updateAnimation();
-        setAnimation();
-        updatePos();
+        player.update();
     }
 
     /*! \fn private void Draw()
@@ -336,7 +265,8 @@ public class Game implements Runnable
         g.setColor(Color.BLACK);
         g.fillRect(0,0,wnd.GetWndWidth(),wnd.GetWndHeight());
         g.drawImage(ImageLoader.LoadImage("/textures/untitled.png"),0,0,null);
-        g.drawImage(idleAnimation[playerAction][aniTick], (int)x,(int) y,200,200,null);
+        player.render(g);
+//        g.drawImage(idleAnimation[playerAction][aniTick], (int)x,(int) y,200,200,null);
             /// operatie de desenare
             // ...............
 
@@ -356,5 +286,13 @@ public class Game implements Runnable
             /// elementele grafice ce au fost desenate pe canvas).
         g.dispose();
     }
+
+    public Player getPlayer() {return player;}
+
+    public void windowsFocusLost()
+    {
+        player.resetDirBooleans();
+    }
+
 }
 

@@ -6,10 +6,10 @@ public class Constants {
         public static final int IDLE = 0;
         public static final int WALK = 1;
         public static final int RUN = 2;
-        public static final int ATTACK_1 = 3;
+        public static final int ATTACK_1 = 6;
         public static final int ATTACK_2 = 4;
         public static final int SWIMMING = 11;
-        public static final int CRAWLING = 6;
+        public static final int CRAWLING = 12;
         public static final int SIDE_WALL= 7;
         public static final int JUMP = 8;
         public static final int DEATH = 9;
@@ -17,7 +17,7 @@ public class Constants {
         //metoda pentru a stabili lungimea animatiei (y adica)
         public static int GetSpriteAmount(int player_action)
         {
-             switch(player_action)
+             switch(player_action) // modifica aici daca animatiile o iau razna sau se repeta de prea multe ori
              {
                  case IDLE:
                  case WALK:
@@ -29,6 +29,8 @@ public class Constants {
                  case SIDE_WALL:
                  case SWIMMING:
                      return 4;
+                 case ATTACK_1:
+                     return 1;
                  default:
                      return -1;
              }
