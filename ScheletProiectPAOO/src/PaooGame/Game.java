@@ -3,8 +3,10 @@ package PaooGame;
 import PaooGame.GameWindow.GameWindow;
 import PaooGame.Graphics.Assets;
 import PaooGame.Graphics.ImageLoader;
+import PaooGame.Tiles.LevelConstructor;
 import PaooGame.Tiles.Tile;
 import entities.Player;
+import levels.LevelManager;
 import utils.Constants;
 
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
@@ -74,6 +76,16 @@ public class Game implements Runnable
     private Player player;
     private Tile tile; /*!< variabila membra temporara. Este folosita in aceasta etapa doar pentru a desena ceva pe ecran.*/
 
+    // VEZI CE FACI CU ELE UNDE LE PUI CA SA NU AMESTECI CLASELE
+    // ASTEA DE JOS AR MERGE SI IN GAME WINDOW CATEVA
+    public final static float SCALE = 1.5f;
+    public final static int TILES_IN_WIDTH = 37;
+    public final static int TILES_IN_HEIGHT = 23;
+    public final static int TILE_SIZE = 32; // tile ul scalat
+    public final static int GAME_WIDTH =  TILE_SIZE * TILES_IN_WIDTH;
+    public final static int GAME_HEIGHT =  TILE_SIZE * TILES_IN_HEIGHT;
+    private LevelConstructor levelManager;
+
     /*! \fn public Game(String title, int width, int height)
         \brief Constructor de initializare al clasei Game.
 
@@ -111,14 +123,15 @@ public class Game implements Runnable
      */
 
     private void InitGame() {
-        wnd = new GameWindow("Schelet Proiect PAOO", 1280, 800);
+        wnd = new GameWindow("Schelet Proiect PAOO", GAME_WIDTH, GAME_HEIGHT);
         wnd.BuildGameWindow(this);
         initClasses();
-        Assets.Init();
+        //Assets.Init();
         initInput();
         // Adăugăm KeyListener-ul în fereastra de joc pentru a intercepta evenimentele de tastatură
         wnd.GetCanvas().addKeyListener(inputKeyboard);
         wnd.GetCanvas().addMouseListener(inputMouse);
+
         // Asigurați-vă că fereastra de joc poate primi focusul tastaturii
         wnd.GetCanvas().setFocusable(true);
         // Faceți ca fereastra de joc să obțină focusul pentru a putea interacționa cu tastatura fără a face clic pe ea
@@ -126,7 +139,9 @@ public class Game implements Runnable
     }
 
     private void initClasses() {
+        levelManager = new LevelConstructor();
         player = new Player(200,200);
+
     }
 
     /*! \fn public void run()
@@ -230,6 +245,7 @@ public class Game implements Runnable
     public double y = 0;
 
     private void Update() {
+        // levelManager.update();
         player.update();
     }
 
@@ -262,11 +278,12 @@ public class Game implements Runnable
         g = bs.getDrawGraphics();
             /// Se sterge ce era
         //g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         g.fillRect(0,0,wnd.GetWndWidth(),wnd.GetWndHeight());
-        g.drawImage(ImageLoader.LoadImage("/textures/untitled.png"),0,0,null);
+        levelManager.draw(g);
         player.render(g);
-//        g.drawImage(idleAnimation[playerAction][aniTick], (int)x,(int) y,200,200,null);
+
+  //      g.drawImage(idleAnimation[playerAction][aniTick], (int)x,(int) y,200,200,null);
             /// operatie de desenare
             // ...............
 

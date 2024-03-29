@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
  */
 public class Tile
 {
-    private static final int NO_TILES   = 32;
+    private static final int NO_TILES   = 112;
     public static Tile[] tiles          = new Tile[NO_TILES];       /*!< Vector de referinte de tipuri de dale.*/
 
         /// De remarcat ca urmatoarele dale sunt statice si publice. Acest lucru imi permite sa le am incarcate
@@ -19,11 +19,12 @@ public class Tile
     public static Tile treeTile         = new TreeTile(3);      /*!< Dala de tip copac*/
     public static Tile soilTile         = new SoilTile(4);      /*!< Dala de tip sol/pamant*/
 
-    public static final int TILE_WIDTH  = 48;                       /*!< Latimea unei dale.*/
-    public static final int TILE_HEIGHT = 48;                       /*!< Inaltimea unei dale.*/
+
+    public static final int TILE_WIDTH  = 32;                       /*!< Latimea unei dale.*/
+    public static final int TILE_HEIGHT = 32;                       /*!< Inaltimea unei dale.*/
 
     protected BufferedImage img;                                    /*!< Imaginea aferenta tipului de dala.*/
-    protected final int id;                                         /*!< Id-ul unic aferent tipului de dala.*/
+    protected int id;                                         /*!< Id-ul unic aferent tipului de dala.*/
 
     /*! \fn public Tile(BufferedImage texture, int id)
         \brief Constructorul aferent clasei.
@@ -36,7 +37,7 @@ public class Tile
         img = image;
         id = idd;
 
-        tiles[id] = this;
+        //tiles[id] = this;
     }
 
     /*! \fn public void Update()
@@ -54,10 +55,10 @@ public class Tile
         \param x Coordonata x in cadrul ferestrei unde sa fie desenata dala
         \param y Coordonata y in cadrul ferestrei unde sa fie desenata dala
      */
-    public void Draw(Graphics g, double x, double y)
+    public void Draw(Graphics g, int x, int y)
     {
             /// Desenare dala
-        g.drawImage(img, (int) x, (int) y, TILE_WIDTH, TILE_HEIGHT, null);
+        g.drawImage(img, x, y, TILE_WIDTH, TILE_HEIGHT, null);
     }
 
     /*! \fn public boolean IsSolid()

@@ -1,6 +1,8 @@
 package entities;
 
 import PaooGame.Graphics.ImageLoader;
+import PaooGame.Graphics.SpriteSheet;
+import utils.LoadSave;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,7 +14,8 @@ import static utils.Constants.PLayerConstants.*;
 public class Player extends Entity{
     private BufferedImage[][] idleAnimation;
     private boolean moving = false, attacking = false;
-    private int aniTick, aniIndex, aniSpeed = 60/8;
+    private int aniIndex, aniTick, aniSpeed = 3;
+
     private int playerAction = IDLE;
     private boolean left, up, right, down;
     private float playerSpeed = 5.0f;
@@ -30,8 +33,7 @@ public class Player extends Entity{
     }
 
     public void render(Graphics g) {
-
-        g.drawImage(idleAnimation[playerAction][aniTick], (int)x,(int) y,200,200,null);
+        g.drawImage(idleAnimation[playerAction][aniIndex], (int)x,(int) y,64,64,null);
     }
     private void updatePos()
     {
@@ -66,10 +68,9 @@ public class Player extends Entity{
     private void setAnimation()
     {
         int startAnimation = playerAction;
-        aniSpeed = 60/8;
+
         if(moving) {
-            playerAction = JUMP;
-            aniSpeed = 4;
+            playerAction = WALK;
         }
         else {
             playerAction = IDLE;
@@ -91,7 +92,7 @@ public class Player extends Entity{
     private void updateAnimation()
     {
         aniTick++;
-        if(aniTick>= aniSpeed)
+        if(aniTick >= aniSpeed)
         {
             aniTick = 0;
             aniIndex++;
@@ -103,13 +104,13 @@ public class Player extends Entity{
     }
     private void loadAnimations()
     {
-        BufferedImage img = ImageLoader.LoadImage("/textures/Cat Adventure.png");
+        SpriteSheet img = new SpriteSheet(LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS));
         idleAnimation = new BufferedImage[15][8];// 15 animatii si maxim 8 spirteuri
         for(int i = 0; i<  idleAnimation.length; i++)
         {
             for(int j = 0; j < idleAnimation[i].length; j++)
             {
-                idleAnimation[i][j] = img.getSubimage(j*48,i*48,48,48);
+                idleAnimation[i][j] = img.crop(j,i);
             }
         }
     }

@@ -28,9 +28,8 @@ public class Constants {
                      return 8;
                  case SIDE_WALL:
                  case SWIMMING:
-                     return 4;
                  case ATTACK_1:
-                     return 1;
+                     return 4;
                  default:
                      return -1;
              }

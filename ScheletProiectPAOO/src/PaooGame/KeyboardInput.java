@@ -32,6 +32,11 @@ public class KeyboardInput implements KeyListener {
             case KeyEvent.VK_D:
                 gamepanel.getPlayer().setRight(true);
                 break;
+            case KeyEvent.VK_P:
+                gamepanel.StopGame();
+                break;
+            default:
+                break;
         }
     }
 
