@@ -1,7 +1,5 @@
 package PaooGame.Tiles;
 
-import PaooGame.Game;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -15,18 +13,17 @@ public class Tile
 
         /// De remarcat ca urmatoarele dale sunt statice si publice. Acest lucru imi permite sa le am incarcate
         /// o singura data in memorie
-//    public static Tile grassTile        = new GrassTile(0);     /*!< Dala de tip iarba*/
+    public static Tile grassTile        = new GrassTile(35);     /*!< Dala de tip iarba*/
 //    public static Tile mountainTile     = new MountainTile(1);  /*!< Dala de tip munte/piatra*/
 //    public static Tile waterTile        = new WaterTile(2);     /*!< Dala de tip apa*/
 //    public static Tile treeTile         = new TreeTile(3);      /*!< Dala de tip copac*/
 //    public static Tile soilTile         = new SoilTile(4);      /*!< Dala de tip sol/pamant*/
 
-
     public static final int TILE_WIDTH  = 32;                       /*!< Latimea unei dale.*/
     public static final int TILE_HEIGHT = 32;                       /*!< Inaltimea unei dale.*/
 
     protected BufferedImage img;                                    /*!< Imaginea aferenta tipului de dala.*/
-    protected int id;                                         /*!< Id-ul unic aferent tipului de dala.*/
+    protected final int id;                                         /*!< Id-ul unic aferent tipului de dala.*/
 
     /*! \fn public Tile(BufferedImage texture, int id)
         \brief Constructorul aferent clasei.
@@ -39,7 +36,7 @@ public class Tile
         img = image;
         id = idd;
 
-        //tiles[id] = this;
+        tiles[id] = this;
     }
 
     /*! \fn public void Update()
@@ -66,31 +63,8 @@ public class Tile
     /*! \fn public boolean IsSolid()
         \brief Returneaza proprietatea de dala solida (supusa coliziunilor) sau nu.
      */
-    public static boolean IsSolid(float x, float y, int[][] map)
+    public boolean IsSolid()
     {
-        if(x < 0 || x >= Game.GAME_WIDTH)
-            return true;
-        if(y < 0 || y >= Game.GAME_HEIGHT)
-            return true;
-
-        float xIndex = x / Game.TILE_SIZE;
-        float yIndex = y / Game.TILE_SIZE;
-
-        int value = map[(int) yIndex][(int) xIndex];
-
-        if(value >= 112 || value < 0 || value == 61)
-            return true;
-
-        return false;
-    }
-
-    public static boolean CanMoveHere(float x, float y, int width, int height, int[][] map)
-    {
-        if(!IsSolid(x,y,map))
-            if(!IsSolid(x+width,y+height,map))
-                if(!IsSolid(x+width,y,map))
-                    if(!IsSolid(x,y+height,map))
-                        return true;
         return false;
     }
 
