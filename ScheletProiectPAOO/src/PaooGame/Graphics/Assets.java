@@ -1,5 +1,7 @@
 package PaooGame.Graphics;
 
+import utils.LoadSave;
+
 import java.awt.image.BufferedImage;
 
 /*! \class public class Assets
@@ -10,6 +12,9 @@ import java.awt.image.BufferedImage;
 public class Assets
 {
         /// Referinte catre elementele grafice (dale) utilizate in joc.
+    public static BufferedImage[][] player_animations_right;
+    public static BufferedImage[][] player_animations_left;
+
     public static BufferedImage playerLeft;
     public static BufferedImage playerRight;
     public static BufferedImage soil;
@@ -51,5 +56,31 @@ public class Assets
 //        rockDown = sheet.crop(3, 2);
 //        rockLeft = sheet.crop(0, 3);
 //        rockRight = sheet.crop(1, 3);
+
+        player_animations_right = new BufferedImage[15][8];
+        player_animations_left = new BufferedImage[15][8];
+
+        SpriteSheet img1 = new SpriteSheet(ImageLoader.LoadImage("/textures/Cat Adventure Right.png"));
+
+        for(int i = 0; i <  player_animations_right.length; i++)
+        {
+            for(int j = 0; j < player_animations_right[i].length; j++)
+            {
+                player_animations_right[i][j] = img1.crop(j,i);
+            }
+        }
+
+        SpriteSheet img2 = new SpriteSheet(ImageLoader.LoadImage("/textures/Cat Adventure Left.png"));
+
+        int ii = 0, jj = 0;
+        for(int i = 0; i < player_animations_left.length; i++)
+        {
+            for(int j = player_animations_left[i].length-1; j >= 0 ; j--)
+            {
+                player_animations_left[i][jj] = img2.crop(j,i);
+                ++jj;
+            }
+            jj = 0;
+        }
     }
 }

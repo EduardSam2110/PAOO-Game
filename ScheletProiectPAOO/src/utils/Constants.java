@@ -9,9 +9,9 @@ public class Constants {
         public static final int ATTACK_1 = 6;
         public static final int ATTACK_2 = 4;
         public static final int SWIMMING = 11;
-        public static final int CRAWLING = 12;
+        public static final int CRAWLING = 8;
         public static final int SIDE_WALL= 7;
-        public static final int JUMP = 8;
+        public static final int JUMP = 111;
         public static final int DEATH = 9;
 
         //metoda pentru a stabili lungimea animatiei (y adica)

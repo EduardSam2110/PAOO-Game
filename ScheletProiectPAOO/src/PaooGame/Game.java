@@ -6,7 +6,7 @@ import PaooGame.Graphics.ImageLoader;
 import PaooGame.Tiles.LevelConstructor;
 import PaooGame.Tiles.Tile;
 import entities.Player;
-import levels.LevelManager;
+
 import utils.Constants;
 
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
@@ -79,8 +79,8 @@ public class Game implements Runnable
     // VEZI CE FACI CU ELE UNDE LE PUI CA SA NU AMESTECI CLASELE
     // ASTEA DE JOS AR MERGE SI IN GAME WINDOW CATEVA
     public final static float SCALE = 1.5f;
-    public final static int TILES_IN_WIDTH = 37;
-    public final static int TILES_IN_HEIGHT = 23;
+    public final static int TILES_IN_WIDTH = 40;
+    public final static int TILES_IN_HEIGHT = 22;
     public final static int TILE_SIZE = 32; // tile ul scalat
     public final static int GAME_WIDTH =  TILE_SIZE * TILES_IN_WIDTH;
     public final static int GAME_HEIGHT =  TILE_SIZE * TILES_IN_HEIGHT;
@@ -139,9 +139,10 @@ public class Game implements Runnable
     }
 
     private void initClasses() {
+        Assets.Init();
         levelManager = new LevelConstructor();
-        player = new Player(200,200);
-
+        player = new Player(200,200,100,100);
+//        player.loadLvlData(levelManager.getData());
     }
 
     /*! \fn public void run()

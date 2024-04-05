@@ -5,35 +5,44 @@ import PaooGame.Graphics.SpriteSheet;
 import utils.LoadSave;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import static utils.Constants.Directions.*;
 import static utils.Constants.Directions.DOWN;
 import static utils.Constants.PLayerConstants.*;
+import static PaooGame.Graphics.Assets.player_animations_left;
+import static PaooGame.Graphics.Assets.player_animations_right;
 
 public class Player extends Entity{
-    private BufferedImage[][] idleAnimation;
+    private BufferedImage[] current_animation;
     private boolean moving = false, attacking = false;
+    private String lastPressed;
     private int aniIndex, aniTick, aniSpeed = 3;
-
-    private int playerAction = IDLE;
+    private int playerAction = CRAWLING;
     private boolean left, up, right, down;
-    private float playerSpeed = 5.0f;
-    public Player(float x,float y)
+    private float playerSpeed = 2.0f;
+    private int[][] levelData;
+    public Player(float x,float y,int width, int height)
     {
-        super(x,y);
-        loadAnimations();
+        super(x,y,width,height);
+        initAnimations();
     }
 
     public void update()
     {
+        updatePos();
+        updateHitbox();
         updateAnimation();
         setAnimation();
-        updatePos();
+
     }
 
     public void render(Graphics g) {
-        g.drawImage(idleAnimation[playerAction][aniIndex], (int)x,(int) y,64,64,null);
+        //g.drawImage(current_animation[playerAction][aniIndex], (int)x,(int) y,width,height,null);
+        g.drawImage(current_animation[aniIndex], (int)x,(int) y,width,height,null);
+
+        drawHitbox(g);
     }
     private void updatePos()
     {
@@ -48,7 +57,6 @@ public class Player extends Entity{
         {
             x+=playerSpeed;
             moving = true;
-
         }
 
         if(up && !down)
@@ -61,7 +69,6 @@ public class Player extends Entity{
         {
             y+=playerSpeed;
             moving = true;
-
         }
     }
 
@@ -80,11 +87,21 @@ public class Player extends Entity{
             playerAction = ATTACK_1;
         }
 
+        if(left)
+            current_animation = player_animations_left[playerAction];
+        else
+            current_animation = player_animations_right[playerAction];
+
+
 
         if(startAnimation != playerAction)
             resetAnimationTick();
     }
 
+    public void initAnimations()
+    {
+        current_animation = player_animations_right[IDLE];
+    }
     private void resetAnimationTick() {
         aniIndex = aniTick = 0;
     }
@@ -96,23 +113,16 @@ public class Player extends Entity{
         {
             aniTick = 0;
             aniIndex++;
-            if(aniIndex >= GetSpriteAmount(playerAction)) { // nu stiu daca e 1 sau get sprite amount
+            if(aniIndex >= GetSpriteAmount(playerAction)) { 
                 aniIndex = 0;
                 attacking = false;
             }
         }
     }
-    private void loadAnimations()
-    {
-        SpriteSheet img = new SpriteSheet(LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS));
-        idleAnimation = new BufferedImage[15][8];// 15 animatii si maxim 8 spirteuri
-        for(int i = 0; i<  idleAnimation.length; i++)
-        {
-            for(int j = 0; j < idleAnimation[i].length; j++)
-            {
-                idleAnimation[i][j] = img.crop(j,i);
-            }
-        }
+
+
+    public void loadLvlData(int[][] lvlData){
+        this.levelData = lvlData;
     }
 
     public boolean isLeft() {
