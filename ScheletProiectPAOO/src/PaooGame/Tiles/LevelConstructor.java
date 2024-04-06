@@ -49,8 +49,9 @@ public class LevelConstructor {
         for(int i = 0; i<23;i++)
             for(int j = 0; j<120;j++)
             {
-                if(map[i][j] == 35)
-                    tiles[map[i][j]].Draw(g,32*j,32*i);
+                if(map[i][j] >= 0)
+                    if(tiles[map[i][j]] != null)
+                        tiles[map[i][j]].Draw(g,32*j,32*i);
             }
 
 //
@@ -63,5 +64,10 @@ public class LevelConstructor {
 //                    tiles[index].Draw(g,32*j,32*i);
 //            }
 //        }
+    }
+
+    public int[][] getData()
+    {
+        return map;
     }
 }

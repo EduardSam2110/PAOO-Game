@@ -141,8 +141,8 @@ public class Game implements Runnable
     private void initClasses() {
         Assets.Init();
         levelManager = new LevelConstructor();
-        player = new Player(200,200,100,100);
-//        player.loadLvlData(levelManager.getData());
+        player = new Player(200,300,100,100);
+        player.loadLvlData(levelManager.getData());
     }
 
     /*! \fn public void run()

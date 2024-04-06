@@ -39,13 +39,13 @@ public class Assets
     public static void Init()
     {
             /// Se creaza temporar un obiect SpriteSheet initializat prin intermediul clasei ImageLoader
-        SpriteSheet sheet = new SpriteSheet(ImageLoader.LoadImage("/textures/pipes.png"),32,32aaaaa);
+        SpriteSheet sheet = new SpriteSheet(ImageLoader.LoadImage("/textures/pipes.png"),32,32);
 //
 //            /// Se obtin subimaginile corespunzatoare elementelor necesare.
         grass = sheet.crop(3, 4);
 //        soil = sheet.crop(1, 0);
 //        water = sheet.crop(2, 0);
-//        mountain = sheet.crop(3, 0);
+        mountain = sheet.crop(5, 1);
 //        townGrass = sheet.crop(0, 1);
 //        townGrassDestroyed = sheet.crop(1, 1);
 //        townSoil = sheet.crop(2, 1);

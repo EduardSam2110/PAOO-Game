@@ -32,6 +32,9 @@ public class KeyboardInput implements KeyListener {
             case KeyEvent.VK_D:
                 gamepanel.getPlayer().setRight(true);
                 break;
+            case KeyEvent.VK_SHIFT:
+                gamepanel.getPlayer().setSpeed(true);
+                break;
             default:
                 break;
         }
@@ -52,6 +55,10 @@ public class KeyboardInput implements KeyListener {
                 break;
             case KeyEvent.VK_D:
                 gamepanel.getPlayer().setRight(false);
+                break;
+            case KeyEvent.VK_SHIFT:
+                gamepanel.getPlayer().setSpeed(false);
+            default:
                 break;
         }
     }

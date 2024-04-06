@@ -13,6 +13,7 @@ import static utils.Constants.Directions.DOWN;
 import static utils.Constants.PLayerConstants.*;
 import static PaooGame.Graphics.Assets.player_animations_left;
 import static PaooGame.Graphics.Assets.player_animations_right;
+import static utils.HelpMethods.*;
 
 public class Player extends Entity{
     private BufferedImage[] current_animation;
@@ -20,7 +21,7 @@ public class Player extends Entity{
     private String lastPressed;
     private int aniIndex, aniTick, aniSpeed = 3;
     private int playerAction = CRAWLING;
-    private boolean left, up, right, down;
+    private boolean left, up, right, down, speed;
     private float playerSpeed = 2.0f;
     private int[][] levelData;
     public Player(float x,float y,int width, int height)
@@ -48,28 +49,60 @@ public class Player extends Entity{
     {
         moving = false;
 
+        if(!left && !right && !up && !down)
+            return;
+
+        float xSpeed = 0;
+        float ySpeed = 0;
+
+        if(speed)
+            playerSpeed = 5.0f;
+        else
+            playerSpeed = 2.0f;
+
         if(left && !right)
-        {
-            x-=playerSpeed;
-            moving = true;
-        }
+            xSpeed = -playerSpeed;
         else if(right && !left)
-        {
-            x+=playerSpeed;
-            moving = true;
-        }
+            xSpeed = playerSpeed;
 
         if(up && !down)
-        {
-            y-=playerSpeed;
-            moving = true;
-
-        }
+            ySpeed = -playerSpeed;
         else if(down && !up)
+            ySpeed = playerSpeed;
+
+        if(CanMoveHere(x+xSpeed,y+ySpeed,width,height,levelData))
         {
-            y+=playerSpeed;
+            this.x += xSpeed;
+            this.y += ySpeed;
             moving = true;
         }
+//        if(speed)
+//            playerSpeed = 5.0f;
+//        else
+//            playerSpeed = 2.0f;
+//
+//        if(left && !right)
+//        {
+//            x-=playerSpeed;
+//            moving = true;
+//        }
+//        else if(right && !left)
+//        {
+//            x+=playerSpeed;
+//            moving = true;
+//        }
+//
+//        if(up && !down)
+//        {
+//            y-=playerSpeed;
+//            moving = true;
+//
+//        }
+//        else if(down && !up)
+//        {
+//            y+=playerSpeed;
+//            moving = true;
+//        }
     }
 
     private void setAnimation()
@@ -77,7 +110,10 @@ public class Player extends Entity{
         int startAnimation = playerAction;
 
         if(moving) {
-            playerAction = WALK;
+            if(speed)
+                playerAction = RUN;
+            else
+                playerAction = WALK;
         }
         else {
             playerAction = IDLE;
@@ -91,8 +127,6 @@ public class Player extends Entity{
             current_animation = player_animations_left[playerAction];
         else
             current_animation = player_animations_right[playerAction];
-
-
 
         if(startAnimation != playerAction)
             resetAnimationTick();
@@ -164,5 +198,10 @@ public class Player extends Entity{
     public void setAttacking(boolean attack)
     {
         attacking = attack;
+    }
+
+    public void setSpeed(boolean speed)
+    {
+        this.speed = speed;
     }
 }
