@@ -7,7 +7,7 @@ import javax.xml.crypto.dsig.keyinfo.X509IssuerSerial;
 import static PaooGame.Tiles.Tile.*;
 
 public class HelpMethods {
-    public static boolean CanMoveHere(float x, float y, int width, int height, int[][] lvlData) {
+    public static boolean CanMoveHere(float x, float y, float width, float height, int[][] lvlData) {
 
         if(!IsSolid(x,y,lvlData))
                 if(!IsSolid(x+width,y+height,lvlData))
@@ -31,11 +31,8 @@ public class HelpMethods {
 
         int value = levelData[(int)yIndex][(int)xIndex];
 
-
-
         if(value >= 112 || value < 0 || value != 99)
                 return true;
-
 
         return false;
     }

@@ -1,5 +1,6 @@
 package entities;
 
+import PaooGame.Game;
 import PaooGame.Graphics.ImageLoader;
 import PaooGame.Graphics.SpriteSheet;
 import utils.LoadSave;
@@ -24,16 +25,18 @@ public class Player extends Entity{
     private boolean left, up, right, down, speed;
     private float playerSpeed = 2.0f;
     private int[][] levelData;
+    private float xDrawOffset = 32;
+    private float yDrawOffset = 16;
     public Player(float x,float y,int width, int height)
     {
         super(x,y,width,height);
         initAnimations();
+        initHitbox(x,y,32,64);
     }
 
     public void update()
     {
         updatePos();
-        updateHitbox();
         updateAnimation();
         setAnimation();
 
@@ -41,7 +44,7 @@ public class Player extends Entity{
 
     public void render(Graphics g) {
         //g.drawImage(current_animation[playerAction][aniIndex], (int)x,(int) y,width,height,null);
-        g.drawImage(current_animation[aniIndex], (int)x,(int) y,width,height,null);
+        g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset),(int) (hitBox.y - yDrawOffset),width,height,null);
 
         drawHitbox(g);
     }
@@ -70,10 +73,10 @@ public class Player extends Entity{
         else if(down && !up)
             ySpeed = playerSpeed;
 
-        if(CanMoveHere(x+xSpeed,y+ySpeed,width,height,levelData))
+        if(CanMoveHere(hitBox.x+xSpeed,hitBox.y+ySpeed,hitBox.width,hitBox.height,levelData))
         {
-            this.x += xSpeed;
-            this.y += ySpeed;
+            hitBox.x += xSpeed;
+            hitBox.y += ySpeed;
             moving = true;
         }
 //        if(speed)
