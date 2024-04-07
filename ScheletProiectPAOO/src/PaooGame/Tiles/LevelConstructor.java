@@ -11,7 +11,7 @@ import static PaooGame.Tiles.Tile.tiles;
 
 public class LevelConstructor {
     private static final BufferedImage img = ImageLoader.LoadImage("/textures/level1.png");
-    private static int map[][] = new int[23][120];
+    public static int map[][] = new int[23][120];
     public void LevelConstructor() {
         try {
             BufferedReader br = new BufferedReader(new FileReader("nivel.csv"));
@@ -25,13 +25,6 @@ public class LevelConstructor {
                 j++;
             }
         } catch (Exception e) {e.printStackTrace();}
-
-//        for(int i = 0; i<23;i++)
-//            for(int j = 0; j<120;j++)
-//            {
-//                System.out.println(map[i][j]);
-//            }
-
     }
 
     // ecuatia indexului unei dale = (coloana - 1) * 14 + (pozitie pe verticala - 1)
@@ -53,17 +46,6 @@ public class LevelConstructor {
                     if(tiles[map[i][j]] != null)
                         tiles[map[i][j]].Draw(g,32*j,32*i);
             }
-
-//
-//        for(int i = 0; i < 23; i++)
-//        {
-//            for(int j = 0; j < 37; j++)
-//            {
-//                int index = map[i][j];
-//                if (index <= 111 && index >= 0)
-//                    tiles[index].Draw(g,32*j,32*i);
-//            }
-//        }
     }
 
     public int[][] getData()

@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import static PaooGame.Tiles.LevelConstructor.map;
 import static utils.Constants.Directions.*;
 import static utils.Constants.Directions.DOWN;
 import static utils.Constants.PLayerConstants.*;
@@ -36,8 +37,9 @@ public class Player extends Entity{
     public Player(float x,float y,int width, int height)
     {
         super(x,y,width,height);
-        initAnimations();
         initHitbox(x,y,28,28);
+        initAnimations();
+        loadLvlData();
     }
 
     public void update()
@@ -45,7 +47,6 @@ public class Player extends Entity{
         updatePos();
         updateAnimation();
         setAnimation();
-
     }
 
     public void render(Graphics g) {
@@ -61,8 +62,6 @@ public class Player extends Entity{
         if(jump)
             jump();
 
-        if(!left && !right && !inAir)
-            return;
 
         float xSpeed = 0;
 
@@ -107,6 +106,9 @@ public class Player extends Entity{
         {
             updateXPos(xSpeed);
         }
+
+        if(!left && !right && !inAir)
+            return;
 
         moving = true;
     }
@@ -192,8 +194,11 @@ public class Player extends Entity{
     }
 
 
-    public void loadLvlData(int[][] lvlData){
-        this.levelData = lvlData;
+    public void loadLvlData(){
+        this.levelData = map;
+
+        if(!IsEntityOnFloor(hitBox,map))
+            inAir = true;
     }
 
     public boolean isLeft() {

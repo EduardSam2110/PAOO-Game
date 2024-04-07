@@ -125,9 +125,10 @@ public class Game implements Runnable
     private void InitGame() {
         wnd = new GameWindow("Schelet Proiect PAOO", GAME_WIDTH, GAME_HEIGHT);
         wnd.BuildGameWindow(this);
+        initInput();
         initClasses();
         //Assets.Init();
-        initInput();
+
         // Adăugăm KeyListener-ul în fereastra de joc pentru a intercepta evenimentele de tastatură
         wnd.GetCanvas().addKeyListener(inputKeyboard);
         wnd.GetCanvas().addMouseListener(inputMouse);
@@ -141,8 +142,7 @@ public class Game implements Runnable
     private void initClasses() {
         Assets.Init();
         levelManager = new LevelConstructor();
-        player = new Player(200,300,64,64);
-        player.loadLvlData(levelManager.getData());
+        player = new Player(300,300,64,64);
     }
 
     /*! \fn public void run()

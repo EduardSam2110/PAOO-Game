@@ -73,8 +73,9 @@ public class HelpMethods {
 
     public static boolean IsEntityOnFloor(Rectangle2D.Float hitbox, int[][] levelData)
     {
-        // check the piel below bottomleft and bottomright corner\
+        // check the pixel below bottomleft and bottomright corner
         // adica sa cada cand nu are nimic sub
+
         if(!IsSolid(hitbox.x,hitbox.y+hitbox.height+1,levelData))
             if(!IsSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height+1, levelData)) // adaugam +1 ca l-am scazut in celelalte metode
                 return false;
