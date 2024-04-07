@@ -19,7 +19,7 @@ public abstract class Entity {
     {
         //pentru debugg
         g.setColor(Color.WHITE);
-        g.drawRect((int)hitBox.x,(int)hitBox.y,(int)hitBox.width,(int)hitBox.height);
+        //g.drawRect((int)hitBox.x,(int)hitBox.y,(int)hitBox.width,(int)hitBox.height);
     }
 
     protected void initHitbox(float x, float y, float width, float height) {

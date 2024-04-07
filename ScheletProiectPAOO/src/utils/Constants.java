@@ -11,7 +11,9 @@ public class Constants {
         public static final int SWIMMING = 11;
         public static final int CRAWLING = 8;
         public static final int SIDE_WALL= 7;
-        public static final int JUMP = 111;
+        public static final int JUMP = 13;
+        public static final int FALLING = 14;
+
         public static final int DEATH = 9;
 
         //metoda pentru a stabili lungimea animatiei (y adica)
@@ -24,12 +26,14 @@ public class Constants {
                  case RUN:
                  case DEATH:
                  case CRAWLING:
-                 case JUMP:
                      return 8;
                  case SIDE_WALL:
                  case SWIMMING:
                  case ATTACK_1:
                      return 4;
+                 case JUMP:
+                 case FALLING:
+                     return 2;
                  default:
                      return -1;
              }

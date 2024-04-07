@@ -35,6 +35,9 @@ public class KeyboardInput implements KeyListener {
             case KeyEvent.VK_SHIFT:
                 gamepanel.getPlayer().setSpeed(true);
                 break;
+            case KeyEvent.VK_SPACE:
+                gamepanel.getPlayer().setJump(true);
+                break;
             default:
                 break;
         }
@@ -58,6 +61,10 @@ public class KeyboardInput implements KeyListener {
                 break;
             case KeyEvent.VK_SHIFT:
                 gamepanel.getPlayer().setSpeed(false);
+                break;
+            case KeyEvent.VK_SPACE:
+                gamepanel.getPlayer().setJump(false);
+                break;
             default:
                 break;
         }
