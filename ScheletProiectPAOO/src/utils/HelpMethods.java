@@ -23,21 +23,26 @@ public class HelpMethods {
 
     private static boolean IsSolid(float x, float y, int[][] levelData)
     {
-        if(x < 0 || x >= Game.GAME_WIDTH)
+        int maxWidth = levelData[0].length * TILE_SIZE;
+
+        if(x < 0 || x >= maxWidth)
             return true;
 
         if(y < 0 || y >= Game.GAME_HEIGHT)
             return true;
 
-        float xIndex = x / TILE_HEIGHT;
-        float yIndex = y / TILE_HEIGHT;
+        float xIndex = x / TILE_SIZE;
+        float yIndex = y / TILE_SIZE;
 
         int value = levelData[(int)yIndex][(int)xIndex];
 
-        if(value >= 112 || value < 0 || value != 99)
+        if(value >= 112 || value < 0)
                 return true;
-
-        return false;
+        else
+            if(tiles[value] != null)
+                return tiles[value].IsSolid();
+            else
+                return false;
     }
 
     public static float GetEntityXPosNextToWall(Rectangle2D.Float hitbox, float xSpeed)

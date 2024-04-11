@@ -1,5 +1,6 @@
 package PaooGame.Tiles;
 
+import PaooGame.Game;
 import PaooGame.Graphics.ImageLoader;
 
 import java.awt.*;
@@ -7,11 +8,22 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static PaooGame.Tiles.Tile.tiles;
+import static entities.Player.xSpeed;
+import static utils.Camera.xCamera;
 
 public class LevelConstructor {
     private static final BufferedImage img = ImageLoader.LoadImage("/textures/level1.png");
     public static int map[][] = new int[23][120];
+
+    private int xLvlOffset = (int) xSpeed;
+    private int leftBorder = (int) (0.2 * Game.GAME_WIDTH);
+    private int rightBorder = (int) (0.8 * Game.GAME_WIDTH);
+    private int lvlTilesWide = map[0].length;
+    private int maxTileOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
+    private int maxLvlOffsetX = maxTileOffset * TILE_SIZE;
+
     public void LevelConstructor() {
         try {
             BufferedReader br = new BufferedReader(new FileReader("nivel.csv"));
@@ -44,7 +56,7 @@ public class LevelConstructor {
             {
                 if(map[i][j] >= 0)
                     if(tiles[map[i][j]] != null)
-                        tiles[map[i][j]].Draw(g,32*j,32*i);
+                        tiles[map[i][j]].Draw(g,32*j-xCamera,32*i);
             }
     }
 

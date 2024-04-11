@@ -15,15 +15,14 @@ public class Assets
     public static BufferedImage[][] player_animations_right;
     public static BufferedImage[][] player_animations_left;
 
-    public static BufferedImage playerLeft;
-    public static BufferedImage playerRight;
+    public static BufferedImage solidBlock1;
+    public static BufferedImage solidBlock2;
     public static BufferedImage soil;
     public static BufferedImage grass;
     public static BufferedImage mountain;
     public static BufferedImage townGrass;
-    public static BufferedImage townGrassDestroyed;
+    public static BufferedImage sewer_pipe_big1;
     public static BufferedImage townSoil;
-    public static BufferedImage water;
     public static BufferedImage rockUp;
     public static BufferedImage rockDown;
     public static BufferedImage rockLeft;
@@ -42,10 +41,12 @@ public class Assets
         SpriteSheet sheet = new SpriteSheet(ImageLoader.LoadImage("/textures/pipes.png"),32,32);
 //
 //            /// Se obtin subimaginile corespunzatoare elementelor necesare.
-        grass = sheet.crop(3, 4);
-//        soil = sheet.crop(1, 0);
-//        water = sheet.crop(2, 0);
-        mountain = sheet.crop(5, 1);
+        solidBlock1 = sheet.crop(3, 4);
+        solidBlock2 = sheet.crop(4, 4);
+
+
+        sewer_pipe_big1 = sheet.crop(5, 1);
+//
 //        townGrass = sheet.crop(0, 1);
 //        townGrassDestroyed = sheet.crop(1, 1);
 //        townSoil = sheet.crop(2, 1);

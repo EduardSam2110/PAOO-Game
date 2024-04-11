@@ -3,6 +3,7 @@ package entities;
 import PaooGame.Game;
 import PaooGame.Graphics.ImageLoader;
 import PaooGame.Graphics.SpriteSheet;
+import utils.Camera;
 import utils.LoadSave;
 
 import java.awt.*;
@@ -10,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import static PaooGame.Tiles.LevelConstructor.map;
+import static utils.Camera.xCamera;
 import static utils.Constants.Directions.*;
 import static utils.Constants.Directions.DOWN;
 import static utils.Constants.PLayerConstants.*;
@@ -34,6 +36,9 @@ public class Player extends Entity{
     private float jumpSpeed = -4f;
     private float fallSpeedAfterCollision = 1f;
     private boolean inAir = false;
+
+    public static float xSpeed;
+
     public Player(float x,float y,int width, int height)
     {
         super(x,y,width,height);
@@ -44,6 +49,7 @@ public class Player extends Entity{
 
     public void update()
     {
+        Camera.Update(this);
         updatePos();
         updateAnimation();
         setAnimation();
@@ -51,9 +57,10 @@ public class Player extends Entity{
 
     public void render(Graphics g) {
         //g.drawImage(current_animation[playerAction][aniIndex], (int)x,(int) y,width,height,null);
-        g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset),(int) (hitBox.y - yDrawOffset),width,height,null);
-
+        g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
         drawHitbox(g);
+        Camera.Draw(g,this);
+
     }
     private void updatePos()
     {
@@ -62,11 +69,10 @@ public class Player extends Entity{
         if(jump)
             jump();
 
-
-        float xSpeed = 0;
+        xSpeed = 0;
 
         if(speed)
-            playerSpeed = 5.0f;
+            playerSpeed = 10.0f;
         else
             playerSpeed = 2.0f;
 
@@ -83,6 +89,9 @@ public class Player extends Entity{
                 inAir = true;
             }
         }
+
+        if(!left && !right && !inAir)
+            return;
 
         if(inAir)
         {
@@ -106,9 +115,6 @@ public class Player extends Entity{
         {
             updateXPos(xSpeed);
         }
-
-        if(!left && !right && !inAir)
-            return;
 
         moving = true;
     }
@@ -141,7 +147,7 @@ public class Player extends Entity{
     {
         int startAnimation = playerAction;
 
-        if(moving) {
+        if(moving && (!left || !right)) {
             if(speed)
                 playerAction = RUN;
             else
@@ -250,4 +256,6 @@ public class Player extends Entity{
     {
         this.jump = jump;
     }
+    public boolean IsMoving(){return moving;}
+    public int GetPlayerSpeed(){return (int) playerSpeed;}
 }
