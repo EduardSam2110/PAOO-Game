@@ -72,7 +72,7 @@ public class Player extends Entity{
         xSpeed = 0;
 
         if(speed)
-            playerSpeed = 10.0f;
+            playerSpeed = 3.0f;
         else
             playerSpeed = 2.0f;
 

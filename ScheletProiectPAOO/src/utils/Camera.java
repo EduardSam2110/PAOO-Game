@@ -11,17 +11,17 @@ import static entities.Player.xSpeed;
 
 public class Camera {
     public static int xCamera = 0;
+    public static int CameraWidth = 800;
     public static int MinBorder = 0;
-    public static int MaxBorder = 3690;
-    public static int LeftBorder = 128;
-    public static int xCameraPos = 128;
-    public static int CameraWidth = 1000;
+    public static int MaxBorder = 3561;
+    public static int LeftBorder = 200;
+    public static int xCameraPos = 200;
 
      public static void Draw(Graphics g, Player p)
     {
         int x = (int) p.getHitBox().x;
 //        System.out.println(x);
-        g.drawRect(128,200,CameraWidth,500); // creste / scande odata cu camera
+        g.drawRect(LeftBorder,200,CameraWidth,500); // creste / scande odata cu camera
 
     }
 
@@ -29,30 +29,23 @@ public class Camera {
     {
         int xLeftWall = (int) p.getHitBox().x;
         int xRightWall = xLeftWall + (int) p.getHitBox().width;
+        int speed = p.GetPlayerSpeed();
+        System.out.println(xCameraPos + "      " + (xCameraPos + CameraWidth));
 //        System.out.println(x + "       " + xCameraPos + "    "+ (x + (int) p.getHitBox().width) + "   "  + (xCameraPos + CameraWidth));
         if(xLeftWall > MinBorder && xRightWall < MaxBorder) {
             if(p.IsMoving())
             {
-                if((xLeftWall <= xCameraPos) && (xLeftWall >= LeftBorder )&& p.isLeft()) {
-                    xCamera -= p.GetPlayerSpeed();
-                    xCameraPos = xLeftWall - p.GetPlayerSpeed();
+                if((xLeftWall <= xCameraPos) && (xLeftWall > LeftBorder) && p.isLeft()) {
+                    xCamera -= speed;
+                    xCameraPos = xLeftWall - speed;
                 }
 
 
-                if((xRightWall >= xCameraPos+CameraWidth)  && p.isRight()) {
-                    xCamera += p.GetPlayerSpeed();
-                    xCameraPos = xRightWall - CameraWidth + p.GetPlayerSpeed();
+                if((xRightWall >= xCameraPos+CameraWidth) && p.isRight()) {
+                    xCamera += speed;
+                    xCameraPos = xRightWall - CameraWidth + speed;
                 }
             }
         }
-
-//        if((x < xCameraPos) || (x > xCameraPos + CameraWidth)) {
-//            if (p.IsMoving()) {
-////                    if (p.isLeft())
-////                        xCamera -= p.GetPlayerSpeed();
-//                if (p.isRight())
-//                    xCamera += p.GetPlayerSpeed();
-//            }
-//        }
     }
 }
