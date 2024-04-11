@@ -30,7 +30,7 @@ public class Camera {
         int xLeftWall = (int) p.getHitBox().x;
         int xRightWall = xLeftWall + (int) p.getHitBox().width;
         int speed = p.GetPlayerSpeed();
-        System.out.println(xCameraPos + "      " + (xCameraPos + CameraWidth));
+//        System.out.println(xCameraPos + "      " + (xCameraPos + CameraWidth));
 //        System.out.println(x + "       " + xCameraPos + "    "+ (x + (int) p.getHitBox().width) + "   "  + (xCameraPos + CameraWidth));
         if(xLeftWall > MinBorder && xRightWall < MaxBorder) {
             if(p.IsMoving())
