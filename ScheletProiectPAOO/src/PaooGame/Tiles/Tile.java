@@ -13,14 +13,24 @@ public class Tile
 
         /// De remarcat ca urmatoarele dale sunt statice si publice. Acest lucru imi permite sa le am incarcate
         /// o singura data in memorie
-    public static Tile solidBlock1        = new SolidBlock1(35);     /*!< Dala de tip iarba*/
-    public static Tile pipe_big_1         = new Pipe_Big_1(13);  /*!< Dala de tip munte/piatra*/
-//    public static Tile sewer_pipe_big1    = new Sewer_Pipe_Big1(36);     /*!< Dala de tip apa*/
-    public static Tile solidBlock2        = new SolidBlock2(36);      /*!< Dala de tip copac*/
-//    public static Tile soilTile         = new SoilTile(4);      /*!< Dala de tip sol/pamant*/
+    public static Tile solidBlock1        = new SolidBlock1(35);
+    public static Tile solidBlock2        = new SolidBlock2(36);
+    public static Tile solidBlock3        = new SolidBlock3(37);
 
-    public static final int TILE_WIDTH  = 32;                       /*!< Latimea unei dale.*/
-    public static final int TILE_HEIGHT = 32;                       /*!< Inaltimea unei dale.*/
+
+    public static Tile sewer_hole1       = new Sewer_Hole1(32);
+    public static Tile sewer_hole2      = new Sewer_Hole2(33);
+
+    public static Tile sewer_pipe_large_left = new Sewer_Pipe_Large_Left(5);
+    public static Tile sewer_pipe_large_middle = new Sewer_Pipe_Large_Middle(6);
+    public static Tile sewer_pipe_large_right = new Sewer_Pipe_Large_Right(7);
+    public static Tile sewer_pipe_large_down = new Sewer_Pipe_Large_Down(13);
+    public static Tile sewer_pipe_large_leftright = new Sewer_Pipe_Large_LeftRight(21);
+    public static Tile sewer_pipe_large_rightleft = new Sewer_Pipe_Large_RightLeft(23);
+
+
+    public int TILE_WIDTH = 32;                       /*!< Latimea unei dale.*/
+    public int TILE_HEIGHT = 32;                       /*!< Inaltimea unei dale.*/
 
     public static final int TILE_SIZE = 32;
     protected BufferedImage img;                                    /*!< Imaginea aferenta tipului de dala.*/
@@ -36,7 +46,14 @@ public class Tile
     {
         img = image;
         id = idd;
+        tiles[id] = this;
+    }
 
+    public Tile(BufferedImage image, int idd, int new_size)
+    {
+        img = image;
+        id = idd;
+        TILE_WIDTH = TILE_HEIGHT = new_size;
         tiles[id] = this;
     }
 
@@ -60,6 +77,7 @@ public class Tile
             /// Desenare dala
         g.drawImage(img, x, y, TILE_WIDTH, TILE_HEIGHT, null);
     }
+
 
     /*! \fn public boolean IsSolid()
         \brief Returneaza proprietatea de dala solida (supusa coliziunilor) sau nu.

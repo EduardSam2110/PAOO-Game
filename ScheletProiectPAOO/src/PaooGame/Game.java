@@ -142,7 +142,7 @@ public class Game implements Runnable
     private void initClasses() {
         Assets.Init();
         levelManager = new LevelConstructor();
-        player = new Player(300,300,64,64);
+        player = new Player(90,370,64,64);
     }
 
     /*! \fn public void run()

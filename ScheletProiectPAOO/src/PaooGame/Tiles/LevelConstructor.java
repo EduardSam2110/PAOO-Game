@@ -15,14 +15,8 @@ import static utils.Camera.xCamera;
 
 public class LevelConstructor {
     private static final BufferedImage img = ImageLoader.LoadImage("/textures/level1.png");
-    public static int map[][] = new int[23][120];
+    public static int map[][] = new int[23][80];
 
-    private int xLvlOffset = (int) xSpeed;
-    private int leftBorder = (int) (0.2 * Game.GAME_WIDTH);
-    private int rightBorder = (int) (0.8 * Game.GAME_WIDTH);
-    private int lvlTilesWide = map[0].length;
-    private int maxTileOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
-    private int maxLvlOffsetX = maxTileOffset * TILE_SIZE;
 
     public void LevelConstructor() {
         try {
@@ -31,7 +25,7 @@ public class LevelConstructor {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                for (int i = 0; i < 120; i++) {
+                for (int i = 0; i < 80; i++) {
                     map[j][i] = Integer.parseInt(values[i]);
                 }
                 j++;
@@ -52,7 +46,7 @@ public class LevelConstructor {
         g.drawImage(img,0,0,null);
         LevelConstructor();
         for(int i = 0; i<23;i++)
-            for(int j = 0; j<120;j++)
+            for(int j = 0; j<80;j++)
             {
                 if(map[i][j] >= 0)
                     if(tiles[map[i][j]] != null)

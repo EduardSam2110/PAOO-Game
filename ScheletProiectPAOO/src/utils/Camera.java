@@ -13,7 +13,7 @@ public class Camera {
     public static int xCamera = 0;
     public static int CameraWidth = 800;
     public static int MinBorder = 0;
-    public static int MaxBorder = 3561;
+    public static int MaxBorder = 1280*2 - 279;
     public static int LeftBorder = 200;
     public static int xCameraPos = 200;
 

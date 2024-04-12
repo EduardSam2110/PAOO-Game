@@ -25,7 +25,7 @@ public class Player extends Entity{
     private int aniIndex, aniTick, aniSpeed = 3;
     private int playerAction = CRAWLING;
     private boolean left, up, right, down, speed, jump;
-    private float playerSpeed = 2.0f;
+    private int playerSpeed = 2;
     private int[][] levelData;
     private float xDrawOffset = 16;
     private float yDrawOffset = 22;
@@ -33,7 +33,7 @@ public class Player extends Entity{
     // Jumping & Gravity
     private float airSpeed = 0f;
     private float gravity = 0.1f;
-    private float jumpSpeed = -4f;
+    private float jumpSpeed = -5f;
     private float fallSpeedAfterCollision = 1f;
     private boolean inAir = false;
 
@@ -58,8 +58,8 @@ public class Player extends Entity{
     public void render(Graphics g) {
         //g.drawImage(current_animation[playerAction][aniIndex], (int)x,(int) y,width,height,null);
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
-        drawHitbox(g);
-        Camera.Draw(g,this);
+        // drawHitbox(g);
+       // Camera.Draw(g,this);
 
     }
     private void updatePos()
@@ -72,9 +72,9 @@ public class Player extends Entity{
         xSpeed = 0;
 
         if(speed)
-            playerSpeed = 3.0f;
+            playerSpeed = 3;
         else
-            playerSpeed = 2.0f;
+            playerSpeed = 2;
 
         if(left)
             xSpeed -= playerSpeed;
@@ -257,5 +257,5 @@ public class Player extends Entity{
         this.jump = jump;
     }
     public boolean IsMoving(){return moving;}
-    public int GetPlayerSpeed(){return (int) playerSpeed;}
+    public int GetPlayerSpeed(){return playerSpeed;}
 }
