@@ -16,9 +16,12 @@ public class Constants {
 
         public static final int DEATH = 9;
 
+        public static final int EnemyIDLE = 1;
+
         //metoda pentru a stabili lungimea animatiei (y adica)
         public static int GetSpriteAmount(int player_action)
         {
+            // FA SA IA DUPA TIPUL ENTITATII SI SA SELECTEZE PT ENEMY SI PLAYER DIFERIT
              switch(player_action) // modifica aici daca animatiile o iau razna sau se repeta de prea multe ori
              {
                  case IDLE:

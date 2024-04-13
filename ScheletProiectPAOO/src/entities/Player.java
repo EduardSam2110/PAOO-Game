@@ -8,30 +8,22 @@ import java.awt.image.BufferedImage;
 import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.LevelConstructor.map;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
+import static entities.Enemy.die_if_attack;
 import static utils.Camera.xCamera;
 import static utils.Constants.PLayerConstants.*;
 import static utils.HelpMethods.*;
 
-public class Player extends EntityFactory {
+public class Player extends Entity {
     private BufferedImage[] current_animation;
-    private boolean moving = false, attacking = false;
-    private int aniIndex, aniTick, aniSpeed = 3;
-    private int playerAction = CRAWLING;
+    private boolean moving = false;
+
     private boolean left, up, right, down, speed, jump;
     private int playerSpeed = 2;
     private int[][] levelData;
     private float xDrawOffset = 16;
     private float yDrawOffset = 22;
 
-    // Jumping & Gravity
-    private float airSpeed = 0f;
-    private float gravity = 0.1f;
-    private float jumpSpeed = -5f;
-    private float fallSpeedAfterCollision = 1f;
-    private boolean inAir = false;
-
     public static float xSpeed;
-
     public static int temp = 0;
 
     public Player(float x,float y,int width, int height)
@@ -48,6 +40,7 @@ public class Player extends EntityFactory {
         updatePos();
         updateAnimation();
         setAnimation();
+        die_if_attack(this);
     }
 
     public void render(Graphics g) {
@@ -57,13 +50,11 @@ public class Player extends EntityFactory {
         g.drawImage(health_bar[temp][1],1132,20,32,32, null);
         g.drawImage(health_bar[temp][2],1164,20,32,32, null);
 
-        // drawHitbox(g);
-       // Camera.Draw(g,this);
 
     }
     private void updatePos()
     {
-        resetPlayerPos();
+        //resetPlayerPos();
 
         moving = false;
 
@@ -83,39 +74,10 @@ public class Player extends EntityFactory {
         if(right)
             xSpeed += playerSpeed;
 
-        if(!inAir)
-        {
-            if(!IsEntityOnFloor(hitBox,levelData))
-            {
-                inAir = true;
-            }
-        }
-
         if(!left && !right && !inAir)
             return;
 
-        if(inAir)
-        {
-            if(CanMoveHere(hitBox.x,hitBox.y + airSpeed, hitBox.width,hitBox.height,levelData))
-            {
-                hitBox.y += airSpeed;
-                airSpeed += gravity;
-                updateXPos(xSpeed);
-            }
-            else
-            {
-                hitBox.y = GetEntityYPosUnderRoofFloor(hitBox,airSpeed);
-                if(airSpeed > 0) // mergem in jos, lovim ceva
-                    resetInAir();
-                else
-                    airSpeed = fallSpeedAfterCollision;
-                updateXPos(xSpeed);
-            }
-        }
-        else
-        {
-            updateXPos(xSpeed);
-        }
+        testGravity((int)xSpeed);
 
         moving = true;
     }
@@ -126,22 +88,6 @@ public class Player extends EntityFactory {
 
         inAir = true;
         airSpeed = jumpSpeed;
-    }
-
-    private void resetInAir() {
-        inAir = false;
-        airSpeed = 0;
-    }
-
-    private void updateXPos(float xSpeed) {
-        if(CanMoveHere(hitBox.x+xSpeed,hitBox.y,hitBox.width,hitBox.height,levelData))
-        {
-            hitBox.x += xSpeed;
-        }
-        else
-        {
-            hitBox.x = GetEntityXPosNextToWall(hitBox,xSpeed);
-        }
     }
 
     private void setAnimation()
@@ -184,20 +130,6 @@ public class Player extends EntityFactory {
     }
     private void resetAnimationTick() {
         aniIndex = aniTick = 0;
-    }
-
-    private void updateAnimation()
-    {
-        aniTick++;
-        if(aniTick >= aniSpeed)
-        {
-            aniTick = 0;
-            aniIndex++;
-            if(aniIndex >= GetSpriteAmount(playerAction)) { 
-                aniIndex = 0;
-                attacking = false;
-            }
-        }
     }
 
 

@@ -1,75 +1,63 @@
 package entities;
 
 import PaooGame.Graphics.Assets;
-import PaooGame.Graphics.Assets.*;
 
 import java.awt.*;
 
 import static PaooGame.Tiles.LevelConstructor.map;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static utils.Camera.xCamera;
-import static utils.Constants.PLayerConstants.GetSpriteAmount;
 import static utils.HelpMethods.*;
 
-public class Enemy extends EntityFactory {
+public class Enemy extends Entity {
 
-    private static int[][] levelData;
-    private float xDrawOffset = 30;
+    private float xDrawOffset = 40;
     private float yDrawOffset = 60;
-    private int aniIndex, aniTick, aniSpeed = 7;
+    private static int enemySpeed = 2;
 
-    private float airSpeed = 0f;
-    private float gravity = 0.1f;
-    private float jumpSpeed = -5f;
-    private float fallSpeedAfterCollision = 1f;
-    private boolean inAir = false;
+    private static float xSpeedEnemy;
 
-    public static float xSpeed = 1;
+    private static boolean movingLeft = false, movingRight = false;
+
+    private static int died;
+
+    public static int animation = 0;
+
+    private static int enemyCoord;
 
     public Enemy(float x,float y,int width, int height)
     {
         super(x,y,width,height);
         initHitbox(x,y,28,28);
         loadLvlData();
+        movingRight = true;
+        died = 0;
     }
 
     public void update()
     {
-        updateAnim();
-        updatePos();
-    }
-
-    public void updateAnim()
-    {
-        aniTick++;
-        if(aniTick >= aniSpeed)
+        if(died == 0)
         {
-            aniTick = 0;
-            aniIndex++;
-            if(aniIndex >= 8) {
-                aniIndex = 0;
-            }
+            updateAnimation();
+            updatePos();
+            enemyCoord = (int) hitBox.x;
         }
     }
 
-    public void updatePoss()
-    {
-        float xIndex = (hitBox.x) / TILE_SIZE;
-        float yIndex = (hitBox.y + hitBox.height)  / TILE_SIZE;
-
-        int value = levelData[(int)yIndex][(int)xIndex];
-
-        if(hitBox.x > x+300 && (value != 44))
-            hitBox.x += xSpeed;
-        else
-            hitBox.x-=xSpeed;
-
-    }
 
     public void render(Graphics g)
     {
-        g.drawImage(Assets.enemy_animations_right[0][aniIndex], (int) (hitBox.x - xDrawOffset),(int) (hitBox.y - yDrawOffset),width,height,null);
-        drawHitbox(g);
+        if(died == 1) {
+            aniIndex = 0;
+            aniSpeed = 5;
+        }
+
+        if(died > 0 && died < 5)
+            aniIndex++;
+
+        g.drawImage(Assets.enemy_animations_right[animation][aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
+        //drawHitbox(g);
+
     }
 
     private void loadLvlData()
@@ -81,53 +69,45 @@ public class Enemy extends EntityFactory {
 
     private void updatePos()
     {
-        updatePoss();
 
-        if(!inAir)
-        {
-            if(!IsEntityOnFloor(hitBox,levelData))
-            {
-                inAir = true;
-            }
-        }
+        xSpeedEnemy = 0;
 
-        if(inAir)
-        {
-            if(CanMoveHere(hitBox.x,hitBox.y + airSpeed, hitBox.width,hitBox.height,levelData))
-            {
-                hitBox.y += airSpeed;
-                airSpeed += gravity;
-                updateXPos(xSpeed);
-            }
+        if(movingRight) {
+            if(hitBox.x < (x+100))
+                xSpeedEnemy += enemySpeed;
             else
             {
-                hitBox.y = GetEntityYPosUnderRoofFloor(hitBox,airSpeed);
-                if(airSpeed > 0) // mergem in jos, lovim ceva
-                    resetInAir();
-                else
-                    airSpeed = fallSpeedAfterCollision;
-                updateXPos(xSpeed);
+                movingRight = false;
+                movingLeft = true;
             }
         }
-        else
+        else if(movingLeft) {
+            if(hitBox.x > (x-100))
+                xSpeedEnemy -= enemySpeed;
+            else
+            {
+                movingLeft = false;
+                movingRight = true;
+            }
+        }
+
+        testGravity((int)xSpeedEnemy);
+
+    }
+
+    public static void die_if_attack(Player p)
+    {
+        if(p.attacking == true)
         {
-            updateXPos(xSpeed);
+            int coord_player = (int) (p.getHitBox().x + p.getHitBox().width);
+
+            if(coord_player + 10 >= enemyCoord) {
+                animation = 3;
+                ++died;
+            }
+
         }
     }
 
-    private void resetInAir() {
-        inAir = false;
-        airSpeed = 0;
-    }
 
-    private void updateXPos(float xSpeed) {
-        if(CanMoveHere(hitBox.x+xSpeed,hitBox.y,hitBox.width,hitBox.height,levelData))
-        {
-            hitBox.x += xSpeed;
-        }
-        else
-        {
-            hitBox.x = GetEntityXPosNextToWall(hitBox,xSpeed);
-        }
-    }
 }

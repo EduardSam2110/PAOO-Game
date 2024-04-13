@@ -78,13 +78,13 @@ public class Assets
 
         SpriteSheet life = new SpriteSheet(ImageLoader.LoadImage("/textures/HealthUI.png"),11,11);
 
-        health_bar = new BufferedImage[7][3];
+        health_bar = new BufferedImage[4][3];
 
         for(int i = 0; i<health_bar.length;i++)
         {
             for(int j  = 0; j<health_bar[i].length;j++)
             {
-                health_bar[i][j] = life.crop(j,i);
+                health_bar[i][j] = life.crop(j,i*2);
             }
         }
 

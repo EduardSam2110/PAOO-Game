@@ -145,7 +145,7 @@ public class Game implements Runnable
         Assets.Init();
         levelManager = new LevelConstructor();
         player = new Player(90,370,64,64);
-        enemy1 = new Enemy(800,200,128,128);
+        enemy1 = new Enemy(900,200,128,128);
     }
 
     /*! \fn public void run()
