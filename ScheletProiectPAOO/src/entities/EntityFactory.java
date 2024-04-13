@@ -3,11 +3,12 @@ package entities;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public abstract class Entity {
+public abstract class EntityFactory {
     protected float x,y;
     protected int width, height;
     protected Rectangle2D.Float hitBox; // coliziuni
-    public Entity(float x, float y, int width, int height)
+
+    public EntityFactory(float x, float y, int width, int height)
     {
         this.x = x;
         this.y = y;
@@ -19,21 +20,18 @@ public abstract class Entity {
     {
         //pentru debugg
         g.setColor(Color.WHITE);
-        //g.drawRect((int)hitBox.x,(int)hitBox.y,(int)hitBox.width,(int)hitBox.height);
+        g.drawRect((int)hitBox.x,(int)hitBox.y,(int)hitBox.width,(int)hitBox.height);
     }
 
     protected void initHitbox(float x, float y, float width, float height) {
         hitBox = new Rectangle2D.Float(x,y,width,height);
     }
 
-//    public void updateHitbox() {
-//        hitBox.x = (int) x; //pentru cand se misca playerul
-//        hitBox.y = (int) y;
-//    }
-
     public Rectangle2D.Float getHitBox()
     {
         return hitBox;
     }
+
+
 }
 

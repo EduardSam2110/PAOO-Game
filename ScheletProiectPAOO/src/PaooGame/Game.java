@@ -5,6 +5,7 @@ import PaooGame.Graphics.Assets;
 import PaooGame.Graphics.ImageLoader;
 import PaooGame.Tiles.LevelConstructor;
 import PaooGame.Tiles.Tile;
+import entities.Enemy;
 import entities.Player;
 
 import utils.Constants;
@@ -56,7 +57,7 @@ import static utils.Constants.Directions.*;
 public class Game implements Runnable
 {
     private GameWindow      wnd;        /*!< Fereastra in care se va desena tabla jocului*/
-    private boolean         runState;   /*!< Flag ce starea firului de executie.*/
+    private static boolean         runState;   /*!< Flag ce starea firului de executie.*/
     private Thread          gameThread; /*!< Referinta catre thread-ul de update si draw al ferestrei*/
     private BufferStrategy  bs;         /*!< Referinta catre un mecanism cu care se organizeaza memoria complexa pentru un canvas.*/
     /// Sunt cateva tipuri de "complex buffer strategies", scopul fiind acela de a elimina fenomenul de
@@ -74,6 +75,7 @@ public class Game implements Runnable
     private Graphics        g;          /*!< Referinta catre un context grafic.*/
 
     private Player player;
+    private Enemy enemy1;
     private Tile tile; /*!< variabila membra temporara. Este folosita in aceasta etapa doar pentru a desena ceva pe ecran.*/
 
     // VEZI CE FACI CU ELE UNDE LE PUI CA SA NU AMESTECI CLASELE
@@ -143,6 +145,7 @@ public class Game implements Runnable
         Assets.Init();
         levelManager = new LevelConstructor();
         player = new Player(90,370,64,64);
+        enemy1 = new Enemy(800,200,128,128);
     }
 
     /*! \fn public void run()
@@ -248,6 +251,8 @@ public class Game implements Runnable
     private void Update() {
         // levelManager.update();
         player.update();
+        enemy1.update();
+//        SetRunState();
     }
 
     /*! \fn private void Draw()
@@ -283,6 +288,7 @@ public class Game implements Runnable
         g.fillRect(0,0,wnd.GetWndWidth(),wnd.GetWndHeight());
         levelManager.draw(g);
         player.render(g);
+        enemy1.render(g);
 
   //      g.drawImage(idleAnimation[playerAction][aniTick], (int)x,(int) y,200,200,null);
             /// operatie de desenare
@@ -312,5 +318,10 @@ public class Game implements Runnable
         player.resetDirBooleans();
     }
 
+    public void SetRunState() {
+        if(Player.temp == 6) {
+            StopGame();
+        }
+    }
 }
 

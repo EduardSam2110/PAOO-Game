@@ -18,6 +18,8 @@ public class Assets
     public static BufferedImage[][] player_animations_right;
     public static BufferedImage[][] player_animations_left;
 
+    public static BufferedImage[][] enemy_animations_right;
+
     public static BufferedImage solidBlock1;
     public static BufferedImage solidBlock2;
     public static BufferedImage solidBlock3;
@@ -31,6 +33,8 @@ public class Assets
     public static BufferedImage sewer_pipe_large_down;
     public static BufferedImage sewer_pipe_large_leftright;
     public static BufferedImage sewer_pipe_large_rightleft;
+
+    public static BufferedImage[][] health_bar;
 
     /*! \fn public static void Init()
         \brief Functia initializaza referintele catre elementele grafice utilizate.
@@ -72,31 +76,55 @@ public class Assets
         }
 
 
+        SpriteSheet life = new SpriteSheet(ImageLoader.LoadImage("/textures/HealthUI.png"),11,11);
+
+        health_bar = new BufferedImage[7][3];
+
+        for(int i = 0; i<health_bar.length;i++)
+        {
+            for(int j  = 0; j<health_bar[i].length;j++)
+            {
+                health_bar[i][j] = life.crop(j,i);
+            }
+        }
+
         // Animatiile jucatorului:
         player_animations_right = new BufferedImage[15][8];
         player_animations_left = new BufferedImage[15][8];
 
-        SpriteSheet img1 = new SpriteSheet(ImageLoader.LoadImage("/textures/Cat Adventure Right.png"));
+        SpriteSheet playerRight = new SpriteSheet(ImageLoader.LoadImage("/textures/Cat Adventure Right.png"));
 
         for(int i = 0; i <  player_animations_right.length; i++)
         {
             for(int j = 0; j < player_animations_right[i].length; j++)
             {
-                player_animations_right[i][j] = img1.crop(j,i);
+                player_animations_right[i][j] = playerRight.crop(j,i);
             }
         }
 
-        SpriteSheet img2 = new SpriteSheet(ImageLoader.LoadImage("/textures/Cat Adventure Left.png"));
+        SpriteSheet playerLeft = new SpriteSheet(ImageLoader.LoadImage("/textures/Cat Adventure Left.png"));
 
         int ii = 0, jj = 0;
         for(int i = 0; i < player_animations_left.length; i++)
         {
             for(int j = player_animations_left[i].length-1; j >= 0 ; j--)
             {
-                player_animations_left[i][jj] = img2.crop(j,i);
+                player_animations_left[i][jj] = playerLeft.crop(j,i);
                 ++jj;
             }
             jj = 0;
+        }
+
+        enemy_animations_right = new BufferedImage[4][8];
+
+        SpriteSheet enemyRight = new SpriteSheet(ImageLoader.LoadImage("/textures/Enemy.png"),64,64);
+
+        for(int i = 0; i <  enemy_animations_right.length; i++)
+        {
+            for(int j = 0; j < enemy_animations_right[i].length; j++)
+            {
+                enemy_animations_right[i][j] = enemyRight.crop(j,i);
+            }
         }
     }
 }
