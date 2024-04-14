@@ -11,7 +11,7 @@ import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Graphics.Assets.map_lvl1;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static utils.Camera.xCamera;
-import static utils.Constants.PLayerConstants.*;
+import static utils.Constants.*;
 import static utils.GravityColisionMethods.*;
 
 public class Player extends Entity {
@@ -32,6 +32,7 @@ public class Player extends Entity {
         initHitbox(x,y,19,28);
         initAnimations();
         loadLvlData();
+        action = IDLE;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class Player extends Entity {
     {
         Camera.Update(this);
         updatePos();
-        updateAnimation(action);
+        updateAnimation(action, "player");
         setAnimation();
     }
 

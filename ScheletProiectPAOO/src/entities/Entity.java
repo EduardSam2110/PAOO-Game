@@ -5,8 +5,7 @@ import java.awt.geom.Rectangle2D;
 
 import static PaooGame.Graphics.Assets.map_lvl1;
 import static utils.Camera.xCamera;
-import static utils.Constants.PLayerConstants.GetSpriteAmount;
-import static utils.Constants.PLayerConstants.IDLE;
+import static utils.Constants.*;
 import static utils.GravityColisionMethods.*;
 
 public abstract class Entity {
@@ -24,7 +23,7 @@ public abstract class Entity {
     protected int aniIndex;
     protected int aniTick;
     protected int aniSpeed = 4;
-    protected int action = IDLE;
+    protected int action;
     protected boolean attacking = false;
 
 
@@ -52,14 +51,14 @@ public abstract class Entity {
         return hitBox;
     }
 
-    protected void updateAnimation(int action)
+    protected void updateAnimation(int action, String enemyType)
     {
         aniTick++;
         if(aniTick >= aniSpeed)
         {
             aniTick = 0;
             aniIndex++;
-            if(aniIndex >= GetSpriteAmount(action)) {
+            if(aniIndex >= GetSpriteAmount(action, enemyType)) {
                 aniIndex = 0;
                 attacking = false;
             }

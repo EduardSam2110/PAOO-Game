@@ -9,7 +9,7 @@ import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static utils.Camera.xCamera;
 import static PaooGame.Game.*;
-import static utils.Constants.PLayerConstants.*;
+import static utils.Constants.*;
 
 public class Enemy extends Entity {
 
@@ -36,7 +36,7 @@ public class Enemy extends Entity {
         initHitbox(x,y,28,28);
         loadLvlData();
         movingRight = true;
-//        action = WALK;
+        action = EnemyWALK;
     }
 
     @Override
@@ -44,8 +44,8 @@ public class Enemy extends Entity {
     {
         if(!died)
         {
-            updateAnimation(action);
             die_if_attack();
+            updateAnimation(action, "enemy");
             updatePos();
             calculatePos();
         }
@@ -67,6 +67,7 @@ public class Enemy extends Entity {
 
     private void updatePos()
     {
+
         xSpeedEnemy = 0;
 
         float xIndexToRight = (hitBox.x + hitBox.width) / TILE_SIZE;
@@ -76,36 +77,32 @@ public class Enemy extends Entity {
         int value1 = levelData[(int)yIndex][(int)xIndexToRight];
         int value2 = levelData[(int)yIndex][(int)xIndexToLeft];
 
-        if(inAir)
-            current_animation = enemy_animations_right[1];
-        else if(movingRight) {
-            current_animation = enemy_animations_right[action];
-            if(value1 != 44)
-                xSpeedEnemy += enemySpeed;
-            else
-            {
-                movingRight = false;
-                movingLeft = true;
+        if(inAir == false) {
+            if (movingRight) {
+                current_animation = enemy_animations_right[action];
+                if (value1 != 44)
+                    xSpeedEnemy += enemySpeed;
+                else {
+                    movingRight = false;
+                    movingLeft = true;
+                }
+            } else if (movingLeft) {
+                current_animation = enemy_animations_left[action];
+                if (value2 != 44)
+                    xSpeedEnemy -= enemySpeed;
+                else {
+                    movingLeft = false;
+                    movingRight = true;
+                }
             }
         }
-        else if(movingLeft) {
-            current_animation = enemy_animations_left[action];
-            if(value2 != 44)
-                xSpeedEnemy -= enemySpeed;
-            else
-            {
-                movingLeft = false;
-                movingRight = true;
-            }
-        }
-        else if(died)
-            current_animation = enemy_animations_right[action];
         else
-            current_animation = enemy_animations_right[1];
+            current_animation = enemy_animations_right[EnemyIDLE];
 
         testGravity((int)xSpeedEnemy);
 
     }
+
 
     private void calculatePos()
     {
@@ -123,7 +120,7 @@ public class Enemy extends Entity {
 
             if((coord_playerX >= enemyCoordX) && (coord_playerXLeft <= enemyCoordXWidth) && (coord_playerY >= enemyCoordY) && (coord_playerY <= enemyCoordYHeight)) {
                 if(player.attacking) {
-                    action = 3;
+                    action = EnemyDEATH;
                     aniIndex = 0;
                     died = true;
                 }

@@ -1,7 +1,6 @@
 package utils;
 
 public class Constants {
-    public static class PLayerConstants{
         // clasa playerului ce contine tot ce tine de el
         public static final int IDLE = 0;
         public static final int WALK = 1;
@@ -10,45 +9,60 @@ public class Constants {
         public static final int ATTACK_2 = 4;
         public static final int SWIMMING = 11;
         public static final int CRAWLING = 8;
-        public static final int SIDE_WALL= 7;
+        public static final int SIDE_WALL = 7;
         public static final int JUMP = 13;
         public static final int FALLING = 14;
-
         public static final int DEATH = 9;
 
+        public static final int EnemyWALK = 0;
         public static final int EnemyIDLE = 1;
+        public static final int EnemyATTACK = 2;
+        public static final int EnemyDEATH = 3;
 
         //metoda pentru a stabili lungimea animatiei (y adica)
-        public static int GetSpriteAmount(int action)
-        {
-            // FA SA IA DUPA TIPUL ENTITATII SI SA SELECTEZE PT ENEMY SI PLAYER DIFERIT
-             switch(action) // modifica aici daca animatiile o iau razna sau se repeta de prea multe ori
-             {
-                 case IDLE:
-                 case WALK:
-                 case RUN:
-                 case DEATH:
-                 case CRAWLING:
-                     return 8;
-                 case SIDE_WALL:
-                 case SWIMMING:
-                 case ATTACK_1:
-                     return 4;
-                 case JUMP:
-                 case FALLING:
-                     return 2;
-                 default:
-                     return -1;
-             }
-        }
-    }
-    public static class Directions {
-        public static final int LEFT = 0;
-        public static final int UP = 1;
-        public static final int RIGHT = 2;
-        public static final int DOWN = 3;
+        public static int GetSpriteAmount(int action, String enemyType) {
+            if ("player".equals(enemyType)) {
+                switch (action) {
+                    case IDLE:
+                    case WALK:
+                    case RUN:
+                    case DEATH:
+                    case CRAWLING:
+                        return 8;
+                    case SIDE_WALL:
+                    case SWIMMING:
+                    case ATTACK_1:
+                        return 4;
+                    case JUMP:
+                    case FALLING:
+                        return 2;
+                    default:
+                        return -1;
+                }
+            }
 
-    }
+            if ("enemy".equals(enemyType)) {
+                switch (action) {
+                    case EnemyWALK:
+                        return 8;
+                    case EnemyIDLE:
+                        return 6;
+                    case EnemyATTACK:
+                    case EnemyDEATH:
+                        return 4;
+                    default:
+                        return -1;
+                }
+            }
+            return -1;
+        }
+
+        public static class Directions {
+            public static final int LEFT = 0;
+            public static final int UP = 1;
+            public static final int RIGHT = 2;
+            public static final int DOWN = 3;
+        }
 }
 /*
 Idle
