@@ -2,25 +2,13 @@ package PaooGame;
 
 import PaooGame.GameWindow.GameWindow;
 import PaooGame.Graphics.Assets;
-import PaooGame.Graphics.ImageLoader;
-import PaooGame.Tiles.LevelConstructor;
+import PaooGame.Tiles.LevelManager;
 import PaooGame.Tiles.Tile;
 import entities.Enemy;
-import entities.EntityFactory;
 import entities.Player;
 
-import utils.Constants;
-
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.time.DayOfWeek;
-import java.util.Scanner;
-import static utils.Constants.PLayerConstants.*;
-import static utils.Constants.Directions.*;
 
 /*! \class Game
     \brief Clasa principala a intregului proiect. Implementeaza Game - Loop (Update -> Draw)
@@ -87,7 +75,7 @@ public class Game implements Runnable
     public final static int TILE_SIZE = 32; // tile ul scalat
     public final static int GAME_WIDTH =  TILE_SIZE * TILES_IN_WIDTH;
     public final static int GAME_HEIGHT =  TILE_SIZE * TILES_IN_HEIGHT;
-    private LevelConstructor levelManager;
+    private LevelManager levelManager;
 
     /*! \fn public Game(String title, int width, int height)
         \brief Constructor de initializare al clasei Game.
@@ -138,9 +126,9 @@ public class Game implements Runnable
 
     private void initClasses() {
         Assets.Init();
-        levelManager = new LevelConstructor();
+        Assets.LoadBackgroudTiles();
+        levelManager = new LevelManager();
         player = new Player(90,370,64,64);
-//        player = EntityFactory.createEntity("Player",90,370,64,64);
         enemy1 = new Enemy(900,200,128,128);
         enemy2 = new Enemy(1800,200,128,128);
 
@@ -290,7 +278,6 @@ public class Game implements Runnable
         player.render(g);
         enemy1.render(g);
         enemy2.render(g);
-
   //      g.drawImage(idleAnimation[playerAction][aniTick], (int)x,(int) y,200,200,null);
             /// operatie de desenare
             // ...............

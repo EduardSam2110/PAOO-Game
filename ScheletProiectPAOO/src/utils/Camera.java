@@ -1,13 +1,8 @@
 package utils;
 
-import PaooGame.Game;
 import entities.Player;
 
 import java.awt.*;
-
-import static PaooGame.Tiles.LevelConstructor.map;
-import static PaooGame.Tiles.Tile.TILE_SIZE;
-import static entities.Player.xSpeed;
 
 public class Camera {
     public static int xCamera = 0;

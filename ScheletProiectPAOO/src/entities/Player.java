@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static PaooGame.Graphics.Assets.*;
-import static PaooGame.Tiles.LevelConstructor.map;
+import static PaooGame.Graphics.Assets.map_lvl1;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static utils.Camera.xCamera;
 import static utils.Constants.PLayerConstants.*;
@@ -19,7 +19,7 @@ public class Player extends Entity {
     private boolean left, up, right, down, speed, jump;
     private int playerSpeed = 2;
     private int[][] levelData;
-    private float xDrawOffset = 16;
+    private float xDrawOffset = 23;
     private float yDrawOffset = 22;
 
     public static float xSpeed;
@@ -28,7 +28,7 @@ public class Player extends Entity {
     public Player(float x,float y,int width, int height)
     {
         super(x,y,width,height);
-        initHitbox(x,y,28,28);
+        initHitbox(x,y,19,28);
         initAnimations();
         loadLvlData();
     }
@@ -50,6 +50,7 @@ public class Player extends Entity {
         g.drawImage(health_bar[temp][1],1132,20,32,32, null);
         g.drawImage(health_bar[temp][2],1164,20,32,32, null);
 
+        drawHitbox(g);
 
     }
     private void updatePos()
@@ -134,9 +135,9 @@ public class Player extends Entity {
 
 
     public void loadLvlData(){
-        this.levelData = map;
+        this.levelData = map_lvl1;
 
-        if(!IsEntityOnFloor(hitBox,map))
+        if(!IsEntityOnFloor(hitBox, map_lvl1))
             inAir = true;
     }
 

@@ -4,11 +4,10 @@ import PaooGame.Graphics.Assets;
 
 import java.awt.*;
 
-import static PaooGame.Tiles.LevelConstructor.map;
+import static PaooGame.Graphics.Assets.map_lvl1;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static utils.Camera.xCamera;
 import static PaooGame.Game.*;
-import static utils.HelpMethods.*;
 
 public class Enemy extends Entity {
 
@@ -70,7 +69,7 @@ public class Enemy extends Entity {
 
     private void loadLvlData()
     {
-        this.levelData = map;
+        this.levelData = map_lvl1;
     }
 
     // de sters:

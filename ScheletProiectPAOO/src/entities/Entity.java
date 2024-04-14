@@ -3,7 +3,7 @@ package entities;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-import static PaooGame.Tiles.LevelConstructor.map;
+import static PaooGame.Graphics.Assets.map_lvl1;
 import static utils.Camera.xCamera;
 import static utils.Constants.PLayerConstants.GetSpriteAmount;
 import static utils.Constants.PLayerConstants.IDLE;
@@ -14,9 +14,8 @@ public abstract class Entity {
     protected int width, height;
     protected Rectangle2D.Float hitBox; // coliziuni
 
-    
-    //bs
-    protected int[][] levelData = map;
+
+    protected int[][] levelData = map_lvl1;
     protected float airSpeed = 0f;
     protected float gravity = 0.1f;
     protected float jumpSpeed = -5f;
@@ -28,9 +27,6 @@ public abstract class Entity {
     protected int playerAction = IDLE;
     protected boolean attacking = false;
 
-//    public static float xSpeed;
-
-    //bs
 
     public Entity(float x, float y, int width, int height)
     {

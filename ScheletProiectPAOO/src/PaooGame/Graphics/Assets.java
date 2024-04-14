@@ -3,7 +3,10 @@ package PaooGame.Graphics;
 import PaooGame.Tiles.Tile;
 import utils.LoadSave;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 import static PaooGame.Tiles.Tile.tiles;
 
@@ -36,6 +39,11 @@ public class Assets
 
     public static BufferedImage[][] health_bar;
 
+    public static BufferedImage spikeUp;
+
+    public static int map_lvl1[][];
+    public static BufferedImage background_lvl1 = ImageLoader.LoadImage("/textures/level1.png");
+
     /*! \fn public static void Init()
         \brief Functia initializaza referintele catre elementele grafice utilizate.
 
@@ -62,18 +70,8 @@ public class Assets
         sewer_pipe_large_leftright = sheet.crop(5, 2);
         sewer_pipe_large_rightleft = sheet.crop(7, 2);
 
-        for(int i  = 0; i < 14; i++)
-        {
-            for(int j = 0; j < 8; j++)
-            {
-                int index = i*8 + j;
-
-                if(tiles[index] == null)
-                {
-                    tiles[index] = new Tile(sheet.crop(j, i), index);
-                }
-            }
-        }
+        SpriteSheet spikes = new SpriteSheet(ImageLoader.LoadImage("/textures/spike.png"),16,16);
+        spikeUp = spikes.crop(0,0);
 
 
         SpriteSheet life = new SpriteSheet(ImageLoader.LoadImage("/textures/HealthUI.png"),11,11);
@@ -126,5 +124,47 @@ public class Assets
                 enemy_animations_right[i][j] = enemyRight.crop(j,i);
             }
         }
+
+        map_lvl1 = new int[23][80];
+
+        levelReader(map_lvl1,"nivel.csv");
+
+
+    }
+
+    public static void LoadBackgroudTiles()
+    {
+        // Functia incarca restul de Tile-uri care tin doar de fundalul si esteticul unui nivel
+
+        SpriteSheet sheet = new SpriteSheet(ImageLoader.LoadImage("/textures/pipes.png"),32,32);
+
+        for(int i  = 0; i < 14; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                int index = i*8 + j;
+
+                if(tiles[index] == null)
+                {
+                    tiles[index] = new Tile(sheet.crop(j, i), index);
+                }
+            }
+        }
+    }
+
+    private static void levelReader(int[][] map, String path)
+    {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(path));
+            int j = 0;
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                for (int i = 0; i < 80; i++) {
+                    map[j][i] = Integer.parseInt(values[i]);
+                }
+                j++;
+            }
+        } catch (Exception e) {e.printStackTrace();}
     }
 }
