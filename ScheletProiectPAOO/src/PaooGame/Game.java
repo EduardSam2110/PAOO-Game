@@ -235,7 +235,7 @@ public class Game implements Runnable
     public double y = 0;
 
     private void Update() {
-        // levelManager.update();
+        levelManager.update();
         player.update();
         enemy1.update();
         enemy2.update();

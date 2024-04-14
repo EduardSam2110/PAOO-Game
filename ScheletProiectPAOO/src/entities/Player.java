@@ -46,9 +46,7 @@ public class Player extends Entity {
     public void render(Graphics g) {
         //g.drawImage(current_animation[playerAction][aniIndex], (int)x,(int) y,width,height,null);
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
-        g.drawImage(health_bar[temp][0],1100,20,32,32, null);
-        g.drawImage(health_bar[temp][1],1132,20,32,32, null);
-        g.drawImage(health_bar[temp][2],1164,20,32,32, null);
+        g.drawImage(health_bar[temp],1100,20,32*3,32, null);
 
         drawHitbox(g);
 
@@ -193,15 +191,11 @@ public class Player extends Entity {
     public boolean IsMoving(){return moving;}
     public int GetPlayerSpeed(){return playerSpeed;}
 
-    public void resetPlayerPos(){
+    public void resetIfDamage(){
         float xIndex = hitBox.x / TILE_SIZE;
         float yIndex = (hitBox.y + hitBox.height + 32)  / TILE_SIZE;
 
-//        System.out.println(xIndex + "  " + yIndex);
-
         int value = levelData[(int)yIndex][(int)xIndex];
-
-//        System.out.println(value);
 
         if(value == 37)
         {

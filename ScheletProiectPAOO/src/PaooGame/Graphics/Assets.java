@@ -37,7 +37,7 @@ public class Assets
     public static BufferedImage sewer_pipe_large_leftright;
     public static BufferedImage sewer_pipe_large_rightleft;
 
-    public static BufferedImage[][] health_bar;
+    public static BufferedImage[] health_bar;
 
     public static BufferedImage spikeUp;
 
@@ -74,16 +74,13 @@ public class Assets
         spikeUp = spikes.crop(0,0);
 
 
-        SpriteSheet life = new SpriteSheet(ImageLoader.LoadImage("/textures/HealthUI.png"),11,11);
+        SpriteSheet life = new SpriteSheet(ImageLoader.LoadImage("/textures/HealthUI.png"),33,11);
 
-        health_bar = new BufferedImage[4][3];
+        health_bar = new BufferedImage[3];
 
-        for(int i = 0; i<health_bar.length;i++)
+        for(int i = 0; i < health_bar.length;i++)
         {
-            for(int j  = 0; j<health_bar[i].length;j++)
-            {
-                health_bar[i][j] = life.crop(j,i*2);
-            }
+            health_bar[i] = life.crop(0,i);
         }
 
         // Animatiile jucatorului:
