@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.LevelConstructor.map;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
-import static entities.Enemy.die_if_attack;
 import static utils.Camera.xCamera;
 import static utils.Constants.PLayerConstants.*;
 import static utils.HelpMethods.*;
@@ -34,15 +33,16 @@ public class Player extends Entity {
         loadLvlData();
     }
 
+    @Override
     public void update()
     {
         Camera.Update(this);
         updatePos();
         updateAnimation();
         setAnimation();
-        die_if_attack(this);
     }
 
+    @Override
     public void render(Graphics g) {
         //g.drawImage(current_animation[playerAction][aniIndex], (int)x,(int) y,width,height,null);
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);

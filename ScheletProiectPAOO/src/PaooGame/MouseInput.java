@@ -1,19 +1,23 @@
 package PaooGame;
 
+import entities.Player;
+
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MouseInput implements MouseListener, MouseInputListener {
 
-    private Game gamepanel;
-    public MouseInput(Game gamepanel){
-          this.gamepanel = gamepanel;
+    private Player player;
+
+    public MouseInput(Player player) {
+        this.player = player;
     }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getButton() == MouseEvent.BUTTON1)
-            gamepanel.getPlayer().setAttacking(true);
+            player.setAttacking(true);
     }
 
     @Override

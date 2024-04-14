@@ -1,8 +1,8 @@
 package entities;
 
-class EntityFactory {
+public class EntityFactory {
 
-    public Entity createEntity(String type, int x, int y, int width, int height)
+    public static Entity createEntity(String type, int x, int y, int width, int height)
     {
         if(type.equals("Player"))
             return new Player(x,y,width,height);

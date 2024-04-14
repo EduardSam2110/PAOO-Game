@@ -1,6 +1,7 @@
 package PaooGame;
 
 import PaooGame.GameWindow.GameWindow;
+import entities.Player;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -9,34 +10,33 @@ import static utils.Constants.Directions.*;
 
 public class KeyboardInput implements KeyListener {
 
-    private Game gamepanel;
-    public KeyboardInput(Game gamepanel) {
-        this.gamepanel = gamepanel;
-    }
+    private Player player;
 
-
+    public KeyboardInput(Player player) {
+    this.player = player;
+}
 
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode())
         {
             case KeyEvent.VK_W:
-                gamepanel.getPlayer().setUp(true);
+                player.setUp(true);
                 break;
             case KeyEvent.VK_A:
-                gamepanel.getPlayer().setLeft(true);
+                player.setLeft(true);
                 break;
             case KeyEvent.VK_S:
-                gamepanel.getPlayer().setDown(true);
+                player.setDown(true);
                 break;
             case KeyEvent.VK_D:
-                gamepanel.getPlayer().setRight(true);
+                player.setRight(true);
                 break;
             case KeyEvent.VK_SHIFT:
-                gamepanel.getPlayer().setSpeed(true);
+                player.setSpeed(true);
                 break;
             case KeyEvent.VK_SPACE:
-                gamepanel.getPlayer().setJump(true);
+                player.setJump(true);
                 break;
             default:
                 break;
@@ -48,22 +48,22 @@ public class KeyboardInput implements KeyListener {
         switch (e.getKeyCode())
         {
             case KeyEvent.VK_W:
-                gamepanel.getPlayer().setUp(false);
+                player.setUp(false);
                 break;
             case KeyEvent.VK_A:
-                gamepanel.getPlayer().setLeft(false);
+                player.setLeft(false);
                 break;
             case KeyEvent.VK_S:
-                gamepanel.getPlayer().setDown(false);
+                player.setDown(false);
                 break;
             case KeyEvent.VK_D:
-                gamepanel.getPlayer().setRight(false);
+                player.setRight(false);
                 break;
             case KeyEvent.VK_SHIFT:
-                gamepanel.getPlayer().setSpeed(false);
+                player.setSpeed(false);
                 break;
             case KeyEvent.VK_SPACE:
-                gamepanel.getPlayer().setJump(false);
+                player.setJump(false);
                 break;
             default:
                 break;

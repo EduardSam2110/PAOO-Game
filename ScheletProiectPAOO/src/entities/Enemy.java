@@ -7,23 +7,25 @@ import java.awt.*;
 import static PaooGame.Tiles.LevelConstructor.map;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static utils.Camera.xCamera;
+import static PaooGame.Game.*;
 import static utils.HelpMethods.*;
 
 public class Enemy extends Entity {
 
+
     private float xDrawOffset = 40;
     private float yDrawOffset = 60;
-    private static int enemySpeed = 2;
+    private int enemySpeed = 2;
 
-    private static float xSpeedEnemy;
+    private float xSpeedEnemy;
 
-    private static boolean movingLeft = false, movingRight = false;
+    private boolean movingLeft = false, movingRight = false;
 
-    private static int died;
+    private int died;
 
-    public static int animation = 0;
+    public int animation = 0;
 
-    private static int enemyCoord;
+    private int enemyCoordX, enemyCoordY, enemyCoordYDamage, enemyCoordXDamage;
 
     public Enemy(float x,float y,int width, int height)
     {
@@ -32,19 +34,25 @@ public class Enemy extends Entity {
         loadLvlData();
         movingRight = true;
         died = 0;
+
     }
 
+    @Override
     public void update()
     {
         if(died == 0)
         {
             updateAnimation();
             updatePos();
-            enemyCoord = (int) hitBox.x;
+            die_if_attack();
+            enemyCoordX = (int) hitBox.x;
+            enemyCoordY = (int) hitBox.y;
+            enemyCoordYDamage = (int) (hitBox.y + hitBox.height);
+            enemyCoordXDamage = (int) (hitBox.x + hitBox.width);
         }
     }
 
-
+    @Override
     public void render(Graphics g)
     {
         if(died == 1) {
@@ -52,11 +60,11 @@ public class Enemy extends Entity {
             aniSpeed = 5;
         }
 
-        if(died > 0 && died < 5)
+        if(died > 0 && died < 5 && aniIndex < 8)
             aniIndex++;
 
         g.drawImage(Assets.enemy_animations_right[animation][aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
-        //drawHitbox(g);
+//        drawHitbox(g);
 
     }
 
@@ -72,8 +80,15 @@ public class Enemy extends Entity {
 
         xSpeedEnemy = 0;
 
+        float xIndexToRight = (hitBox.x + hitBox.width) / TILE_SIZE;
+        float xIndexToLeft = hitBox.x / TILE_SIZE;
+        float yIndex = (hitBox.y + 32) / TILE_SIZE;
+
+        int value1 = levelData[(int)yIndex][(int)xIndexToRight];
+        int value2 = levelData[(int)yIndex][(int)xIndexToLeft];
+
         if(movingRight) {
-            if(hitBox.x < (x+100))
+            if(value1 != 44)
                 xSpeedEnemy += enemySpeed;
             else
             {
@@ -82,7 +97,7 @@ public class Enemy extends Entity {
             }
         }
         else if(movingLeft) {
-            if(hitBox.x > (x-100))
+            if(value2 != 44)
                 xSpeedEnemy -= enemySpeed;
             else
             {
@@ -95,15 +110,20 @@ public class Enemy extends Entity {
 
     }
 
-    public static void die_if_attack(Player p)
+    private void die_if_attack()
     {
-        if(p.attacking == true)
+        if(player.attacking == true)
         {
-            int coord_player = (int) (p.getHitBox().x + p.getHitBox().width);
+            int coord_playerX = (int) (player.getHitBox().x + player.getHitBox().width);
+            int coord_playerXLeft = (int) (player.getHitBox().x);
+            int coord_playerY = (int) (player.getHitBox().y);
+            System.out.println(coord_playerX + "  " + enemyCoordX);
+            System.out.println(coord_playerY + "  " + enemyCoordY);
 
-            if(coord_player + 10 >= enemyCoord) {
+            if((coord_playerX >= enemyCoordX) && (coord_playerXLeft <= enemyCoordXDamage) && (coord_playerY >= enemyCoordY) && (coord_playerY <= enemyCoordYDamage)) {
                 animation = 3;
                 ++died;
+                System.out.println("apelat");
             }
 
         }

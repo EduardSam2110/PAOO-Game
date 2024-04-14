@@ -6,6 +6,7 @@ import PaooGame.Graphics.ImageLoader;
 import PaooGame.Tiles.LevelConstructor;
 import PaooGame.Tiles.Tile;
 import entities.Enemy;
+import entities.EntityFactory;
 import entities.Player;
 
 import utils.Constants;
@@ -74,8 +75,8 @@ public class Game implements Runnable
 
     private Graphics        g;          /*!< Referinta catre un context grafic.*/
 
-    private Player player;
-    private Enemy enemy1;
+    public static Player player;
+    private Enemy enemy1, enemy2;
     private Tile tile; /*!< variabila membra temporara. Este folosita in aceasta etapa doar pentru a desena ceva pe ecran.*/
 
     // VEZI CE FACI CU ELE UNDE LE PUI CA SA NU AMESTECI CLASELE
@@ -103,8 +104,12 @@ public class Game implements Runnable
     private MouseInput inputMouse;
     void initInput()
     {
-        inputKeyboard = new KeyboardInput(this);
-        inputMouse = new MouseInput(this);
+        inputKeyboard = new KeyboardInput(player);
+        inputMouse = new MouseInput(player);
+        wnd.GetCanvas().addKeyListener(inputKeyboard);
+        wnd.GetCanvas().addMouseListener(inputMouse);
+        wnd.GetCanvas().setFocusable(true);
+        wnd.GetCanvas().requestFocus();
     }
     public Game(String title, int width, int height)
     {
@@ -127,25 +132,18 @@ public class Game implements Runnable
     private void InitGame() {
         wnd = new GameWindow("Schelet Proiect PAOO", GAME_WIDTH, GAME_HEIGHT);
         wnd.BuildGameWindow(this);
-        initInput();
         initClasses();
-        //Assets.Init();
-
-        // Adăugăm KeyListener-ul în fereastra de joc pentru a intercepta evenimentele de tastatură
-        wnd.GetCanvas().addKeyListener(inputKeyboard);
-        wnd.GetCanvas().addMouseListener(inputMouse);
-
-        // Asigurați-vă că fereastra de joc poate primi focusul tastaturii
-        wnd.GetCanvas().setFocusable(true);
-        // Faceți ca fereastra de joc să obțină focusul pentru a putea interacționa cu tastatura fără a face clic pe ea
-        wnd.GetCanvas().requestFocus();
+        initInput();
     }
 
     private void initClasses() {
         Assets.Init();
         levelManager = new LevelConstructor();
         player = new Player(90,370,64,64);
+//        player = EntityFactory.createEntity("Player",90,370,64,64);
         enemy1 = new Enemy(900,200,128,128);
+        enemy2 = new Enemy(1800,200,128,128);
+
     }
 
     /*! \fn public void run()
@@ -252,6 +250,8 @@ public class Game implements Runnable
         // levelManager.update();
         player.update();
         enemy1.update();
+        enemy2.update();
+
 //        SetRunState();
     }
 
@@ -289,6 +289,7 @@ public class Game implements Runnable
         levelManager.draw(g);
         player.render(g);
         enemy1.render(g);
+        enemy2.render(g);
 
   //      g.drawImage(idleAnimation[playerAction][aniTick], (int)x,(int) y,200,200,null);
             /// operatie de desenare
@@ -311,17 +312,11 @@ public class Game implements Runnable
         g.dispose();
     }
 
-    public Player getPlayer() {return player;}
+//    public Player getPlayer() {return player;}
 
     public void windowsFocusLost()
     {
         player.resetDirBooleans();
-    }
-
-    public void SetRunState() {
-        if(Player.temp == 6) {
-            StopGame();
-        }
     }
 }
 

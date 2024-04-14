@@ -120,5 +120,9 @@ public abstract class Entity {
             hitBox.x = GetEntityXPosNextToWall(hitBox,xSpeed);
         }
     }
+
+    public void update() {}
+
+    public void render(Graphics g) {}
 }
 
