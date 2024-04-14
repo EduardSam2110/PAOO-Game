@@ -1,10 +1,11 @@
 package entities;
 
-import PaooGame.Graphics.Assets;
+import PaooGame.Tiles.LevelManager;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
-import static PaooGame.Graphics.Assets.map_lvl1;
+import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static utils.Camera.xCamera;
 import static PaooGame.Game.*;
@@ -18,13 +19,17 @@ public class Enemy extends Entity {
 
     private float xSpeedEnemy;
 
-    private boolean movingLeft = false, movingRight = false;
+    private boolean movingLeft, movingRight;
 
-    private int died;
+    private boolean died = false;
 
-    public int animation = 0;
+    private int animation = 0;
 
-    private int enemyCoordX, enemyCoordY, enemyCoordYDamage, enemyCoordXDamage;
+    private float deathAnimTick = 0;
+
+    private int enemyCoordX, enemyCoordY, enemyCoordYHeight, enemyCoordXWidth;
+
+    private BufferedImage[] current_animation;
 
     public Enemy(float x,float y,int width, int height)
     {
@@ -32,51 +37,36 @@ public class Enemy extends Entity {
         initHitbox(x,y,28,28);
         loadLvlData();
         movingRight = true;
-        died = 0;
-
     }
 
     @Override
     public void update()
     {
-        if(died == 0)
+        if(!died)
         {
             updateAnimation();
-            updatePos();
             die_if_attack();
-            enemyCoordX = (int) hitBox.x;
-            enemyCoordY = (int) hitBox.y;
-            enemyCoordYDamage = (int) (hitBox.y + hitBox.height);
-            enemyCoordXDamage = (int) (hitBox.x + hitBox.width);
+            updatePos();
+            calculatePos();
         }
+        else
+            deathAnimation();
     }
 
     @Override
     public void render(Graphics g)
     {
-        if(died == 1) {
-            aniIndex = 0;
-            aniSpeed = 5;
-        }
-
-        if(died > 0 && died < 5 && aniIndex < 8)
-            aniIndex++;
-
-        g.drawImage(Assets.enemy_animations_right[animation][aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
+        g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
 //        drawHitbox(g);
-
     }
 
     private void loadLvlData()
     {
-        this.levelData = map_lvl1;
+        this.levelData = LevelManager.getData();
     }
-
-    // de sters:
 
     private void updatePos()
     {
-
         xSpeedEnemy = 0;
 
         float xIndexToRight = (hitBox.x + hitBox.width) / TILE_SIZE;
@@ -86,7 +76,10 @@ public class Enemy extends Entity {
         int value1 = levelData[(int)yIndex][(int)xIndexToRight];
         int value2 = levelData[(int)yIndex][(int)xIndexToLeft];
 
-        if(movingRight) {
+        if(inAir)
+            current_animation = enemy_animations_right[1];
+        else if(movingRight) {
+            current_animation = enemy_animations_right[animation];
             if(value1 != 44)
                 xSpeedEnemy += enemySpeed;
             else
@@ -96,6 +89,7 @@ public class Enemy extends Entity {
             }
         }
         else if(movingLeft) {
+            current_animation = enemy_animations_left[animation];
             if(value2 != 44)
                 xSpeedEnemy -= enemySpeed;
             else
@@ -104,9 +98,21 @@ public class Enemy extends Entity {
                 movingRight = true;
             }
         }
+        else if(died)
+            current_animation = enemy_animations_right[animation];
+        else
+            current_animation = enemy_animations_right[1];
 
         testGravity((int)xSpeedEnemy);
 
+    }
+
+    private void calculatePos()
+    {
+        enemyCoordX = (int) hitBox.x;
+        enemyCoordY = (int) hitBox.y;
+        enemyCoordYHeight = (int) (hitBox.y + hitBox.height);
+        enemyCoordXWidth = (int) (hitBox.x + hitBox.width);
     }
 
     private void die_if_attack()
@@ -116,17 +122,20 @@ public class Enemy extends Entity {
             int coord_playerX = (int) (player.getHitBox().x + player.getHitBox().width);
             int coord_playerXLeft = (int) (player.getHitBox().x);
             int coord_playerY = (int) (player.getHitBox().y);
-            System.out.println(coord_playerX + "  " + enemyCoordX);
-            System.out.println(coord_playerY + "  " + enemyCoordY);
 
-            if((coord_playerX >= enemyCoordX) && (coord_playerXLeft <= enemyCoordXDamage) && (coord_playerY >= enemyCoordY) && (coord_playerY <= enemyCoordYDamage)) {
+            if((coord_playerX >= enemyCoordX) && (coord_playerXLeft <= enemyCoordXWidth) && (coord_playerY >= enemyCoordY) && (coord_playerY <= enemyCoordYHeight)) {
                 animation = 3;
-                ++died;
-                System.out.println("apelat");
+                aniIndex = 0;
+                died = true;
             }
-
         }
     }
 
-
+    private void deathAnimation()
+    {
+        if(aniIndex < 5) {
+            deathAnimTick += 0.2;
+            aniIndex = (int) deathAnimTick;
+        }
+    }
 }

@@ -1,9 +1,7 @@
 package PaooGame.Graphics;
 
 import PaooGame.Tiles.Tile;
-import utils.LoadSave;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -22,6 +20,7 @@ public class Assets
     public static BufferedImage[][] player_animations_left;
 
     public static BufferedImage[][] enemy_animations_right;
+    public static BufferedImage[][] enemy_animations_left;
 
     public static BufferedImage solidBlock1;
     public static BufferedImage solidBlock2;
@@ -76,18 +75,18 @@ public class Assets
 
         SpriteSheet life = new SpriteSheet(ImageLoader.LoadImage("/textures/HealthUI.png"),33,11);
 
-        health_bar = new BufferedImage[3];
+        health_bar = new BufferedImage[4];
 
         for(int i = 0; i < health_bar.length;i++)
         {
-            health_bar[i] = life.crop(0,i);
+            health_bar[i] = life.crop(0,i*2);
         }
 
         // Animatiile jucatorului:
         player_animations_right = new BufferedImage[15][8];
         player_animations_left = new BufferedImage[15][8];
 
-        SpriteSheet playerRight = new SpriteSheet(ImageLoader.LoadImage("/textures/Cat Adventure Right.png"));
+        SpriteSheet playerRight = new SpriteSheet(ImageLoader.LoadImage("/textures/CatRight.png"));
 
         for(int i = 0; i <  player_animations_right.length; i++)
         {
@@ -97,7 +96,7 @@ public class Assets
             }
         }
 
-        SpriteSheet playerLeft = new SpriteSheet(ImageLoader.LoadImage("/textures/Cat Adventure Left.png"));
+        SpriteSheet playerLeft = new SpriteSheet(ImageLoader.LoadImage("/textures/CatLeft.png"));
 
         int ii = 0, jj = 0;
         for(int i = 0; i < player_animations_left.length; i++)
@@ -111,8 +110,9 @@ public class Assets
         }
 
         enemy_animations_right = new BufferedImage[4][8];
+        enemy_animations_left = new BufferedImage[4][8];
 
-        SpriteSheet enemyRight = new SpriteSheet(ImageLoader.LoadImage("/textures/Enemy.png"),64,64);
+        SpriteSheet enemyRight = new SpriteSheet(ImageLoader.LoadImage("/textures/EnemyRight.png"),64,64);
 
         for(int i = 0; i <  enemy_animations_right.length; i++)
         {
@@ -121,6 +121,21 @@ public class Assets
                 enemy_animations_right[i][j] = enemyRight.crop(j,i);
             }
         }
+
+        SpriteSheet enemyLeft = new SpriteSheet(ImageLoader.LoadImage("/textures/EnemyLeft.png"),64,64);
+
+        ii = 0;
+        jj = 0;
+        for(int i = 0; i < enemy_animations_left.length; i++)
+        {
+            for(int j = enemy_animations_left[i].length-1; j >= 0 ; j--)
+            {
+                enemy_animations_left[i][jj] = enemyLeft.crop(j,i);
+                ++jj;
+            }
+            jj = 0;
+        }
+
 
         map_lvl1 = new int[23][80];
 

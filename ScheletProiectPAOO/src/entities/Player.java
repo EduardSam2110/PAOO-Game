@@ -1,5 +1,8 @@
 package entities;
 
+import PaooGame.Tiles.LevelManager;
+import PaooGame.Tiles.SpikeUp;
+import PaooGame.Tiles.Tile;
 import utils.Camera;
 
 import java.awt.*;
@@ -53,7 +56,7 @@ public class Player extends Entity {
     }
     private void updatePos()
     {
-        //resetPlayerPos();
+        resetIfDamage();
 
         moving = false;
 
@@ -133,7 +136,7 @@ public class Player extends Entity {
 
 
     public void loadLvlData(){
-        this.levelData = map_lvl1;
+        this.levelData = LevelManager.getData();
 
         if(!IsEntityOnFloor(hitBox, map_lvl1))
             inAir = true;
@@ -193,16 +196,16 @@ public class Player extends Entity {
 
     public void resetIfDamage(){
         float xIndex = hitBox.x / TILE_SIZE;
-        float yIndex = (hitBox.y + hitBox.height + 32)  / TILE_SIZE;
+        float yIndex = (hitBox.y + hitBox.height + 16)  / TILE_SIZE;
 
         int value = levelData[(int)yIndex][(int)xIndex];
 
-        if(value == 37)
+        if(value == Tile.spikeUp.GetId())
         {
-            hitBox.x = 90;
-            hitBox.y = 370;
-            if((temp+2) < 7)
-                temp+=2;
+            hitBox.x = x;
+            hitBox.y = y;
+            if((temp+1) < 4)
+                temp++;
 
         }
     }

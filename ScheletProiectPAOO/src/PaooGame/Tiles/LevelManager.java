@@ -52,7 +52,7 @@ public class LevelManager {
             }
     }
 
-    public int[][] getData()
+    public static int[][] getData()
     {
         return map;
     }

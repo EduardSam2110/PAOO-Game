@@ -12,4 +12,9 @@ public class SpikeUp extends Tile{
     public boolean IsSolid() {
         return true;
     }
+
+    @Override
+    public int GetId() {
+        return id;
+    }
 }
