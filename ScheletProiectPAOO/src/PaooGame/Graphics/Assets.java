@@ -44,7 +44,7 @@ public class Assets
     public static BufferedImage background_lvl1 = ImageLoader.LoadImage("/textures/level1.png");
 
     public static BufferedImage game_over = ImageLoader.LoadImage("/textures/game_over.jpg");
-    public static BufferedImage start_game = ImageLoader.LoadImage("/textures/start_game.jpg");
+    public static BufferedImage start_game = ImageLoader.LoadImage("/textures/start_game.png");
 
     /*! \fn public static void Init()
         \brief Functia initializaza referintele catre elementele grafice utilizate.

@@ -17,11 +17,13 @@ public class MouseInput implements MouseListener, MouseInputListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println(e.getX() + " " + e.getY());
         if(e.getButton() == MouseEvent.BUTTON1) {
             player.setAttacking(true);
-            if(e.getXOnScreen() > 500 && e.getYOnScreen() < 700)
-                Game.START_PRESSED = true;
+            int x = e.getX();
+            int y = e.getY();
+            if(x >= 560 && x <= 740)
+                if(y >= 440 && y <= 480 )
+                    Game.START_PRESSED = true;
         }
     }
 
@@ -37,7 +39,6 @@ public class MouseInput implements MouseListener, MouseInputListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
     }
 
     @Override
