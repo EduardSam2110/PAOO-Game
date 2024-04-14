@@ -43,4 +43,10 @@ public class Camera {
             }
         }
     }
+
+    public static void resetCamera()
+    {
+        xCamera = 0;
+        xCameraPos = 200;
+    }
 }

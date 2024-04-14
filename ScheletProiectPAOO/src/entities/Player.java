@@ -1,7 +1,6 @@
 package entities;
 
 import PaooGame.Tiles.LevelManager;
-import PaooGame.Tiles.SpikeUp;
 import PaooGame.Tiles.Tile;
 import utils.Camera;
 
@@ -26,7 +25,6 @@ public class Player extends Entity {
     private float yDrawOffset = 22;
 
     public static float xSpeed;
-    public static int temp = 0;
 
     public Player(float x,float y,int width, int height)
     {
@@ -49,14 +47,13 @@ public class Player extends Entity {
     public void render(Graphics g) {
         //g.drawImage(current_animation[playerAction][aniIndex], (int)x,(int) y,width,height,null);
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
-        g.drawImage(health_bar[temp],1100,20,32*3,32, null);
-
-        drawHitbox(g);
+        HealthBar.render(g);
+        //drawHitbox(g);
 
     }
     private void updatePos()
     {
-        resetIfDamage();
+        resetIfSpike();
 
         moving = false;
 
@@ -194,7 +191,7 @@ public class Player extends Entity {
     public boolean IsMoving(){return moving;}
     public int GetPlayerSpeed(){return playerSpeed;}
 
-    public void resetIfDamage(){
+    public void resetIfSpike(){
         float xIndex = hitBox.x / TILE_SIZE;
         float yIndex = (hitBox.y + hitBox.height + 16)  / TILE_SIZE;
 
@@ -202,11 +199,21 @@ public class Player extends Entity {
 
         if(value == Tile.spikeUp.GetId())
         {
-            hitBox.x = x;
-            hitBox.y = y;
-            if((temp+1) < 4)
-                temp++;
-
+            takeDamage();
         }
+    }
+
+    public void takeDamage()
+    {
+        if((HealthBar.counter+1) < 4)
+            HealthBar.counter++;
+        resetPlayerPos();
+    }
+
+    private void resetPlayerPos()
+    {
+        hitBox.x = x;
+        hitBox.y = y;
+        Camera.resetCamera();
     }
 }

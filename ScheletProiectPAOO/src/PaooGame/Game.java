@@ -128,7 +128,7 @@ public class Game implements Runnable
         Assets.Init();
         Assets.LoadBackgroudTiles();
         levelManager = new LevelManager();
-        player = new Player(90,370,64,64);
+        player = new Player(90,400,64,64);
         enemy1 = new Enemy(900,200,128,128);
         enemy2 = new Enemy(1800,200,128,128);
 

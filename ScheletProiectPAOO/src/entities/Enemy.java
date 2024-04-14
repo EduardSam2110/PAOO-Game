@@ -57,7 +57,7 @@ public class Enemy extends Entity {
     public void render(Graphics g)
     {
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
-//        drawHitbox(g);
+        drawHitbox(g);
     }
 
     private void loadLvlData()
@@ -117,18 +117,21 @@ public class Enemy extends Entity {
 
     private void die_if_attack()
     {
-        if(player.attacking == true)
-        {
-            int coord_playerX = (int) (player.getHitBox().x + player.getHitBox().width);
+        int coord_playerX = (int) (player.getHitBox().x + player.getHitBox().width);
             int coord_playerXLeft = (int) (player.getHitBox().x);
             int coord_playerY = (int) (player.getHitBox().y);
 
             if((coord_playerX >= enemyCoordX) && (coord_playerXLeft <= enemyCoordXWidth) && (coord_playerY >= enemyCoordY) && (coord_playerY <= enemyCoordYHeight)) {
-                animation = 3;
-                aniIndex = 0;
-                died = true;
+                if(player.attacking) {
+                    animation = 3;
+                    aniIndex = 0;
+                    died = true;
+                }
+                else {
+                    player.takeDamage();
+                }
             }
-        }
+
     }
 
     private void deathAnimation()
