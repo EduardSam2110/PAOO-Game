@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.*;
 
+import static PaooGame.Graphics.Assets.game_over;
 import static PaooGame.Graphics.Assets.health_bar;
 
 public class HealthBar {

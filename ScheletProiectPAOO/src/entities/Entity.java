@@ -7,7 +7,7 @@ import static PaooGame.Graphics.Assets.map_lvl1;
 import static utils.Camera.xCamera;
 import static utils.Constants.PLayerConstants.GetSpriteAmount;
 import static utils.Constants.PLayerConstants.IDLE;
-import static utils.HelpMethods.*;
+import static utils.GravityColisionMethods.*;
 
 public abstract class Entity {
     protected float x,y;
@@ -24,7 +24,7 @@ public abstract class Entity {
     protected int aniIndex;
     protected int aniTick;
     protected int aniSpeed = 4;
-    protected int playerAction = IDLE;
+    protected int action = IDLE;
     protected boolean attacking = false;
 
 
@@ -52,14 +52,14 @@ public abstract class Entity {
         return hitBox;
     }
 
-    protected void updateAnimation()
+    protected void updateAnimation(int action)
     {
         aniTick++;
         if(aniTick >= aniSpeed)
         {
             aniTick = 0;
             aniIndex++;
-            if(aniIndex >= GetSpriteAmount(playerAction)) {
+            if(aniIndex >= GetSpriteAmount(action)) {
                 aniIndex = 0;
                 attacking = false;
             }

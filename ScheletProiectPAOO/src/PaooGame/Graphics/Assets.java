@@ -43,6 +43,9 @@ public class Assets
     public static int map_lvl1[][];
     public static BufferedImage background_lvl1 = ImageLoader.LoadImage("/textures/level1.png");
 
+    public static BufferedImage game_over = ImageLoader.LoadImage("/textures/game_over.jpg");
+    public static BufferedImage start_game = ImageLoader.LoadImage("/textures/start_game.jpg");
+
     /*! \fn public static void Init()
         \brief Functia initializaza referintele catre elementele grafice utilizate.
 

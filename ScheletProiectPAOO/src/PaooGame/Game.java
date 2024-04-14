@@ -5,10 +5,14 @@ import PaooGame.Graphics.Assets;
 import PaooGame.Tiles.LevelManager;
 import PaooGame.Tiles.Tile;
 import entities.Enemy;
+import entities.HealthBar;
 import entities.Player;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+
+import static PaooGame.Graphics.Assets.game_over;
+import static PaooGame.Graphics.Assets.start_game;
 
 /*! \class Game
     \brief Clasa principala a intregului proiect. Implementeaza Game - Loop (Update -> Draw)
@@ -76,7 +80,7 @@ public class Game implements Runnable
     public final static int GAME_WIDTH =  TILE_SIZE * TILES_IN_WIDTH;
     public final static int GAME_HEIGHT =  TILE_SIZE * TILES_IN_HEIGHT;
     private LevelManager levelManager;
-
+    public static boolean START_PRESSED = false;
     /*! \fn public Game(String title, int width, int height)
         \brief Constructor de initializare al clasei Game.
 
@@ -235,10 +239,12 @@ public class Game implements Runnable
     public double y = 0;
 
     private void Update() {
-        levelManager.update();
-        player.update();
-        enemy1.update();
-        enemy2.update();
+        if(START_PRESSED){
+            levelManager.update();
+            player.update();
+            enemy1.update();
+            enemy2.update();
+        }
 
 //        SetRunState();
     }
@@ -271,24 +277,21 @@ public class Game implements Runnable
             /// Se obtine contextul grafic curent in care se poate desena.
         g = bs.getDrawGraphics();
             /// Se sterge ce era
-        //g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
+
         g.setColor(Color.WHITE);
         g.fillRect(0,0,wnd.GetWndWidth(),wnd.GetWndHeight());
-        levelManager.draw(g);
-        player.render(g);
-        enemy1.render(g);
-        enemy2.render(g);
-  //      g.drawImage(idleAnimation[playerAction][aniTick], (int)x,(int) y,200,200,null);
-            /// operatie de desenare
-            // ...............
 
-            //Tile.grassTile.Draw(g, x, y);
-//            Tile.soilTile.Draw(g, 1 * Tile.TILE_WIDTH, 0);
-//            Tile.waterTile.Draw(g, 2 * Tile.TILE_WIDTH, 0);
-//            Tile.mountainTile.Draw(g, 3 * Tile.TILE_WIDTH, 0);
-//            Tile.treeTile.Draw(g, 4 * Tile.TILE_WIDTH, 0);
-
-        //g.drawRect(1 * Tile.TILE_WIDTH, 1 * Tile.TILE_HEIGHT, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+        if(START_PRESSED) {
+            if (HealthBar.counter < 3) {
+                levelManager.draw(g);
+                player.render(g);
+                enemy1.render(g);
+                enemy2.render(g);
+            } else
+                g.drawImage(game_over, 0, 0, 1280, 720, null);
+        }
+        else
+            g.drawImage(start_game,0,0,1280,720,null);
 
             // end operatie de desenare
             /// Se afiseaza pe ecran
@@ -298,8 +301,6 @@ public class Game implements Runnable
             /// elementele grafice ce au fost desenate pe canvas).
         g.dispose();
     }
-
-//    public Player getPlayer() {return player;}
 
     public void windowsFocusLost()
     {

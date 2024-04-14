@@ -12,7 +12,7 @@ import static PaooGame.Graphics.Assets.map_lvl1;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static utils.Camera.xCamera;
 import static utils.Constants.PLayerConstants.*;
-import static utils.HelpMethods.*;
+import static utils.GravityColisionMethods.*;
 
 public class Player extends Entity {
     private BufferedImage[] current_animation;
@@ -39,7 +39,7 @@ public class Player extends Entity {
     {
         Camera.Update(this);
         updatePos();
-        updateAnimation();
+        updateAnimation(action);
         setAnimation();
     }
 
@@ -91,35 +91,35 @@ public class Player extends Entity {
 
     private void setAnimation()
     {
-        int startAnimation = playerAction;
+        int startAnimation = action;
 
         if(moving && (!left || !right)) {
             if(speed)
-                playerAction = RUN;
+                action = RUN;
             else
-                playerAction = WALK;
+                action = WALK;
         }
         else {
-            playerAction = IDLE;
+            action = IDLE;
         }
 
         if(inAir)
         {
             if(airSpeed < 0)// mergem in sus
-                playerAction = JUMP;
+                action = JUMP;
             else
-                playerAction = FALLING;
+                action = FALLING;
         }
         if(attacking) {
-            playerAction = ATTACK_1;
+            action = ATTACK_1;
         }
 
         if(left)
-            current_animation = player_animations_left[playerAction];
+            current_animation = player_animations_left[action];
         else
-            current_animation = player_animations_right[playerAction];
+            current_animation = player_animations_right[action];
 
-        if(startAnimation != playerAction)
+        if(startAnimation != action)
             resetAnimationTick();
     }
 

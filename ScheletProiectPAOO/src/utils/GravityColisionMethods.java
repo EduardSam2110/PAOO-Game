@@ -1,15 +1,11 @@
 package utils;
 import PaooGame.Game;
-import PaooGame.Tiles.*;
 
-import javax.xml.crypto.dsig.keyinfo.X509IssuerSerial;
-
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 import static PaooGame.Tiles.Tile.*;
 
-public class HelpMethods {
+public class GravityColisionMethods {
     public static boolean CanMoveHere(float x, float y, float width, float height, int[][] lvlData) {
 
         if(!IsSolid(x,y,lvlData))

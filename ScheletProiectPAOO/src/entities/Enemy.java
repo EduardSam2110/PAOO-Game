@@ -9,6 +9,7 @@ import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static utils.Camera.xCamera;
 import static PaooGame.Game.*;
+import static utils.Constants.PLayerConstants.*;
 
 public class Enemy extends Entity {
 
@@ -23,8 +24,6 @@ public class Enemy extends Entity {
 
     private boolean died = false;
 
-    private int animation = 0;
-
     private float deathAnimTick = 0;
 
     private int enemyCoordX, enemyCoordY, enemyCoordYHeight, enemyCoordXWidth;
@@ -37,6 +36,7 @@ public class Enemy extends Entity {
         initHitbox(x,y,28,28);
         loadLvlData();
         movingRight = true;
+//        action = WALK;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Enemy extends Entity {
     {
         if(!died)
         {
-            updateAnimation();
+            updateAnimation(action);
             die_if_attack();
             updatePos();
             calculatePos();
@@ -57,7 +57,7 @@ public class Enemy extends Entity {
     public void render(Graphics g)
     {
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
-        drawHitbox(g);
+//        drawHitbox(g);
     }
 
     private void loadLvlData()
@@ -79,7 +79,7 @@ public class Enemy extends Entity {
         if(inAir)
             current_animation = enemy_animations_right[1];
         else if(movingRight) {
-            current_animation = enemy_animations_right[animation];
+            current_animation = enemy_animations_right[action];
             if(value1 != 44)
                 xSpeedEnemy += enemySpeed;
             else
@@ -89,7 +89,7 @@ public class Enemy extends Entity {
             }
         }
         else if(movingLeft) {
-            current_animation = enemy_animations_left[animation];
+            current_animation = enemy_animations_left[action];
             if(value2 != 44)
                 xSpeedEnemy -= enemySpeed;
             else
@@ -99,7 +99,7 @@ public class Enemy extends Entity {
             }
         }
         else if(died)
-            current_animation = enemy_animations_right[animation];
+            current_animation = enemy_animations_right[action];
         else
             current_animation = enemy_animations_right[1];
 
@@ -123,7 +123,7 @@ public class Enemy extends Entity {
 
             if((coord_playerX >= enemyCoordX) && (coord_playerXLeft <= enemyCoordXWidth) && (coord_playerY >= enemyCoordY) && (coord_playerY <= enemyCoordYHeight)) {
                 if(player.attacking) {
-                    animation = 3;
+                    action = 3;
                     aniIndex = 0;
                     died = true;
                 }
@@ -131,7 +131,6 @@ public class Enemy extends Entity {
                     player.takeDamage();
                 }
             }
-
     }
 
     private void deathAnimation()
