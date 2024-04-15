@@ -1,11 +1,13 @@
-package utils;
+package PaooGame.utils;
 import PaooGame.Game;
 
 import java.awt.geom.Rectangle2D;
-
 import static PaooGame.Tiles.Tile.*;
 
 public class GravityColisionMethods {
+
+    // functia verifica daca player-ul se poate misca, verificand, pe rand, cele 4 colturi
+    // ale dreptunghiului de coliziune (hitBox)
     public static boolean CanMoveHere(float x, float y, float width, float height, int[][] lvlData) {
 
         if(!IsSolid(x,y,lvlData))
@@ -16,7 +18,7 @@ public class GravityColisionMethods {
         return false;
     }
 
-
+    // functia verifica daca dala unde se afla player-ul (hitBox-ul) este solida sau nu
     private static boolean IsSolid(float x, float y, int[][] levelData)
     {
         int maxWidth = levelData[0].length * TILE_SIZE;
@@ -74,8 +76,7 @@ public class GravityColisionMethods {
 
     public static boolean IsEntityOnFloor(Rectangle2D.Float hitbox, int[][] levelData)
     {
-        // check the pixel below bottomleft and bottomright corner
-        // adica sa cada cand nu are nimic sub
+        // verifica daca sub player exista ceva solid, in caz contrar acesta cade (gravitatie)
 
         if(!IsSolid(hitbox.x,hitbox.y+hitbox.height+1,levelData))
             if(!IsSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height+1, levelData)) // adaugam +1 ca l-am scazut in celelalte metode

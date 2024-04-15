@@ -1,25 +1,31 @@
-package entities;
+package PaooGame.entities;
+
+import PaooGame.Tiles.LevelManager;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-import static PaooGame.Graphics.Assets.map_lvl1;
-import static utils.Camera.xCamera;
-import static utils.Constants.*;
-import static utils.GravityColisionMethods.*;
+import static PaooGame.utils.Camera.xCamera;
+import static PaooGame.utils.Constants.*;
+import static PaooGame.utils.GravityColisionMethods.*;
 
 public abstract class Entity {
+
     protected float x,y;
     protected int width, height;
-    protected Rectangle2D.Float hitBox; // coliziuni
+    protected Rectangle2D.Float hitBox; // dreptunghiul pentru coliziuni
 
 
-    protected int[][] levelData = map_lvl1;
+    protected static int[][] levelData;
+
+    // variabilele ce tin de gravitatie si jump
     protected float airSpeed = 0f;
     protected float gravity = 0.1f;
     protected float jumpSpeed = -4f;
     protected float fallSpeedAfterCollision = 2f;
     protected boolean inAir = false;
+
+    // variabile ce tin de animatiile actiunilor
     protected int aniIndex;
     protected int aniTick;
     protected int aniSpeed = 4;
@@ -33,11 +39,12 @@ public abstract class Entity {
         this.y = y;
         this.width = width;
         this.height = height;
+        loadLvlData();
     }
 
+    // functie pentru debug coliziuni
     protected void drawHitbox(Graphics g)
     {
-        //pentru debugg
         g.setColor(Color.WHITE);
         g.drawRect((int)hitBox.x -xCamera,(int)hitBox.y,(int)hitBox.width,(int)hitBox.height);
     }
@@ -114,6 +121,11 @@ public abstract class Entity {
         {
             hitBox.x = GetEntityXPosNextToWall(hitBox,xSpeed);
         }
+    }
+
+    private void loadLvlData()
+    {
+        levelData = LevelManager.getData();
     }
 
     public void update() {}

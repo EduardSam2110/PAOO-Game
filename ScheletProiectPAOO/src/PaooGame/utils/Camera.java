@@ -1,6 +1,6 @@
-package utils;
+package PaooGame.utils;
 
-import entities.Player;
+import PaooGame.entities.Player;
 
 import java.awt.*;
 
@@ -14,19 +14,18 @@ public class Camera {
 
      public static void Draw(Graphics g, Player p)
     {
-        int x = (int) p.getHitBox().x;
-//        System.out.println(x);
         g.drawRect(LeftBorder,200,CameraWidth,500); // creste / scande odata cu camera
-
     }
 
+    // Functie de update a camerei. Verifica daca player-ul se afla intre Min si Max Border si dupa verifica
+    // daca, pe dimensiunea unui ecran de 1280 x 720, se afla intre xCameraPos si xCameraPos + CameraWidth
+    // atunci cand player-ul atinge aceste doua margini din urma, camera incepe sa se miste, xCamera modificandu-se.
     public static void Update(Player p)
     {
         int xLeftWall = (int) p.getHitBox().x;
         int xRightWall = xLeftWall + (int) p.getHitBox().width;
         int speed = p.GetPlayerSpeed();
-//        System.out.println(xCameraPos + "      " + (xCameraPos + CameraWidth));
-//        System.out.println(x + "       " + xCameraPos + "    "+ (x + (int) p.getHitBox().width) + "   "  + (xCameraPos + CameraWidth));
+
         if(xLeftWall > MinBorder && xRightWall < MaxBorder) {
             if(p.IsMoving())
             {
@@ -34,7 +33,6 @@ public class Camera {
                     xCamera -= speed;
                     xCameraPos = xLeftWall - speed;
                 }
-
 
                 if((xRightWall >= xCameraPos+CameraWidth) && p.isRight()) {
                     xCamera += speed;

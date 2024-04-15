@@ -1,13 +1,11 @@
 package PaooGame.Tiles;
 
-import PaooGame.Graphics.Assets;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.Tile.tiles;
-import static utils.Camera.xCamera;
+import static PaooGame.utils.Camera.xCamera;
 
 
 public class LevelManager {

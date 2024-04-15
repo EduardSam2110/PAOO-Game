@@ -1,12 +1,13 @@
 package PaooGame;
 
 import PaooGame.GameWindow.GameWindow;
+import PaooGame.GameWindow.KeyboardInput;
+import PaooGame.GameWindow.MouseInput;
 import PaooGame.Graphics.Assets;
 import PaooGame.Tiles.LevelManager;
-import PaooGame.Tiles.Tile;
-import entities.Enemy;
-import entities.HealthBar;
-import entities.Player;
+import PaooGame.entities.Enemy;
+import PaooGame.entities.HealthBar;
+import PaooGame.entities.Player;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;

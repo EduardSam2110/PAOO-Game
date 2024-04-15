@@ -1,15 +1,13 @@
-package entities;
-
-import PaooGame.Tiles.LevelManager;
+package PaooGame.entities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
-import static utils.Camera.xCamera;
+import static PaooGame.utils.Camera.xCamera;
 import static PaooGame.Game.*;
-import static utils.Constants.*;
+import static PaooGame.utils.Constants.*;
 
 public class Enemy extends Entity {
 
@@ -34,7 +32,6 @@ public class Enemy extends Entity {
     {
         super(x,y,width,height);
         initHitbox(x,y,28,28);
-        loadLvlData();
         movingRight = true;
         action = EnemyWALK;
     }
@@ -58,11 +55,6 @@ public class Enemy extends Entity {
     {
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
 //        drawHitbox(g);
-    }
-
-    private void loadLvlData()
-    {
-        this.levelData = LevelManager.getData();
     }
 
     private void updatePos()
@@ -112,6 +104,8 @@ public class Enemy extends Entity {
         enemyCoordXWidth = (int) (hitBox.x + hitBox.width);
     }
 
+
+    //functia verifica coliziunea playerului cu inamicul si seteaza care din cei doi moare
     private void die_if_attack()
     {
         int coord_playerX = (int) (player.getHitBox().x + player.getHitBox().width);

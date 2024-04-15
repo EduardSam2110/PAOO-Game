@@ -1,29 +1,31 @@
-package entities;
+package PaooGame.entities;
 
-import PaooGame.Tiles.LevelManager;
 import PaooGame.Tiles.Tile;
-import utils.Camera;
+import PaooGame.utils.Camera;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static PaooGame.Graphics.Assets.*;
-import static PaooGame.Graphics.Assets.map_lvl1;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
-import static utils.Camera.xCamera;
-import static utils.Constants.*;
-import static utils.GravityColisionMethods.*;
+import static PaooGame.utils.Camera.xCamera;
+import static PaooGame.utils.Constants.*;
+import static PaooGame.utils.GravityColisionMethods.*;
 
 public class Player extends Entity {
-    private BufferedImage[] current_animation;
-    private boolean moving = false;
 
+    private BufferedImage[] current_animation;
+
+    private boolean moving = false;
     private boolean left, up = true, right, down = false, speed, jump;
+
     private int playerSpeed = 2;
-    private int[][] levelData;
+
+    // offset-urile pentru dreptunghiul de coliziuni
     private float xDrawOffset = 23;
     private float yDrawOffset = 22;
 
+    // viteza jucatorului in timpul miscarii
     public static float xSpeed;
 
     public Player(float x,float y,int width, int height)
@@ -31,7 +33,7 @@ public class Player extends Entity {
         super(x,y,width,height);
         initHitbox(x,y,19,28);
         initAnimations();
-        loadLvlData();
+        checkAtStart();
         action = IDLE;
     }
 
@@ -46,7 +48,6 @@ public class Player extends Entity {
 
     @Override
     public void render(Graphics g) {
-        //g.drawImage(current_animation[playerAction][aniIndex], (int)x,(int) y,width,height,null);
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
         HealthBar.render(g);
         //drawHitbox(g);
@@ -112,7 +113,7 @@ public class Player extends Entity {
 
         if(inAir)
         {
-            if(airSpeed < 0)// mergem in sus
+            if(airSpeed < 0)
                 action = JUMP;
             else
                 action = FALLING;
@@ -140,11 +141,9 @@ public class Player extends Entity {
         aniIndex = aniTick = 0;
     }
 
-
-    public void loadLvlData(){
-        this.levelData = LevelManager.getData();
-
-        if(!IsEntityOnFloor(hitBox, map_lvl1))
+    private void checkAtStart(){
+        // verifica daca e in aer la inceperea nivelului pentru a seta inAir
+        if(!IsEntityOnFloor(hitBox, this.levelData))
             inAir = true;
     }
 
@@ -197,8 +196,14 @@ public class Player extends Entity {
     {
         this.jump = jump;
     }
-    public boolean IsMoving(){return moving;}
-    public int GetPlayerSpeed(){return playerSpeed;}
+
+    public boolean IsMoving(){
+        return moving;
+    }
+
+    public int GetPlayerSpeed(){
+        return playerSpeed;
+    }
 
     public void resetIfSpike(){
         float xIndex = hitBox.x / TILE_SIZE;
@@ -214,7 +219,7 @@ public class Player extends Entity {
 
     public void takeDamage()
     {
-        if((HealthBar.counter+1) < 4)
+        if((HealthBar.counter+1) <= HealthBar.maxLife)
             HealthBar.counter++;
         resetPlayerPos();
     }

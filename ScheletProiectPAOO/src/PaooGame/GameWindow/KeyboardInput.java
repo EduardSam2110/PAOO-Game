@@ -1,12 +1,9 @@
-package PaooGame;
+package PaooGame.GameWindow;
 
-import PaooGame.GameWindow.GameWindow;
-import entities.Player;
-
+import PaooGame.Game;
+import PaooGame.entities.Player;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import static utils.Constants.Directions.*;
 
 public class KeyboardInput implements KeyListener {
 
