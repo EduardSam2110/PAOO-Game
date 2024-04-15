@@ -11,6 +11,6 @@ public class HealthBar {
 
     public static void render(Graphics g)
     {
-        g.drawImage(health_bar[counter],1100,20,32*3,32, null);
+        g.drawImage(health_bar[counter],50,20,32*3,32, null);
     }
 }
