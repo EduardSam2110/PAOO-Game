@@ -28,6 +28,7 @@ public class LevelManager {
 
     private void setLevel()
     {
+        // functia seteaza nivelul in functie de numarul lui (variabila level)
         switch(level)
         {
             case 1:

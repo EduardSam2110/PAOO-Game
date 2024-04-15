@@ -43,7 +43,7 @@ public class Assets
     public static int map_lvl1[][];
     public static BufferedImage background_lvl1 = ImageLoader.LoadImage("/textures/level1.png");
 
-    public static BufferedImage game_over = ImageLoader.LoadImage("/textures/game_over.jpg");
+    public static BufferedImage game_over = ImageLoader.LoadImage("/textures/game_over.jpg"); // temporara, va fi schimbata
     public static BufferedImage start_game = ImageLoader.LoadImage("/textures/start_game.png");
 
     /*! \fn public static void Init()
@@ -75,6 +75,7 @@ public class Assets
         SpriteSheet spikes = new SpriteSheet(ImageLoader.LoadImage("/textures/spike.png"),16,16);
         spikeUp = spikes.crop(0,0);
 
+        // animatiile pentru viata jucatorului
 
         SpriteSheet life = new SpriteSheet(ImageLoader.LoadImage("/textures/HealthUI.png"),33,11);
 
@@ -112,6 +113,8 @@ public class Assets
             jj = 0;
         }
 
+        // animatiile inamicului
+
         enemy_animations_right = new BufferedImage[4][8];
         enemy_animations_left = new BufferedImage[4][8];
 
@@ -139,9 +142,9 @@ public class Assets
             jj = 0;
         }
 
+        // harta nivelului 1
 
         map_lvl1 = new int[23][80];
-
         levelReader(map_lvl1,"lvl1.csv");
 
 
@@ -149,7 +152,7 @@ public class Assets
 
     public static void LoadBackgroudTiles()
     {
-        // Functia incarca restul de Tile-uri care tin doar de fundalul si esteticul unui nivel
+        // Functia incarca restul de Tile-uri care tin doar de fundalul si esteticul unui nivel, nu au alta functie
 
         SpriteSheet sheet = new SpriteSheet(ImageLoader.LoadImage("/textures/pipes.png"),32,32);
 
@@ -169,6 +172,7 @@ public class Assets
 
     private static void levelReader(int[][] map, String path)
     {
+        // functia citeste nivelul dintr-un fisier CSV
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             int j = 0;

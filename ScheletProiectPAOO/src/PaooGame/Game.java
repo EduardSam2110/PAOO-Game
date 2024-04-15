@@ -13,6 +13,7 @@ import java.awt.image.BufferStrategy;
 
 import static PaooGame.Graphics.Assets.game_over;
 import static PaooGame.Graphics.Assets.start_game;
+import static PaooGame.Tiles.Tile.TILE_SIZE;
 
 /*! \class Game
     \brief Clasa principala a intregului proiect. Implementeaza Game - Loop (Update -> Draw)
@@ -67,20 +68,13 @@ public class Game implements Runnable
 
     private Graphics        g;          /*!< Referinta catre un context grafic.*/
 
-    public static Player player;
-    private Enemy enemy1, enemy2;
-    private Tile tile; /*!< variabila membra temporara. Este folosita in aceasta etapa doar pentru a desena ceva pe ecran.*/
-
-    // VEZI CE FACI CU ELE UNDE LE PUI CA SA NU AMESTECI CLASELE
-    // ASTEA DE JOS AR MERGE SI IN GAME WINDOW CATEVA
-    public final static float SCALE = 1.5f;
+    // dimensiunile ferestrei de joc
     public final static int TILES_IN_WIDTH = 40;
     public final static int TILES_IN_HEIGHT = 22;
-    public final static int TILE_SIZE = 32; // tile ul scalat
     public final static int GAME_WIDTH =  TILE_SIZE * TILES_IN_WIDTH;
     public final static int GAME_HEIGHT =  TILE_SIZE * TILES_IN_HEIGHT;
-    private LevelManager levelManager;
-    public static boolean START_PRESSED = false;
+
+
     /*! \fn public Game(String title, int width, int height)
         \brief Constructor de initializare al clasei Game.
 
@@ -91,18 +85,16 @@ public class Game implements Runnable
         \param width Latimea ferestrei in pixeli.
         \param height Inaltimea ferestrei in pixeli.
      */
+    public static Player player;
+    private Enemy enemy1, enemy2;
+
+    private LevelManager levelManager;
+
+    public static boolean START_PRESSED = false; // true daca s-a apasat butonul de start sau tasta ENTER
 
     private KeyboardInput inputKeyboard;
     private MouseInput inputMouse;
-    void initInput()
-    {
-        inputKeyboard = new KeyboardInput(player);
-        inputMouse = new MouseInput(player);
-        wnd.GetCanvas().addKeyListener(inputKeyboard);
-        wnd.GetCanvas().addMouseListener(inputMouse);
-        wnd.GetCanvas().setFocusable(true);
-        wnd.GetCanvas().requestFocus();
-    }
+
     public Game(String title, int width, int height)
     {
             /// Obiectul GameWindow este creat insa fereastra nu este construita
@@ -128,6 +120,18 @@ public class Game implements Runnable
         initInput();
     }
 
+    // Functia intializeaza input-urile Mouse si Keyboard si adauga Listener la fereastra jocului
+    void initInput()
+    {
+        inputKeyboard = new KeyboardInput(player);
+        inputMouse = new MouseInput(player);
+        wnd.GetCanvas().addKeyListener(inputKeyboard);
+        wnd.GetCanvas().addMouseListener(inputMouse);
+        wnd.GetCanvas().setFocusable(true);
+        wnd.GetCanvas().requestFocus();
+    }
+
+    // Functia initializeaza pe rand: grafica, background-ul, nivelul, playerul si inamicii
     private void initClasses() {
         Assets.Init();
         Assets.LoadBackgroudTiles();
@@ -234,9 +238,6 @@ public class Game implements Runnable
 
         Metoda este declarata privat deoarece trebuie apelata doar in metoda run()
      */
-
-    public double x = 0;
-    public double y = 0;
 
     private void Update() {
         if(START_PRESSED){

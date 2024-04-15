@@ -40,6 +40,9 @@ public class KeyboardInput implements KeyListener {
             case KeyEvent.VK_SPACE:
                 player.setJump(true);
                 break;
+            case KeyEvent.VK_ENTER:
+                Game.START_PRESSED = true;
+                break;
             default:
                 break;
         }
