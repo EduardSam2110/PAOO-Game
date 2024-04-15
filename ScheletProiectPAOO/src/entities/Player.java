@@ -18,7 +18,7 @@ public class Player extends Entity {
     private BufferedImage[] current_animation;
     private boolean moving = false;
 
-    private boolean left, up, right, down, speed, jump;
+    private boolean left, up = true, right, down = false, speed, jump;
     private int playerSpeed = 2;
     private int[][] levelData;
     private float xDrawOffset = 23;
@@ -63,7 +63,7 @@ public class Player extends Entity {
 
         xSpeed = 0;
 
-        if(speed)
+        if(speed && up)
             playerSpeed = 3;
         else
             playerSpeed = 2;
@@ -95,13 +95,19 @@ public class Player extends Entity {
         int startAnimation = action;
 
         if(moving && (!left || !right)) {
-            if(speed)
+            if(speed && up)
                 action = RUN;
             else
-                action = WALK;
+                if(down)
+                    action = CRAWLING;
+                else if(up)
+                    action = WALK;
         }
         else {
-            action = IDLE;
+            if(up && !down)
+                action = IDLE;
+            else if (down && !up)
+                action = SIT_DOWN;
         }
 
         if(inAir)
@@ -111,6 +117,7 @@ public class Player extends Entity {
             else
                 action = FALLING;
         }
+
         if(attacking) {
             action = ATTACK_1;
         }
@@ -128,6 +135,7 @@ public class Player extends Entity {
     {
         current_animation = player_animations_right[IDLE];
     }
+
     private void resetAnimationTick() {
         aniIndex = aniTick = 0;
     }

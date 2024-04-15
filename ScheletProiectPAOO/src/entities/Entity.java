@@ -17,8 +17,8 @@ public abstract class Entity {
     protected int[][] levelData = map_lvl1;
     protected float airSpeed = 0f;
     protected float gravity = 0.1f;
-    protected float jumpSpeed = -5f;
-    protected float fallSpeedAfterCollision = 1f;
+    protected float jumpSpeed = -4f;
+    protected float fallSpeedAfterCollision = 2f;
     protected boolean inAir = false;
     protected int aniIndex;
     protected int aniTick;

@@ -142,7 +142,7 @@ public class Assets
 
         map_lvl1 = new int[23][80];
 
-        levelReader(map_lvl1,"nivel.csv");
+        levelReader(map_lvl1,"lvl1.csv");
 
 
     }
