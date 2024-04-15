@@ -10,7 +10,7 @@ import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static PaooGame.utils.Camera.xCamera;
 import static PaooGame.utils.Constants.*;
-import static PaooGame.utils.GravityColisionMethods.*;
+import static PaooGame.utils.GravityCollisionMethods.*;
 
 public class Player extends Entity {
 

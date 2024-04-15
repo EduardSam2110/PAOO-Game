@@ -4,7 +4,7 @@ import PaooGame.Game;
 import java.awt.geom.Rectangle2D;
 import static PaooGame.Tiles.Tile.*;
 
-public class GravityColisionMethods {
+public class GravityCollisionMethods {
 
     // functia verifica daca player-ul se poate misca, verificand, pe rand, cele 4 colturi
     // ale dreptunghiului de coliziune (hitBox)

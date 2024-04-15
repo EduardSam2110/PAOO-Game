@@ -7,7 +7,7 @@ import java.awt.geom.Rectangle2D;
 
 import static PaooGame.utils.Camera.xCamera;
 import static PaooGame.utils.Constants.*;
-import static PaooGame.utils.GravityColisionMethods.*;
+import static PaooGame.utils.GravityCollisionMethods.*;
 
 public abstract class Entity {
 
@@ -22,7 +22,7 @@ public abstract class Entity {
     protected float airSpeed = 0f;
     protected float gravity = 0.1f;
     protected float jumpSpeed = -4f;
-    protected float fallSpeedAfterCollision = 2f;
+    protected float fallSpeedAfterCollision = 1f;
     protected boolean inAir = false;
 
     // variabile ce tin de animatiile actiunilor
