@@ -21,9 +21,10 @@ public class MouseInput implements MouseListener, MouseInputListener {
             player.setAttacking(true);
             int x = e.getX();
             int y = e.getY();
-            if(x >= 545 && x <= 765)
-                if(y >= 410 && y <= 490 )
-                    Game.START_PRESSED = true;
+            if(Game.START_PRESSED == false)
+                if(x >= 545 && x <= 765)
+                    if(y >= 410 && y <= 490 )
+                        Game.START_PRESSED = true;
         }
     }
 

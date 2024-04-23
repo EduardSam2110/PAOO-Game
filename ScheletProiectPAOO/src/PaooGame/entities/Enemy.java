@@ -1,5 +1,7 @@
 package PaooGame.entities;
 
+import PaooGame.Game;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -45,6 +47,8 @@ public class Enemy extends Entity {
             updateAnimation(action, "enemy");
             updatePos();
             calculatePos();
+
+
         }
         else
             deathAnimation();
@@ -54,7 +58,10 @@ public class Enemy extends Entity {
     public void render(Graphics g)
     {
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
-//        drawHitbox(g);
+
+        //debugg
+        if(Game.DEBUGG)
+            drawHitbox(g);
     }
 
     private void updatePos()

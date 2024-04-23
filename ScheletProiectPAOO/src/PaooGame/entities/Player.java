@@ -1,5 +1,6 @@
 package PaooGame.entities;
 
+import PaooGame.Game;
 import PaooGame.Tiles.Tile;
 import PaooGame.utils.Camera;
 
@@ -50,7 +51,10 @@ public class Player extends Entity {
     public void render(Graphics g) {
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
         HealthBar.render(g);
-        //drawHitbox(g);
+
+        //debugg
+        if(Game.DEBUGG)
+            drawHitbox(g);
 
     }
     private void updatePos()

@@ -75,7 +75,8 @@ public class Game implements Runnable
     public final static int GAME_WIDTH =  TILE_SIZE * TILES_IN_WIDTH;
     public final static int GAME_HEIGHT =  TILE_SIZE * TILES_IN_HEIGHT;
 
-
+    //temp
+    public static boolean DEBUGG = false;
     /*! \fn public Game(String title, int width, int height)
         \brief Constructor de initializare al clasei Game.
 
