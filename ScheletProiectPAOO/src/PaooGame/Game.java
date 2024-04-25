@@ -93,6 +93,7 @@ public class Game implements Runnable
     private LevelManager levelManager;
 
     public static boolean START_PRESSED = false; // true daca s-a apasat butonul de start sau tasta ENTER
+    public static boolean  EXIT_PRESSED = false;
 
     private KeyboardInput inputKeyboard;
     private MouseInput inputMouse;
@@ -138,10 +139,9 @@ public class Game implements Runnable
         Assets.Init();
         Assets.LoadBackgroudTiles();
         levelManager = new LevelManager();
-        player = new Player(90,400,64,64);
+        player = new Player(90,450,64,64);
         enemy1 = new Enemy(900,220,128,128);
         enemy2 = new Enemy(1800,200,128,128);
-
     }
 
     /*! \fn public void run()
@@ -249,7 +249,11 @@ public class Game implements Runnable
             enemy2.update();
         }
 
-//        SetRunState();
+
+        if(EXIT_PRESSED)
+        {
+            System.exit(0);
+        }
     }
 
     /*! \fn private void Draw()

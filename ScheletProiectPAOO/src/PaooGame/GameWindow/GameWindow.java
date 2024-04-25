@@ -103,7 +103,6 @@ public class GameWindow
         wndFrame.addWindowFocusListener(new WindowFocusListener() {
             @Override
             public void windowGainedFocus(WindowEvent e) {
-
             }
 
             @Override

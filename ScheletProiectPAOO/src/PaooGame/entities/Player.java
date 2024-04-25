@@ -42,6 +42,7 @@ public class Player extends Entity {
     public void update()
     {
         Camera.Update(this);
+        Score.Score_System(this);
         updatePos();
         updateAnimation(action, "player");
         setAnimation();
@@ -51,7 +52,7 @@ public class Player extends Entity {
     public void render(Graphics g) {
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
         HealthBar.render(g);
-
+        Score.update(g);
         //debugg
         if(Game.DEBUGG)
             drawHitbox(g);
@@ -102,17 +103,18 @@ public class Player extends Entity {
         if(moving && (!left || !right)) {
             if(speed && up)
                 action = RUN;
-            else
-                if(down)
+            else {
+                if (down)
                     action = CRAWLING;
-                else if(up)
+                else if (up)
                     action = WALK;
+            }
         }
         else {
-            if(up && !down)
-                action = IDLE;
-            else if (down && !up)
+            if (down && !up)
                 action = SIT_DOWN;
+            else
+                action = IDLE;
         }
 
         if(inAir)
@@ -184,7 +186,7 @@ public class Player extends Entity {
     }
 
     public void resetDirBooleans() {
-        up = down = left = right = false;
+        left = right = attacking = speed = jump = false;
     }
 
     public void setAttacking(boolean attack)

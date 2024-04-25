@@ -37,11 +37,16 @@ public class Assets
     public static BufferedImage sewer_pipe_large_rightleft;
 
     public static BufferedImage[] health_bar;
+    public static BufferedImage[] score;
 
     public static BufferedImage spikeUp;
 
     public static int map_lvl1[][];
     public static BufferedImage background_lvl1 = ImageLoader.LoadImage("/textures/level1.png");
+
+    public static int map_lvl2[][];
+    public static int map_lvl3[][];
+
 
     public static BufferedImage game_over = ImageLoader.LoadImage("/textures/game_over.jpg"); // temporara, va fi schimbata
     public static BufferedImage start_game = ImageLoader.LoadImage("/textures/start_game.png");
@@ -84,6 +89,16 @@ public class Assets
         for(int i = 0; i < health_bar.length;i++)
         {
             health_bar[i] = life.crop(0,i*2);
+        }
+
+        // spritesheet pentru scor
+
+        SpriteSheet score_spritesheet = new SpriteSheet(ImageLoader.LoadImage("/textures/score.png"),7,10);
+        score = new BufferedImage[10];
+
+        for(int i = 0; i < score.length; i++)
+        {
+            score[i] = score_spritesheet.crop(i,0);
         }
 
         // Animatiile jucatorului:
@@ -147,6 +162,11 @@ public class Assets
         map_lvl1 = new int[23][80];
         levelReader(map_lvl1,"lvl1.csv");
 
+        map_lvl2 = new int[23][80];
+        levelReader(map_lvl2,"lvl2.csv");
+
+        map_lvl3 = new int[23][80];
+        levelReader(map_lvl3,"lvl3.csv");
 
     }
 
