@@ -22,19 +22,30 @@ public class Assets
     public static BufferedImage[][] enemy_animations_right;
     public static BufferedImage[][] enemy_animations_left;
 
-    public static BufferedImage solidBlock1;
-    public static BufferedImage solidBlock2;
-    public static BufferedImage solidBlock3;
+    public static BufferedImage solidBlock1_dark;
+    public static BufferedImage solidBlock2_dark;
+    public static BufferedImage solidBlock3_dark;
+
+    public static BufferedImage solidBlock1_gold;
+    public static BufferedImage solidBlock2_gold;
+    public static BufferedImage solidBlock3_gold;
 
     public static BufferedImage sewer_hole1;
     public static BufferedImage sewer_hole2;
 
-    public static BufferedImage sewer_pipe_large_left;
-    public static BufferedImage sewer_pipe_large_middle;
-    public static BufferedImage sewer_pipe_large_right;
-    public static BufferedImage sewer_pipe_large_down;
-    public static BufferedImage sewer_pipe_large_leftright;
-    public static BufferedImage sewer_pipe_large_rightleft;
+    public static BufferedImage sewer_pipe_large_left_dark;
+    public static BufferedImage sewer_pipe_large_middle_dark;
+    public static BufferedImage sewer_pipe_large_right_dark;
+    public static BufferedImage sewer_pipe_large_down_dark;
+    public static BufferedImage sewer_pipe_large_leftright_dark;
+    public static BufferedImage sewer_pipe_large_rightleft_dark;
+
+    public static BufferedImage sewer_pipe_large_left_gold;
+    public static BufferedImage sewer_pipe_large_middle_gold;
+    public static BufferedImage sewer_pipe_large_right_gold;
+    public static BufferedImage sewer_pipe_large_down_gold;
+    public static BufferedImage sewer_pipe_large_leftright_gold;
+    public static BufferedImage sewer_pipe_large_rightleft_gold;
 
     public static BufferedImage[] health_bar;
     public static BufferedImage[] score;
@@ -45,7 +56,10 @@ public class Assets
     public static BufferedImage background_lvl1 = ImageLoader.LoadImage("/textures/level1.png");
 
     public static int map_lvl2[][];
+    public static BufferedImage background_lvl2 = ImageLoader.LoadImage("/textures/level2.png");
+
     public static int map_lvl3[][];
+    public static BufferedImage background_lvl3 = ImageLoader.LoadImage("/textures/level1.png");
 
 
     public static BufferedImage game_over = ImageLoader.LoadImage("/textures/game_over.jpg"); // temporara, va fi schimbata
@@ -63,19 +77,30 @@ public class Assets
 
         SpriteSheet sheet = new SpriteSheet(ImageLoader.LoadImage("/textures/pipes.png"),32,32);
 
-        solidBlock1 = sheet.crop(3, 4);
-        solidBlock2 = sheet.crop(4, 4);
-        solidBlock3 = sheet.crop(5,4);
+        solidBlock1_dark = sheet.crop(3, 4);
+        solidBlock2_dark = sheet.crop(4, 4);
+        solidBlock3_dark = sheet.crop(5,4);
+
+        solidBlock1_gold = sheet.crop(3, 11);
+        solidBlock2_gold = sheet.crop(4, 11);
+        solidBlock3_gold = sheet.crop(5,11);
 
         sewer_hole1 = sheet.crop(0,4);
         sewer_hole2 = sheet.crop(1,4);
 
-        sewer_pipe_large_left = sheet.crop(5, 0);
-        sewer_pipe_large_middle = sheet.crop(6, 0);
-        sewer_pipe_large_right = sheet.crop(7, 0);
-        sewer_pipe_large_down = sheet.crop(5, 1);
-        sewer_pipe_large_leftright = sheet.crop(5, 2);
-        sewer_pipe_large_rightleft = sheet.crop(7, 2);
+        sewer_pipe_large_left_dark = sheet.crop(5, 0);
+        sewer_pipe_large_middle_dark = sheet.crop(6, 0);
+        sewer_pipe_large_right_dark = sheet.crop(7, 0);
+        sewer_pipe_large_down_dark = sheet.crop(5, 1);
+        sewer_pipe_large_leftright_dark = sheet.crop(5, 2);
+        sewer_pipe_large_rightleft_dark = sheet.crop(7, 2);
+
+        sewer_pipe_large_left_gold = sheet.crop(5, 7);
+        sewer_pipe_large_middle_gold = sheet.crop(6, 7);
+        sewer_pipe_large_right_gold = sheet.crop(7, 7);
+        sewer_pipe_large_down_gold = sheet.crop(5, 8);
+        sewer_pipe_large_leftright_gold = sheet.crop(5, 9);
+        sewer_pipe_large_rightleft_gold = sheet.crop(7, 9);
 
         SpriteSheet spikes = new SpriteSheet(ImageLoader.LoadImage("/textures/spike.png"),16,16);
         spikeUp = spikes.crop(0,0);

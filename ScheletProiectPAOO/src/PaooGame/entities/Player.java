@@ -46,6 +46,7 @@ public class Player extends Entity {
         updatePos();
         updateAnimation(action, "player");
         setAnimation();
+        super.loadLvlData();
     }
 
     @Override
@@ -230,7 +231,7 @@ public class Player extends Entity {
         resetPlayerPos();
     }
 
-    private void resetPlayerPos()
+    public void resetPlayerPos()
     {
         hitBox.x = x;
         hitBox.y = y;

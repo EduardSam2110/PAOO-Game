@@ -1,11 +1,12 @@
 package PaooGame.Tiles;
 
+
 import PaooGame.Graphics.Assets;
 
-public class SolidBlock2 extends Tile {
-    public SolidBlock2(int id)
+public class SolidBlock1_Gold extends Tile {
+    public SolidBlock1_Gold(int id)
     {
-        super(Assets.solidBlock2,id);
+        super(Assets.solidBlock1_gold,id);
     }
 
     @Override

@@ -13,20 +13,30 @@ public class Tile
 
         /// De remarcat ca urmatoarele dale sunt statice si publice. Acest lucru imi permite sa le am incarcate
         /// o singura data in memorie
-    public static Tile solidBlock1        = new SolidBlock1(35);
-    public static Tile solidBlock2        = new SolidBlock2(36);
-    public static Tile solidBlock3        = new SolidBlock3(37);
+    public static Tile solidBlock1        = new SolidBlock1_Dark(35);
+    public static Tile solidBlock2        = new SolidBlock2_Dark(36);
+    public static Tile solidBlock3        = new SolidBlock3_Dark(37);
 
+    public static Tile solidBlock1_gold        = new SolidBlock1_Gold(91);
+    public static Tile solidBlock2_gold       = new SolidBlock2_Gold(92);
+    public static Tile solidBlock3_gold        = new SolidBlock3_Gold(93);
 
     public static Tile sewer_hole1       = new Sewer_Hole1(32);
     public static Tile sewer_hole2      = new Sewer_Hole2(33);
 
-    public static Tile sewer_pipe_large_left = new Sewer_Pipe_Large_Left(5);
-    public static Tile sewer_pipe_large_middle = new Sewer_Pipe_Large_Middle(6);
-    public static Tile sewer_pipe_large_right = new Sewer_Pipe_Large_Right(7);
-    public static Tile sewer_pipe_large_down = new Sewer_Pipe_Large_Down(13);
-    public static Tile sewer_pipe_large_leftright = new Sewer_Pipe_Large_LeftRight(21);
-    public static Tile sewer_pipe_large_rightleft = new Sewer_Pipe_Large_RightLeft(23);
+    public static Tile sewer_pipe_large_left_dark = new Sewer_Pipe_Large_Left_Dark(5);
+    public static Tile sewer_pipe_large_middle_dark = new Sewer_Pipe_Large_Middle_Dark(6);
+    public static Tile sewer_pipe_large_right_dark = new Sewer_Pipe_Large_Right_Dark(7);
+    public static Tile sewer_pipe_large_down_dark = new Sewer_Pipe_Large_Down_Dark(13);
+    public static Tile sewer_pipe_large_leftright_dark = new Sewer_Pipe_Large_LeftRight_Dark(21);
+    public static Tile sewer_pipe_large_rightleft_dark = new Sewer_Pipe_Large_RightLeft_Dark(23);
+
+    public static Tile sewer_pipe_large_left_gold = new Sewer_Pipe_Large_Left_Gold(61);
+    public static Tile sewer_pipe_large_middle_gold = new Sewer_Pipe_Large_Middle_Gold(62);
+    public static Tile sewer_pipe_large_right_gold = new Sewer_Pipe_Large_Right_Gold(63);
+    public static Tile sewer_pipe_large_down_gold = new Sewer_Pipe_Large_Down_Gold(69);
+    public static Tile sewer_pipe_large_leftright_gold = new Sewer_Pipe_Large_LeftRight_Gold(77);
+    public static Tile sewer_pipe_large_rightleft_gold = new Sewer_Pipe_Large_RightLeft_Gold(79);
 
     public static Tile spikeUp = new SpikeUp(112);
 

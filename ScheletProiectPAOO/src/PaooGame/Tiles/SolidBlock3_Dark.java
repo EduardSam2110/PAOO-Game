@@ -2,10 +2,10 @@ package PaooGame.Tiles;
 
 import PaooGame.Graphics.Assets;
 
-public class Sewer_Pipe_Large_Middle extends Tile{
-    public Sewer_Pipe_Large_Middle(int id)
+public class SolidBlock3_Dark extends Tile{
+    public SolidBlock3_Dark(int id)
     {
-        super(Assets.sewer_pipe_large_middle,id);
+        super(Assets.solidBlock3_dark,id);
     }
 
     @Override

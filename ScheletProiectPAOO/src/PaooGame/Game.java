@@ -160,7 +160,7 @@ public class Game implements Runnable
             /// sau mai bine spus de 60 ori pe secunda.
 
         final int framesPerSecond   = 60; /*!< Constanta intreaga initializata cu numarul de frame-uri pe secunda.*/
-        final double timeFrame      = 1000000000 / framesPerSecond; /*!< Durata unui frame in nanosecunde.*/
+        final double timeFrame      = 1_000_000_000 / framesPerSecond; /*!< Durata unui frame in nanosecunde.*/
 
             /// Atat timp timp cat threadul este pornit Update() & Draw()
         while (runState == true)
@@ -243,7 +243,7 @@ public class Game implements Runnable
 
     private void Update() {
         if(START_PRESSED){
-            levelManager.update();
+            levelManager.update(player);
             player.update();
             enemy1.update();
             enemy2.update();

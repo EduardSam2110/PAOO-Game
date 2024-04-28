@@ -1,13 +1,15 @@
 package PaooGame.entities;
 
+import PaooGame.Game;
+
 import java.awt.*;
-import java.time.LocalTime;
 
 import static PaooGame.Graphics.Assets.score;
 
 public class Score {
     private static double current_score = 0;
     private static int[] score_array = new int[4];
+
 
     private static void Score_Processing()
     {
@@ -28,13 +30,14 @@ public class Score {
 
     public static void Score_System(Player p)
     {
-        current_score = LocalTime.now().getSecond();
-
+        if(Game.START_PRESSED)
+        {
+            current_score += 1/60.; // un frame dureaza 1/60 secunde, iar functia se apeleaza o data per frame
+        }
     }
 
     public static void update(Graphics g)
     {
-        System.out.println(current_score);
         Score_Processing();
         g.drawImage(score[score_array[3]],1000,20,32,32,null);
         g.drawImage(score[score_array[2]],1032,20,32,32,null);

@@ -47,7 +47,7 @@ public class Enemy extends Entity {
             updateAnimation(action, "enemy");
             updatePos();
             calculatePos();
-
+            super.loadLvlData();
 
         }
         else
@@ -119,7 +119,8 @@ public class Enemy extends Entity {
             int coord_playerXLeft = (int) (player.getHitBox().x);
             int coord_playerY = (int) (player.getHitBox().y);
 
-            if((coord_playerX >= enemyCoordX) && (coord_playerXLeft <= enemyCoordXWidth) && (coord_playerY >= enemyCoordY) && (coord_playerY <= enemyCoordYHeight)) {
+            if((coord_playerX + 10 >= enemyCoordX) && (coord_playerXLeft - 10 <= enemyCoordXWidth)
+                    && (coord_playerY >= enemyCoordY) && (coord_playerY <= enemyCoordYHeight)) {
                 if(player.attacking) {
                     action = EnemyDEATH;
                     aniIndex = 0;
