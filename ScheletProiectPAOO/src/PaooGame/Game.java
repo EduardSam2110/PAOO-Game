@@ -8,6 +8,7 @@ import PaooGame.Tiles.LevelManager;
 import PaooGame.entities.Enemy;
 import PaooGame.entities.HealthBar;
 import PaooGame.entities.Player;
+import PaooGame.utils.LoadSave;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -136,6 +137,7 @@ public class Game implements Runnable
 
     // Functia initializeaza pe rand: grafica, background-ul, nivelul, playerul si inamicii
     private void initClasses() {
+        LoadSave.InitDataBase();
         Assets.Init();
         Assets.LoadBackgroudTiles();
         levelManager = new LevelManager();
@@ -252,6 +254,7 @@ public class Game implements Runnable
 
         if(EXIT_PRESSED)
         {
+            LoadSave.SaveGameState(player);
             System.exit(0);
         }
     }

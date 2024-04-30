@@ -7,7 +7,7 @@ import java.awt.*;
 import static PaooGame.Graphics.Assets.score;
 
 public class Score {
-    private static double current_score = 0;
+    public static double current_score = 0;
     private static int[] score_array = new int[4];
 
 
