@@ -248,16 +248,16 @@ public class Game implements Runnable
     private void Update() {
 
         if(START_PRESSED){
-            levelManager.update(player);
             player.update();
+            levelManager.update(player);
             enemy1.update();
             enemy2.update();
         }
         else if(LOAD_SELECTED)
         {
             LoadSave.LoadGame(player);
+            LOAD_SELECTED = false;
         }
-
 
         if(EXIT_PRESSED)
         {

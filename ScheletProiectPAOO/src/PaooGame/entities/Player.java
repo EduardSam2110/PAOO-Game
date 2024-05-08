@@ -1,6 +1,7 @@
 package PaooGame.entities;
 
 import PaooGame.Game;
+import PaooGame.Tiles.LevelManager;
 import PaooGame.Tiles.Tile;
 import PaooGame.utils.Camera;
 
@@ -212,12 +213,14 @@ public class Player extends Entity {
         return playerSpeed;
     }
 
-    public void LoadFromSave(float x, float y, int health, int score)
+    public void LoadFromSave(float x, float y, int health, int score, int lvl, int xCam)
     {
         hitBox.x = x;
         hitBox.y = y;
         HealthBar.health = health;
         Score.current_score = (float) score;
+        LevelManager.level = lvl;
+        xCamera = xCam;
     }
 
     public void resetIfSpike(){

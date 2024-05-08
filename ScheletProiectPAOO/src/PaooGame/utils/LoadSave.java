@@ -1,5 +1,6 @@
 package PaooGame.utils;
 
+import PaooGame.Tiles.LevelManager;
 import PaooGame.entities.HealthBar;
 import PaooGame.entities.Player;
 import PaooGame.entities.Score;
@@ -45,15 +46,17 @@ public class LoadSave {
                 " XPOS INT NOT NULL, " +
                 " YPOS INT NOT NULL, " +
                 " SCORE INT, " +
-                " HEALTH INT )";
+                " HEALTH INT, " +
+                " LEVEL INT NOT NULL," +
+                " CAMERAPOS INT )";
         stmt.execute(sql);
         stmt.close();
     }
 
     private static void initElements() throws SQLException {
         Statement stmt = c.createStatement();
-        String sql = "INSERT INTO " + TABLE_NAME + " (ID, XPOS,YPOS,SCORE,HEALTH) " +
-                "VALUES (1,90,450,0,3)";
+        String sql = "INSERT INTO " + TABLE_NAME + " (ID, XPOS,YPOS,SCORE,HEALTH,LEVEL,CAMERAPOS) " +
+                "VALUES (1,90,450,0,3,1,0)";
         stmt.executeUpdate(sql);
         stmt.close();
         System.out.println("Records created successfully");
@@ -70,11 +73,13 @@ public class LoadSave {
     }
 
     public static void SaveGameState(Player p) {
-        try (PreparedStatement pstmt = c.prepareStatement("UPDATE " + TABLE_NAME + " set XPOS =?, YPOS =?, SCORE =?, HEALTH =? where ID=1")) {
+        try (PreparedStatement pstmt = c.prepareStatement("UPDATE " + TABLE_NAME + " set XPOS =?, YPOS =?, SCORE =?, HEALTH =?, LEVEL=?, CAMERAPOS=? where ID=1")) {
             pstmt.setInt(1, (int) p.getHitBox().x);
             pstmt.setInt(2, (int) p.getHitBox().y);
             pstmt.setInt(3, (int) Score.current_score);
             pstmt.setInt(4, HealthBar.health);
+            pstmt.setInt(5, LevelManager.level);
+            pstmt.setInt(6, Camera.xCamera);
             pstmt.executeUpdate();
             System.out.println("Updated successfully");
             CloseConnection();
@@ -90,8 +95,10 @@ public class LoadSave {
                 int ypos = rs.getInt("YPOS");
                 int score = rs.getInt("SCORE");
                 int health = rs.getInt("HEALTH");
+                int lvl = rs.getInt("LEVEL");
+                int xCam = rs.getInt("CAMERAPOS");
 
-                p.LoadFromSave((float) xpos, (float) ypos, health, score);
+                p.LoadFromSave((float) xpos, (float) ypos, health, score, lvl, xCam);
             }
             System.out.println("Operation done successfully");
         } catch (Exception e) {
