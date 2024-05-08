@@ -212,6 +212,14 @@ public class Player extends Entity {
         return playerSpeed;
     }
 
+    public void LoadFromSave(float x, float y, int health, int score)
+    {
+        hitBox.x = x;
+        hitBox.y = y;
+        HealthBar.counter = 3 - health;
+        Score.current_score = (float) score;
+    }
+
     public void resetIfSpike(){
         float xIndex = hitBox.x / TILE_SIZE;
         float yIndex = (hitBox.y + hitBox.height + 16)  / TILE_SIZE;

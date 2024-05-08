@@ -47,8 +47,11 @@ public class KeyboardInput implements KeyListener {
             case KeyEvent.VK_ESCAPE:
                 Game.START_PRESSED =!Game.START_PRESSED;
                 break;
-            case KeyEvent.VK_HOME:
+            case KeyEvent.VK_E:
                 Game.EXIT_PRESSED = true;
+                break;
+            case KeyEvent.VK_L:
+                Game.LOAD_SELECTED = true;
                 break;
             default:
                 break;

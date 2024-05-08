@@ -95,6 +95,7 @@ public class Game implements Runnable
 
     public static boolean START_PRESSED = false; // true daca s-a apasat butonul de start sau tasta ENTER
     public static boolean  EXIT_PRESSED = false;
+    public static boolean  LOAD_SELECTED = true;
 
     private KeyboardInput inputKeyboard;
     private MouseInput inputMouse;
@@ -144,6 +145,11 @@ public class Game implements Runnable
         player = new Player(90,450,64,64);
         enemy1 = new Enemy(900,220,128,128);
         enemy2 = new Enemy(1800,200,128,128);
+
+        if(LOAD_SELECTED)
+        {
+            LoadSave.LoadGame(player);
+        }
     }
 
     /*! \fn public void run()

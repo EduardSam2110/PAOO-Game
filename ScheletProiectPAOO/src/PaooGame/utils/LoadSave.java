@@ -10,30 +10,24 @@ import java.sql.*;
 public class LoadSave {
     private static Connection c;
 
+    // Use constants for database file name and table name
+    private static final String DATABASE_FILE = "savegame.db";
+    private static final String TABLE_NAME = "LOADSAVE";
+
     public static void InitDataBase() {
         try {
-            File file = new File("savegame.db");
+            File file = new File(DATABASE_FILE);
             boolean fileExists = file.exists();
 
-            // Connect to the database
+            // Conectare la baza de date
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:savegame.db");
+            c = DriverManager.getConnection("jdbc:sqlite:" + DATABASE_FILE);
             c.setAutoCommit(true);
 
             if (!fileExists) {
-                // If database doesn't exist, create table
-                Statement stmt = c.createStatement();
-                String sql = "CREATE TABLE LOADSAVE " +
-                        "( ID INT PRIMARY KEY NOT NULL, " +
-                        " XPOS INT NOT NULL, " +
-                        " YPOS INT NOT NULL, " +
-                        " SCORE INT, " +
-                        " HEALTH INT )";
-                stmt.execute(sql);
-                stmt.close();
-
-                InitElements();
-
+                // daca nu exista, o creez
+                createTable();
+                initElements();
                 System.out.println("Database created");
             } else {
                 System.out.println("Database exists");
@@ -44,66 +38,65 @@ public class LoadSave {
         }
     }
 
-    public static void CloseConnection() {
-        try {
-            if (c != null)
-                c.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private static void createTable() throws SQLException {
+        Statement stmt = c.createStatement();
+        String sql = "CREATE TABLE " + TABLE_NAME + " " +
+                "( ID INT PRIMARY KEY NOT NULL, " +
+                " XPOS INT NOT NULL, " +
+                " YPOS INT NOT NULL, " +
+                " SCORE INT, " +
+                " HEALTH INT )";
+        stmt.execute(sql);
+        stmt.close();
     }
 
-    private static void InitElements() {
-        try {
-            Statement stmt = c.createStatement();
-
-            String sql = "INSERT INTO LOADSAVE (ID, XPOS,YPOS,SCORE,HEALTH) " +
-                    "VALUES (1,90,450,0,3)";
-            stmt.executeUpdate(sql);
-
-            stmt.close();
-            System.out.println("Records created successfully");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-    }
-
-    public static void SaveGameState(Player p)
-    {
-
-        String sql1 = "UPDATE LOADSAVE set XPOS = ? where ID=1";
-        String sql2 = "UPDATE LOADSAVE set YPOS = ? where ID=1";
-        String sql3 = "UPDATE LOADSAVE set SCORE = ? where ID=1";
-        String sql4 = "UPDATE LOADSAVE set HEALTH = ? where ID=1";
-
-
-        PreparedStatement pstmt;
-
-        try {
-            pstmt = c.prepareStatement(sql1);
-            pstmt.setInt(1, (int) p.getHitBox().x);
-            pstmt.executeUpdate();
-
-            pstmt = c.prepareStatement(sql2);
-            pstmt.setInt(1, (int) p.getHitBox().y);
-            pstmt.executeUpdate();
-
-            pstmt = c.prepareStatement(sql3);
-            pstmt.setInt(1, (int) Score.current_score);
-            pstmt.executeUpdate();
-
-            pstmt = c.prepareStatement(sql4);
-            pstmt.setInt(1, (3 - HealthBar.counter));
-            pstmt.executeUpdate();
-
-            pstmt.close();
-            System.out.println("XPOS updated successfully");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+    private static void initElements() throws SQLException {
+        Statement stmt = c.createStatement();
+        String sql = "INSERT INTO " + TABLE_NAME + " (ID, XPOS,YPOS,SCORE,HEALTH) " +
+                "VALUES (1,90,450,0,3)";
+        stmt.executeUpdate(sql);
+        stmt.close();
         System.out.println("Records created successfully");
     }
 
+    public static void CloseConnection() {
+        try {
+            if (c!= null)
+                c.close();
+            System.out.println("Database closed");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void SaveGameState(Player p) {
+        try (PreparedStatement pstmt = c.prepareStatement("UPDATE " + TABLE_NAME + " set XPOS =?, YPOS =?, SCORE =?, HEALTH =? where ID=1")) {
+            pstmt.setInt(1, (int) p.getHitBox().x);
+            pstmt.setInt(2, (int) p.getHitBox().y);
+            pstmt.setInt(3, (int) Score.current_score);
+            pstmt.setInt(4, (3 - HealthBar.counter));
+            pstmt.executeUpdate();
+            System.out.println("Updated successfully");
+            CloseConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void LoadGame(Player p) {
+        try (Statement stmt = c.createStatement(); ResultSet rs = stmt.executeQuery("SELECT * FROM " + TABLE_NAME)) {
+            while (rs.next()) {
+                int xpos = rs.getInt("XPOS");
+                int ypos = rs.getInt("YPOS");
+                int score = rs.getInt("SCORE");
+                int health = rs.getInt("HEALTH");
+
+                p.LoadFromSave((float) xpos, (float) ypos, health, score);
+            }
+            System.out.println("Operation done successfully");
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
 }
