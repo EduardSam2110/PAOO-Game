@@ -216,7 +216,7 @@ public class Player extends Entity {
     {
         hitBox.x = x;
         hitBox.y = y;
-        HealthBar.counter = 3 - health;
+        HealthBar.health = health;
         Score.current_score = (float) score;
     }
 
@@ -234,8 +234,8 @@ public class Player extends Entity {
 
     public void takeDamage()
     {
-        if((HealthBar.counter+1) <= HealthBar.maxLife)
-            HealthBar.counter++;
+        if(HealthBar.health > 0)
+            --HealthBar.health;
         resetPlayerPos();
     }
 

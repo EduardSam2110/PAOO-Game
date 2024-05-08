@@ -74,7 +74,7 @@ public class LoadSave {
             pstmt.setInt(1, (int) p.getHitBox().x);
             pstmt.setInt(2, (int) p.getHitBox().y);
             pstmt.setInt(3, (int) Score.current_score);
-            pstmt.setInt(4, (3 - HealthBar.counter));
+            pstmt.setInt(4, HealthBar.health);
             pstmt.executeUpdate();
             System.out.println("Updated successfully");
             CloseConnection();

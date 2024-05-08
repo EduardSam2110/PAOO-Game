@@ -95,7 +95,7 @@ public class Game implements Runnable
 
     public static boolean START_PRESSED = false; // true daca s-a apasat butonul de start sau tasta ENTER
     public static boolean  EXIT_PRESSED = false;
-    public static boolean  LOAD_SELECTED = true;
+    public static boolean  LOAD_SELECTED = false;
 
     private KeyboardInput inputKeyboard;
     private MouseInput inputMouse;
@@ -146,10 +146,6 @@ public class Game implements Runnable
         enemy1 = new Enemy(900,220,128,128);
         enemy2 = new Enemy(1800,200,128,128);
 
-        if(LOAD_SELECTED)
-        {
-            LoadSave.LoadGame(player);
-        }
     }
 
     /*! \fn public void run()
@@ -250,11 +246,16 @@ public class Game implements Runnable
      */
 
     private void Update() {
+
         if(START_PRESSED){
             levelManager.update(player);
             player.update();
             enemy1.update();
             enemy2.update();
+        }
+        else if(LOAD_SELECTED)
+        {
+            LoadSave.LoadGame(player);
         }
 
 
@@ -298,7 +299,7 @@ public class Game implements Runnable
         g.fillRect(0,0,wnd.GetWndWidth(),wnd.GetWndHeight());
 
         if(START_PRESSED) {
-            if (HealthBar.counter < 3) {
+            if (HealthBar.health > 0) {
                 levelManager.draw(g);
                 player.render(g);
                 enemy1.render(g);
