@@ -23,6 +23,8 @@ public class Enemy extends Entity {
     private boolean movingLeft, movingRight;
 
     private boolean died = false;
+    public static boolean shooting = false;
+
 
     private float deathAnimTick = 0;
 
@@ -44,11 +46,10 @@ public class Enemy extends Entity {
         if(!died)
         {
             die_if_attack();
+            setAnimation();
             updateAnimation(action, "enemy");
             updatePos();
-            calculatePos();
             super.loadLvlData();
-
         }
         else
             deathAnimation();
@@ -66,27 +67,27 @@ public class Enemy extends Entity {
 
     private void updatePos()
     {
-
         xSpeedEnemy = 0;
+
+        calculatePos();
 
         float xIndexToRight = (hitBox.x + hitBox.width) / TILE_SIZE;
         float xIndexToLeft = hitBox.x / TILE_SIZE;
         float yIndex = (hitBox.y + 32) / TILE_SIZE;
 
-        int value1 = levelData[(int)yIndex][(int)xIndexToRight];
-        int value2 = levelData[(int)yIndex][(int)xIndexToLeft];
+        int value1 = levelData[(int) yIndex][(int) xIndexToRight];
+        int value2 = levelData[(int) yIndex][(int) xIndexToLeft];
 
-        if(inAir == false) {
-            if (movingRight) {
-                current_animation = enemy_animations_right[action];
+
+        if (inAir == false) {
+            if (movingRight && !shooting) {
                 if (value1 != 44)
                     xSpeedEnemy += enemySpeed;
                 else {
                     movingRight = false;
                     movingLeft = true;
                 }
-            } else if (movingLeft) {
-                current_animation = enemy_animations_left[action];
+            } else if (movingLeft && !shooting) {
                 if (value2 != 44)
                     xSpeedEnemy -= enemySpeed;
                 else {
@@ -95,11 +96,30 @@ public class Enemy extends Entity {
                 }
             }
         }
+
+        testGravity((int) xSpeedEnemy);
+    }
+
+    private void setAnimation()
+    {
+        if(died)
+            action = EnemyDEATH;
+        else
+            action = EnemyWALK;
+
+        if (inAir == false) {
+
+            if(shooting)
+                action = EnemyATTACK;
+
+            if (movingRight) {
+                current_animation = enemy_animations_right[action];
+            } else if (movingLeft) {
+                current_animation = enemy_animations_left[action];
+            }
+        }
         else
             current_animation = enemy_animations_right[EnemyIDLE];
-
-        testGravity((int)xSpeedEnemy);
-
     }
 
 
@@ -124,16 +144,18 @@ public class Enemy extends Entity {
                 if(player.attacking) {
                     action = EnemyDEATH;
                     aniIndex = 0;
+                    shooting = false;
                     died = true;
                 }
                 else {
-                    player.takeDamage();
+//                    player.takeDamage();
                 }
             }
     }
 
     private void deathAnimation()
     {
+        action = EnemyDEATH;
         if(aniIndex < 5) {
             deathAnimTick += 0.2;
             aniIndex = (int) deathAnimTick;

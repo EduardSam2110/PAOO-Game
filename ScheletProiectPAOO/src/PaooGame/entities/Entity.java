@@ -23,7 +23,7 @@ public abstract class Entity {
     protected float gravity = 0.1f;
     protected float jumpSpeed = -14f;
     protected float fallSpeedAfterCollision = 1f;
-    protected boolean inAir = false;
+    protected boolean inAir = true;
 
     // variabile ce tin de animatiile actiunilor
     protected int aniIndex;

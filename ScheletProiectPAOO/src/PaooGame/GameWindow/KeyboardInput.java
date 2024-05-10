@@ -1,6 +1,7 @@
 package PaooGame.GameWindow;
 
 import PaooGame.Game;
+import PaooGame.entities.Enemy;
 import PaooGame.entities.Player;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -53,6 +54,8 @@ public class KeyboardInput implements KeyListener {
             case KeyEvent.VK_L:
                 Game.LOAD_SELECTED = true;
                 break;
+            case KeyEvent.VK_Z:
+                Enemy.shooting = !Enemy.shooting;
             default:
                 break;
         }

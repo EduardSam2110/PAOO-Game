@@ -136,6 +136,7 @@ public class Player extends Entity {
         else
             current_animation = player_animations_right[action];
 
+
         if(startAnimation != action)
             resetAnimationTick();
     }
