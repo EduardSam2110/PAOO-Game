@@ -54,8 +54,6 @@ public class KeyboardInput implements KeyListener {
             case KeyEvent.VK_L:
                 Game.LOAD_SELECTED = true;
                 break;
-            case KeyEvent.VK_Z:
-                Enemy.shooting = !Enemy.shooting;
             default:
                 break;
         }

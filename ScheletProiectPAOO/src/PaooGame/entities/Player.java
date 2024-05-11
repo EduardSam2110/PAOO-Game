@@ -247,6 +247,7 @@ public class Player extends Entity {
     {
         hitBox.x = x;
         hitBox.y = y;
+        inAir = true;
         Camera.resetCamera();
     }
 }

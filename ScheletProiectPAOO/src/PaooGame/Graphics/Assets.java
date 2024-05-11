@@ -52,6 +52,8 @@ public class Assets
 
     public static BufferedImage spikeUp;
 
+    public static BufferedImage bullet;
+
     public static int map_lvl1[][];
     public static BufferedImage background_lvl1 = ImageLoader.LoadImage("/textures/level1.png");
 
@@ -105,6 +107,9 @@ public class Assets
         SpriteSheet spikes = new SpriteSheet(ImageLoader.LoadImage("/textures/spike.png"),16,16);
         spikeUp = spikes.crop(0,0);
 
+        SpriteSheet food = new SpriteSheet(ImageLoader.LoadImage("/textures/food.png"),16,16);
+        bullet = food.crop(7,2);
+
         // animatiile pentru viata jucatorului
 
         SpriteSheet life = new SpriteSheet(ImageLoader.LoadImage("/textures/HealthUI.png"),33,11);
@@ -142,7 +147,7 @@ public class Assets
 
         SpriteSheet playerLeft = new SpriteSheet(ImageLoader.LoadImage("/textures/CatLeft.png"));
 
-        int ii = 0, jj = 0;
+        int jj = 0;
         for(int i = 0; i < player_animations_left.length; i++)
         {
             for(int j = player_animations_left[i].length-1; j >= 0 ; j--)
@@ -170,7 +175,6 @@ public class Assets
 
         SpriteSheet enemyLeft = new SpriteSheet(ImageLoader.LoadImage("/textures/EnemyLeft.png"),64,64);
 
-        ii = 0;
         jj = 0;
         for(int i = 0; i < enemy_animations_left.length; i++)
         {
@@ -182,7 +186,7 @@ public class Assets
             jj = 0;
         }
 
-        // harta nivelului 1
+        // hartile nivelelor
 
         map_lvl1 = new int[23][80];
         levelReader(map_lvl1,"lvl1.csv");

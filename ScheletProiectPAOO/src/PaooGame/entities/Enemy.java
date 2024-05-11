@@ -23,7 +23,7 @@ public class Enemy extends Entity {
     private boolean movingLeft, movingRight;
 
     private boolean died = false;
-    public static boolean shooting = false;
+    public boolean shooting = false;
 
 
     private float deathAnimTick = 0;
@@ -32,11 +32,14 @@ public class Enemy extends Entity {
 
     private BufferedImage[] current_animation;
 
+    private Bullet b;
+
     public Enemy(float x,float y,int width, int height)
     {
         super(x,y,width,height);
         initHitbox(x,y,28,28);
         movingRight = true;
+        b = new Bullet(this);
     }
 
     @Override
@@ -58,6 +61,8 @@ public class Enemy extends Entity {
     public void render(Graphics g)
     {
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
+
+        b.SHOOT(g);
 
         //debugg
         if(Game.DEBUGG)
@@ -137,20 +142,20 @@ public class Enemy extends Entity {
     private void die_if_attack()
     {
         int coord_playerX = (int) (player.getHitBox().x + player.getHitBox().width);
-            int coord_playerXLeft = (int) (player.getHitBox().x);
-            int coord_playerY = (int) (player.getHitBox().y);
+        int coord_playerXLeft = (int) (player.getHitBox().x);
+        int coord_playerY = (int) (player.getHitBox().y);
 
-            if((coord_playerX + 10 >= enemyCoordX) && (coord_playerXLeft - 10 <= enemyCoordXWidth)
-                    && (coord_playerY >= enemyCoordY) && (coord_playerY <= enemyCoordYHeight)) {
-                if(player.attacking) {
-                    action = EnemyDEATH;
-                    aniIndex = 0;
-                    died = true;
-                }
-                else {
-//                    player.takeDamage();
-                }
+        if((coord_playerX + 10 >= enemyCoordX) && (coord_playerXLeft - 10 <= enemyCoordXWidth)
+                && (coord_playerY >= enemyCoordY) && (coord_playerY <= enemyCoordYHeight)) {
+            if(player.attacking) {
+                action = EnemyDEATH;
+                aniIndex = 0;
+                died = true;
             }
+            else {
+                player.takeDamage();
+            }
+        }
     }
 
     private void deathAnimation()
@@ -171,9 +176,11 @@ public class Enemy extends Entity {
 
         if(!died && playerY == hitBox.y)
         {
-            if((movingLeft && playerX >= hitBox.x - 96 && playerX < hitBox.x) || (movingRight && playerX <= hitBox.x + 96 && playerX > hitBox.x))
+            if((movingLeft && playerX >= hitBox.x - 128 && playerX < hitBox.x) || (movingRight && playerX <= hitBox.x + 128 && playerX > hitBox.x))
                 shooting = true;
         }
-
     }
+
+    public boolean getMovingLeft() { return movingLeft; }
+    public boolean getMovingRight() { return movingRight; }
 }
