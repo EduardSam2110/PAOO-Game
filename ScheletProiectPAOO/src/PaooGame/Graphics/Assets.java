@@ -108,7 +108,7 @@ public class Assets
         spikeUp = spikes.crop(0,0);
 
         SpriteSheet food = new SpriteSheet(ImageLoader.LoadImage("/textures/food.png"),16,16);
-        bullet = food.crop(7,2);
+        bullet = food.crop(5,1);
 
         // animatiile pentru viata jucatorului
 

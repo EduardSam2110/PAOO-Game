@@ -65,7 +65,7 @@ public class Enemy extends Entity {
         b.SHOOT(g);
 
         //debugg
-        if(Game.DEBUGG)
+        if(Game.DEBUG)
             drawHitbox(g);
     }
 
@@ -153,7 +153,7 @@ public class Enemy extends Entity {
                 died = true;
             }
             else {
-                player.takeDamage();
+//                player.takeDamage();
             }
         }
     }

@@ -56,7 +56,7 @@ public class Player extends Entity {
         HealthBar.render(g);
         Score.update(g);
         //debugg
-        if(Game.DEBUGG)
+        if(Game.DEBUG)
             drawHitbox(g);
 
     }

@@ -1,7 +1,6 @@
 package PaooGame.GameWindow;
 
 import PaooGame.Game;
-import PaooGame.entities.Enemy;
 import PaooGame.entities.Player;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -43,7 +42,7 @@ public class KeyboardInput implements KeyListener {
                 break;
                 //debugg
             case KeyEvent.VK_B:
-                Game.DEBUGG = !Game.DEBUGG;
+                Game.DEBUG = !Game.DEBUG;
                 break;
             case KeyEvent.VK_ESCAPE:
                 Game.START_PRESSED =!Game.START_PRESSED;

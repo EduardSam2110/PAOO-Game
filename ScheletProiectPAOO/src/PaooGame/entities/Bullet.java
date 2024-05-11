@@ -7,12 +7,11 @@ import java.awt.*;
 
 import static PaooGame.Game.player;
 import static PaooGame.utils.Camera.xCamera;
-import static PaooGame.utils.Constants.EnemyDEATH;
 
 public class Bullet extends Entity {
     private int x,y;
     private int startpoint;
-    private float speed = 0;
+    private float bulletspeed = 2.5f;
     private Enemy e;
 
 
@@ -20,28 +19,37 @@ public class Bullet extends Entity {
         super((int) e.getHitBox().x,(int) e.getHitBox().y, 16,16);
         this.e = e;
         x = (int) e.getHitBox().x;
-        y = (int) e.getHitBox().y+80;
+        y = (int) e.getHitBox().y+75;
         initHitbox(x,y,8,8);
     }
 
     private void draw(Graphics g)
     {
+        if(e.shooting)
+            g.drawImage(Assets.bullet, (int) hitBox.x - xCamera, (int) hitBox.y,null);
 
-        g.drawImage(Assets.bullet, (int) hitBox.x - xCamera, (int) hitBox.y,null);
-
-        if(Game.DEBUGG)
+        if(Game.DEBUG)
             drawHitbox(g);
     }
 
     private void movement()
     {
-        if(e.shooting) {
+       if(e.shooting) {
             if (e.getMovingLeft()) {
-                hitBox.x -= 2;
+                hitBox.x -= bulletspeed;
+                if(hitBox.x < e.getHitBox().x - 128)
+                    hitBox.x = e.getHitBox().x;
             } else if (e.getMovingRight()) {
-                hitBox.x += 2;
+                hitBox.x += bulletspeed;
+                if(hitBox.x > e.getHitBox().x + 128)
+                    hitBox.x = e.getHitBox().x;
             }
-        }
+       }else{
+           hitBox.x = e.getHitBox().x;
+           hitBox.y = e.getHitBox().y;
+       }
+
+
     }
 
     public void SHOOT(Graphics g)
