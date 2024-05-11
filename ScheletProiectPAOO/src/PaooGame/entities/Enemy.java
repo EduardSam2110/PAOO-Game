@@ -37,7 +37,6 @@ public class Enemy extends Entity {
         super(x,y,width,height);
         initHitbox(x,y,28,28);
         movingRight = true;
-        action = EnemyWALK;
     }
 
     @Override
@@ -102,10 +101,12 @@ public class Enemy extends Entity {
 
     private void setAnimation()
     {
+        action = EnemyWALK;
+
+        shoot();
+
         if(died)
             action = EnemyDEATH;
-        else
-            action = EnemyWALK;
 
         if (inAir == false) {
 
@@ -144,7 +145,6 @@ public class Enemy extends Entity {
                 if(player.attacking) {
                     action = EnemyDEATH;
                     aniIndex = 0;
-                    shooting = false;
                     died = true;
                 }
                 else {
@@ -157,8 +157,23 @@ public class Enemy extends Entity {
     {
         action = EnemyDEATH;
         if(aniIndex < 5) {
-            deathAnimTick += 0.2;
+            deathAnimTick += 0.1;
             aniIndex = (int) deathAnimTick;
         }
+    }
+
+    private void shoot()
+    {
+        int playerX = (int) player.getHitBox().x;
+        int playerY = (int) player.getHitBox().y;
+
+        shooting = false;
+
+        if(!died && playerY == hitBox.y)
+        {
+            if((movingLeft && playerX >= hitBox.x - 96 && playerX < hitBox.x) || (movingRight && playerX <= hitBox.x + 96 && playerX > hitBox.x))
+                shooting = true;
+        }
+
     }
 }
