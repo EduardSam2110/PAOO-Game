@@ -5,9 +5,7 @@ import PaooGame.GameWindow.KeyboardInput;
 import PaooGame.GameWindow.MouseInput;
 import PaooGame.Graphics.Assets;
 import PaooGame.Tiles.LevelManager;
-import PaooGame.entities.Enemy;
-import PaooGame.entities.HealthBar;
-import PaooGame.entities.Player;
+import PaooGame.entities.*;
 import PaooGame.utils.LoadSave;
 
 import java.awt.*;
@@ -89,7 +87,7 @@ public class Game implements Runnable
         \param height Inaltimea ferestrei in pixeli.
      */
 
-    private Enemy enemy1, enemy2;
+//    private Entity simpleEnemy1, simpleEnemy2;
 
     private LevelManager levelManager;
 
@@ -142,7 +140,9 @@ public class Game implements Runnable
         Assets.Init();
         Assets.LoadBackgroudTiles();
         levelManager = new LevelManager();
-        enemy1 = new Enemy(900,220,128,128);
+
+//        simpleEnemy1 = EnemyFactory.factoryMethod("simple",900,220);
+//        simpleEnemy1 = new SimpleEnemy(900,220,128,128);
 //        enemy2 = new Enemy(1800,200,128,128);
 
     }
@@ -249,7 +249,7 @@ public class Game implements Runnable
         if(START_PRESSED){
             Player.getInstance().update();
             levelManager.update(Player.getInstance());
-            enemy1.update();
+//            simpleEnemy1.update();
 //            enemy2.update();
         }
         else if(LOAD_SELECTED)
@@ -301,7 +301,7 @@ public class Game implements Runnable
             if (HealthBar.health > 0) {
                 levelManager.draw(g);
                 Player.getInstance().render(g);
-                enemy1.render(g);
+//                simpleEnemy1.render(g);
 //                enemy2.render(g);
             } else
                 g.drawImage(game_over, 0, 0, 1280, 720, null);

@@ -8,10 +8,9 @@ import java.awt.image.BufferedImage;
 import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static PaooGame.utils.Camera.xCamera;
-import static PaooGame.Game.*;
 import static PaooGame.utils.Constants.*;
 
-public class Enemy extends Entity {
+public class SimpleEnemy extends Entity {
 
 
     private float xDrawOffset = 40;
@@ -34,7 +33,7 @@ public class Enemy extends Entity {
 
     private Bullet b;
 
-    public Enemy(float x,float y,int width, int height)
+    public SimpleEnemy(float x, float y, int width, int height)
     {
         super(x,y,width,height);
         initHitbox(x,y,28,28);
@@ -60,6 +59,7 @@ public class Enemy extends Entity {
     @Override
     public void render(Graphics g)
     {
+
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
 
         b.SHOOT(g);

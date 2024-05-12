@@ -12,10 +12,10 @@ public class Bullet extends Entity {
     private int x,y;
     private int startpoint;
     private float bulletspeed = 2f;
-    private Enemy e;
+    private SimpleEnemy e;
 
 
-    public Bullet(Enemy e) {
+    public Bullet(SimpleEnemy e) {
         super((int) e.getHitBox().x,(int) e.getHitBox().y, 16,16);
         this.e = e;
         x = (int) e.getHitBox().x;
