@@ -29,7 +29,7 @@ public class SimpleEnemy extends Entity {
 
     private int enemyCoordX, enemyCoordY, enemyCoordYHeight, enemyCoordXWidth;
 
-    private BufferedImage[] current_animation;
+    private BufferedImage[] current_animation = enemy_animations_right[EnemyIDLE];
 
     private Bullet b;
 

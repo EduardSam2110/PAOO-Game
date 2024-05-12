@@ -24,6 +24,7 @@ public class LevelManager {
     public LevelManager()
     {
         setLevel();
+        addEntities();
         getEscapePos();
     }
 
@@ -50,26 +51,17 @@ public class LevelManager {
     {
         // functia seteaza nivelul in functie de numarul lui (variabila level)
 
-        EnemyFactory f = new EnemyFactory();
-
         switch(level)
         {
             case 1:
-                entities.clear();
                 map = map_lvl1;
                 background = background_lvl1;
-
-                entities.add(f.factoryMethod("simple",900,200));
-                entities.add(f.factoryMethod("simple",1800,200));
-
                 break;
             case 2:
-                entities.clear();
                 map = map_lvl2;
                 background = background_lvl2;
                 break;
             case 3:
-                entities.clear();
                 map = map_lvl3;
                 background = background_lvl3;
                 break;
@@ -77,6 +69,31 @@ public class LevelManager {
                 break;
         }
     }
+
+    private void addEntities()
+    {
+        EnemyFactory f = new EnemyFactory();
+
+        switch(level)
+        {
+            case 1:
+                entities.clear();
+                entities.add(f.factoryMethod("simple", 900, 200));
+                entities.add(f.factoryMethod("simple", 1800, 200));
+                break;
+            case 2:
+                entities.clear();
+                entities.add(f.factoryMethod("simple", 900, 200));
+                break;
+            case 3:
+                entities.clear();
+
+                break;
+            default:
+                break;
+        }
+    }
+
     public void draw(Graphics g)
     {
         g.drawImage(background,0,0,null);
@@ -98,6 +115,7 @@ public class LevelManager {
             p.resetPlayerPos();
             ++level;
             setLevel();
+            addEntities();
         }
     }
 
