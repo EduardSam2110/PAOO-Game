@@ -60,7 +60,7 @@ public class LevelManager {
                 background = background_lvl1;
 
                 entities.add(f.factoryMethod("simple",900,200));
-                entities.add(f.factoryMethod("simple",700,200));
+                entities.add(f.factoryMethod("simple",1800,200));
 
                 break;
             case 2:

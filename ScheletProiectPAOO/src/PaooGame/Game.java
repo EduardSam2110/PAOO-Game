@@ -86,10 +86,7 @@ public class Game implements Runnable
         \param width Latimea ferestrei in pixeli.
         \param height Inaltimea ferestrei in pixeli.
      */
-
-//    private Entity simpleEnemy1, simpleEnemy2;
-
-    private LevelManager levelManager;
+    private static LevelManager levelManager;
 
     public static boolean START_PRESSED = false; // true daca s-a apasat butonul de start sau tasta ENTER
     public static boolean  EXIT_PRESSED = false;
@@ -140,11 +137,6 @@ public class Game implements Runnable
         Assets.Init();
         Assets.LoadBackgroudTiles();
         levelManager = new LevelManager();
-
-//        simpleEnemy1 = EnemyFactory.factoryMethod("simple",900,220);
-//        simpleEnemy1 = new SimpleEnemy(900,220,128,128);
-//        enemy2 = new Enemy(1800,200,128,128);
-
     }
 
     /*! \fn public void run()
@@ -249,8 +241,6 @@ public class Game implements Runnable
         if(START_PRESSED){
             Player.getInstance().update();
             levelManager.update(Player.getInstance());
-//            simpleEnemy1.update();
-//            enemy2.update();
         }
         else if(LOAD_SELECTED)
         {
@@ -301,8 +291,6 @@ public class Game implements Runnable
             if (HealthBar.health > 0) {
                 levelManager.draw(g);
                 Player.getInstance().render(g);
-//                simpleEnemy1.render(g);
-//                enemy2.render(g);
             } else
                 g.drawImage(game_over, 0, 0, 1280, 720, null);
         }
