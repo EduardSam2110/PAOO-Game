@@ -88,7 +88,7 @@ public class Game implements Runnable
         \param width Latimea ferestrei in pixeli.
         \param height Inaltimea ferestrei in pixeli.
      */
-    public static Player player;
+
     private Enemy enemy1, enemy2;
 
     private LevelManager levelManager;
@@ -128,8 +128,8 @@ public class Game implements Runnable
     // Functia intializeaza input-urile Mouse si Keyboard si adauga Listener la fereastra jocului
     void initInput()
     {
-        inputKeyboard = new KeyboardInput(player);
-        inputMouse = new MouseInput(player);
+        inputKeyboard = new KeyboardInput(Player.getInstance());
+        inputMouse = new MouseInput(Player.getInstance());
         wnd.GetCanvas().addKeyListener(inputKeyboard);
         wnd.GetCanvas().addMouseListener(inputMouse);
         wnd.GetCanvas().setFocusable(true);
@@ -142,9 +142,8 @@ public class Game implements Runnable
         Assets.Init();
         Assets.LoadBackgroudTiles();
         levelManager = new LevelManager();
-        player = new Player(90,450,64,64);
         enemy1 = new Enemy(900,220,128,128);
-        enemy2 = new Enemy(1800,200,128,128);
+//        enemy2 = new Enemy(1800,200,128,128);
 
     }
 
@@ -248,20 +247,20 @@ public class Game implements Runnable
     private void Update() {
 
         if(START_PRESSED){
-            player.update();
-            levelManager.update(player);
+            Player.getInstance().update();
+            levelManager.update(Player.getInstance());
             enemy1.update();
-            enemy2.update();
+//            enemy2.update();
         }
         else if(LOAD_SELECTED)
         {
-            LoadSave.LoadGame(player);
+            LoadSave.LoadGame(Player.getInstance());
             LOAD_SELECTED = false;
         }
 
         if(EXIT_PRESSED)
         {
-            LoadSave.SaveGameState(player);
+            LoadSave.SaveGameState(Player.getInstance());
             System.exit(0);
         }
     }
@@ -301,9 +300,9 @@ public class Game implements Runnable
         if(START_PRESSED) {
             if (HealthBar.health > 0) {
                 levelManager.draw(g);
-                player.render(g);
+                Player.getInstance().render(g);
                 enemy1.render(g);
-                enemy2.render(g);
+//                enemy2.render(g);
             } else
                 g.drawImage(game_over, 0, 0, 1280, 720, null);
         }
@@ -321,7 +320,7 @@ public class Game implements Runnable
 
     public void windowsFocusLost()
     {
-        player.resetDirBooleans();
+        Player.getInstance().resetDirBooleans();
     }
 }
 

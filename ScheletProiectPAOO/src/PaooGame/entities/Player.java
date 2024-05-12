@@ -30,13 +30,23 @@ public class Player extends Entity {
     // viteza jucatorului in timpul miscarii
     public static float xSpeed;
 
-    public Player(float x,float y,int width, int height)
+    private static Player instance;
+
+    private Player(float x,float y,int width, int height)
     {
         super(x,y,width,height);
         initHitbox(x,y,19,28);
         initAnimations();
         checkAtStart();
         action = IDLE;
+    }
+
+    public static Player getInstance()
+    {
+        if(instance == null)
+            instance = new Player(90,450,64,64);
+
+        return instance;
     }
 
     @Override

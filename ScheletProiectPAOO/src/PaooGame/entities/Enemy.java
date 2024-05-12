@@ -16,13 +16,13 @@ public class Enemy extends Entity {
 
     private float xDrawOffset = 40;
     private float yDrawOffset = 60;
-    private int enemySpeed = 2;
+    private float enemySpeed = 2f;
 
     private float xSpeedEnemy;
 
     private boolean movingLeft, movingRight;
 
-    private boolean died = false;
+    public boolean died = false;
     public boolean shooting = false;
 
 
@@ -141,13 +141,13 @@ public class Enemy extends Entity {
     //functia verifica coliziunea playerului cu inamicul si seteaza care din cei doi moare
     private void die_if_attack()
     {
-        int coord_playerX = (int) (player.getHitBox().x + player.getHitBox().width);
-        int coord_playerXLeft = (int) (player.getHitBox().x);
-        int coord_playerY = (int) (player.getHitBox().y);
+        int coord_playerX = (int) (Player.getInstance().getHitBox().x + Player.getInstance().getHitBox().width);
+        int coord_playerXLeft = (int) (Player.getInstance().getHitBox().x);
+        int coord_playerY = (int) (Player.getInstance().getHitBox().y);
 
         if((coord_playerX + 10 >= enemyCoordX) && (coord_playerXLeft - 10 <= enemyCoordXWidth)
                 && (coord_playerY >= enemyCoordY) && (coord_playerY <= enemyCoordYHeight)) {
-            if(player.attacking) {
+            if(Player.getInstance().attacking) {
                 action = EnemyDEATH;
                 aniIndex = 0;
                 died = true;
@@ -169,8 +169,8 @@ public class Enemy extends Entity {
 
     private void shoot()
     {
-        int playerX = (int) player.getHitBox().x;
-        int playerY = (int) player.getHitBox().y;
+        int playerX = (int) Player.getInstance().getHitBox().x;
+        int playerY = (int) Player.getInstance().getHitBox().y;
 
         shooting = false;
 

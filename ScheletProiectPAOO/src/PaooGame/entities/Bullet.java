@@ -5,13 +5,13 @@ import PaooGame.Graphics.Assets;
 
 import java.awt.*;
 
-import static PaooGame.Game.player;
+//import static PaooGame.Game.player;
 import static PaooGame.utils.Camera.xCamera;
 
 public class Bullet extends Entity {
     private int x,y;
     private int startpoint;
-    private float bulletspeed = 2.5f;
+    private float bulletspeed = 2f;
     private Enemy e;
 
 
@@ -56,17 +56,18 @@ public class Bullet extends Entity {
     {
         draw(g);
         movement();
-        die_if_attack();
+        if(!e.died)
+            die_if_attack();
     }
 
     private void die_if_attack()
     {
-        int playerX = (int) player.getHitBox().x;
-        int playerY = (int) player.getHitBox().y;
+        int playerX = (int) Player.getInstance().getHitBox().x;
+        int playerY = (int) Player.getInstance().getHitBox().y;
 
-        if((hitBox.y >= playerY) && (hitBox.y + hitBox.height <= playerY + player.getHitBox().height))
-            if((hitBox.x >= playerX) && (hitBox.x + hitBox.width <= playerX + player.getHitBox().width))
-                player.takeDamage();
+        if((hitBox.y >= playerY) && (hitBox.y + hitBox.height <= playerY + Player.getInstance().getHitBox().height))
+            if((hitBox.x >= playerX) && (hitBox.x + hitBox.width <= playerX + Player.getInstance().getHitBox().width))
+                Player.getInstance().takeDamage();
     }
 }
 
