@@ -1,5 +1,6 @@
 package PaooGame;
 
+import PaooGame.GameState.*;
 import PaooGame.GameWindow.GameWindow;
 import PaooGame.GameWindow.KeyboardInput;
 import PaooGame.GameWindow.MouseInput;
@@ -10,10 +11,7 @@ import PaooGame.utils.LoadSave;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.util.logging.Level;
 
-import static PaooGame.Graphics.Assets.game_over;
-import static PaooGame.Graphics.Assets.start_game;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 
 /*! \class Game
@@ -87,7 +85,9 @@ public class Game implements Runnable
         \param width Latimea ferestrei in pixeli.
         \param height Inaltimea ferestrei in pixeli.
      */
-    private static LevelManager levelManager;
+    public static LevelManager levelManager;
+
+    private GameState state;
 
     public static boolean START_PRESSED = false; // true daca s-a apasat butonul de start sau tasta ENTER
     public static boolean  EXIT_PRESSED = false;
@@ -138,6 +138,7 @@ public class Game implements Runnable
         Assets.Init();
         Assets.LoadBackgroudTiles();
         levelManager = new LevelManager();
+        state = new PauseState();
     }
 
     /*! \fn public void run()
@@ -239,21 +240,24 @@ public class Game implements Runnable
 
     private void Update() {
 
-        if(START_PRESSED){
-            Player.getInstance().update();
-            levelManager.update(Player.getInstance());
-        }
-        else if(LOAD_SELECTED)
-        {
-            LoadSave.LoadGame(Player.getInstance());
-            LOAD_SELECTED = false;
-        }
+//        if(START_PRESSED){
+//            state.updateRequest();
+//        }
+//        else if(LOAD_SELECTED)
+//        {
+//            LoadSave.LoadGame(Player.getInstance());
+//            LOAD_SELECTED = false;
+//        }
+//
+//        if(EXIT_PRESSED)
+//        {
+//            LoadSave.SaveGameState(Player.getInstance());
+//            System.exit(0);
+//        }
 
-        if(EXIT_PRESSED)
-        {
-            LoadSave.SaveGameState(Player.getInstance());
-            System.exit(0);
-        }
+        MenuControl.updateRequest(this);
+
+        state.updateRequest();
     }
 
     /*! \fn private void Draw()
@@ -288,15 +292,14 @@ public class Game implements Runnable
         g.setColor(Color.WHITE);
         g.fillRect(0,0,wnd.GetWndWidth(),wnd.GetWndHeight());
 
-        if(START_PRESSED) {
-            if (HealthBar.health > 0) {
-                levelManager.draw(g);
-                Player.getInstance().render(g);
-            } else
-                g.drawImage(game_over, 0, 0, 1280, 720, null);
-        }
-        else
-            g.drawImage(start_game,0,0,1280,720,null);
+//        if(START_PRESSED) {
+//            state.renderRequest(g);
+////                g.drawImage(game_over, 0, 0, 1280, 720, null);
+//        }
+//        else
+//            g.drawImage(start_game,0,0,1280,720,null);
+
+        state.renderRequest(g);
 
             // end operatie de desenare
             /// Se afiseaza pe ecran
@@ -310,6 +313,11 @@ public class Game implements Runnable
     public void windowsFocusLost()
     {
         Player.getInstance().resetDirBooleans();
+    }
+
+    public void setState(GameState newState)
+    {
+        state = newState;
     }
 }
 

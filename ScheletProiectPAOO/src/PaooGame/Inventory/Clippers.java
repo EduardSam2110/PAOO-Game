@@ -1,5 +1,6 @@
 package PaooGame.Inventory;
 
+import PaooGame.Game;
 import PaooGame.Graphics.Assets;
 import PaooGame.entities.Entity;
 import PaooGame.entities.Player;
@@ -35,10 +36,12 @@ public class Clippers extends ItemAbstractClass {
        if(!collected)
        {
            g.drawImage(Assets.clipperstxt, (int) hitBox.x - xCamera, (int) hitBox.y,16,16,null);
-           drawHitbox(g);
        }
        else
-           g.drawImage(Assets.clipperstxt, 1200 - xCamera, 30,32,32,null);
+           g.drawImage(Assets.clipperstxt, 620, 20,32,32,null);
+
+       if(Game.DEBUG)
+           drawHitbox(g);
     }
 
     @Override
