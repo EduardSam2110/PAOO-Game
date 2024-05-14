@@ -1,11 +1,13 @@
 package PaooGame.entities;
 
 import PaooGame.Game;
+import PaooGame.Inventory.Clippers;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static PaooGame.Graphics.Assets.*;
+import static PaooGame.Tiles.LevelManager.clippers;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static PaooGame.utils.Camera.xCamera;
 import static PaooGame.utils.Constants.*;
@@ -24,6 +26,8 @@ public class SimpleEnemy extends Entity {
     public boolean died = false;
     public boolean shooting = false;
 
+    public boolean continsClippers = false;
+
 
     private float deathAnimTick = 0;
 
@@ -39,6 +43,15 @@ public class SimpleEnemy extends Entity {
         initHitbox(x,y,28,28);
         movingRight = true;
         b = new Bullet(this);
+    }
+
+    public SimpleEnemy(float x, float y, int width, int height, boolean containsClippers)
+    {
+        super(x,y,width,height);
+        initHitbox(x,y,28,28);
+        movingRight = true;
+        b = new Bullet(this);
+        this.continsClippers = containsClippers;
     }
 
     @Override

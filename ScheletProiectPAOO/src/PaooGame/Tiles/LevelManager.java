@@ -1,5 +1,6 @@
 package PaooGame.Tiles;
 
+import PaooGame.Inventory.Clippers;
 import PaooGame.entities.EnemyFactory;
 import PaooGame.entities.Entity;
 import PaooGame.entities.Player;
@@ -21,6 +22,8 @@ public class LevelManager {
 
     private static ArrayList<Entity> entities =  new ArrayList<>();
 
+    public static Clippers clippers;
+
     public LevelManager()
     {
         setLevel();
@@ -31,20 +34,26 @@ public class LevelManager {
     public void update(Player p)
     {
         //functie de update pentru a trece la nivelurile urmatoare
+        setLevel();
         entitiesUpdate();
         passLevel(p);
+        clippers.pickItem(p);
     }
 
     private void entitiesUpdate()
     {
         for(Entity e: entities)
             e.update();
+
+
     }
 
     private void entitiesRender(Graphics g)
     {
         for(Entity e: entities)
             e.render(g);
+
+        clippers.render(g);
     }
 
     private void setLevel()
@@ -78,12 +87,12 @@ public class LevelManager {
         {
             case 1:
                 entities.clear();
-                entities.add(f.factoryMethod("simple", 900, 200));
-                entities.add(f.factoryMethod("simple", 1800, 200));
+                entities.add(f.factoryMethod("simple", 900, 200, true));
+                entities.add(f.factoryMethod("simple", 1800, 200, false));
                 break;
             case 2:
                 entities.clear();
-                entities.add(f.factoryMethod("simple", 900, 200));
+                entities.add(f.factoryMethod("simple", 900, 200, false));
                 break;
             case 3:
                 entities.clear();
@@ -92,6 +101,8 @@ public class LevelManager {
             default:
                 break;
         }
+
+        clippers = Clippers.setTarget(entities);
     }
 
     public void draw(Graphics g)

@@ -13,7 +13,7 @@ public abstract class Entity {
 
     protected float x,y;
     protected int width, height;
-    protected Rectangle2D.Float hitBox; // dreptunghiul pentru coliziuni
+    public Rectangle2D.Float hitBox; // dreptunghiul pentru coliziuni
 
 
     protected static int[][] levelData;

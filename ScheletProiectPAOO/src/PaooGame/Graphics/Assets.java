@@ -54,6 +54,8 @@ public class Assets
 
     public static BufferedImage bullet;
 
+    public static BufferedImage clipperstxt;
+
     public static int map_lvl1[][];
     public static BufferedImage background_lvl1 = ImageLoader.LoadImage("/textures/level1.png");
 
@@ -120,6 +122,9 @@ public class Assets
         {
             health_bar[i] = life.crop(0,i*2);
         }
+
+        SpriteSheet garden = new SpriteSheet(ImageLoader.LoadImage("/textures/clippers.png"),16,16);
+        clipperstxt = garden.crop(1,9);
 
         // spritesheet pentru scor
 

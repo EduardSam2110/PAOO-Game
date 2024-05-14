@@ -10,6 +10,7 @@ import PaooGame.utils.LoadSave;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.logging.Level;
 
 import static PaooGame.Graphics.Assets.game_over;
 import static PaooGame.Graphics.Assets.start_game;

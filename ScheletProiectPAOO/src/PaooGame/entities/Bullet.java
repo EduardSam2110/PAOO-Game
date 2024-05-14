@@ -56,8 +56,8 @@ public class Bullet extends Entity {
     {
         draw(g);
         movement();
-        if(!e.died)
-            die_if_attack();
+//        if(!e.died)
+//            die_if_attack();
     }
 
     private void die_if_attack()
