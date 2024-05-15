@@ -29,7 +29,7 @@ public class SuperPaw extends ItemAbstractClass {
         if (!collected) {
             g.drawImage(Assets.superPaw, (int) hitBox.x - xCamera, (int) hitBox.y, 16, 16, null);
         } else
-            g.drawImage(Assets.superPaw, 670, 20, 32, 32, null);
+            g.drawImage(Assets.superPaw, 670, 20, 40, 40, null);
 
         if(Game.DEBUG)
             drawHitbox(g);
