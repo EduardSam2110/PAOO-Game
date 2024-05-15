@@ -82,7 +82,6 @@ public class LoadSave {
             pstmt.setInt(6, Camera.xCamera);
             pstmt.executeUpdate();
             System.out.println("Updated successfully");
-            CloseConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }

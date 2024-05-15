@@ -56,6 +56,9 @@ public class KeyboardInput implements KeyListener {
             case KeyEvent.VK_R:
                 Game.RESET_PRESSED = true;
                 break;
+            case KeyEvent.VK_K:
+                Game.SAVE_SELECTED = true;
+                break;
             default:
                 break;
         }
