@@ -12,7 +12,7 @@ public abstract class ItemAbstractClass {
     protected int x,y;
     protected Rectangle2D.Float hitBox;
     protected boolean collected = false;
-    protected boolean used = false;
+    public boolean used = false;
 
     protected void initHitbox(float x, float y, float width, float height) {
         hitBox = new Rectangle2D.Float(x,y,width,height);

@@ -26,14 +26,10 @@ public class SuperPaw extends ItemAbstractClass {
     @Override
     public void render(Graphics g)
     {
-
-
-        if(!used) {
-            if (!collected) {
-                g.drawImage(Assets.superPaw,(int) hitBox.x - xCamera,(int) hitBox.y,16,16, null);
-            } else
-                g.drawImage(Assets.superPaw,670,20,32,32, null);
-        }
+        if (!collected) {
+            g.drawImage(Assets.superPaw, (int) hitBox.x - xCamera, (int) hitBox.y, 16, 16, null);
+        } else
+            g.drawImage(Assets.superPaw, 670, 20, 32, 32, null);
 
         if(Game.DEBUG)
             drawHitbox(g);
@@ -42,8 +38,9 @@ public class SuperPaw extends ItemAbstractClass {
     @Override
     public void pickItem(Player p){
         if (hitBox.x > p.hitBox.x && hitBox.x + hitBox.width < p.hitBox.x + p.hitBox.width)
-            if (hitBox.y > p.hitBox.y && hitBox.y + hitBox.height < p.hitBox.y + p.hitBox.height)
-                collected = true;
+            if (hitBox.y > p.hitBox.y && hitBox.y + hitBox.height < p.hitBox.y + p.hitBox.height) {
+                collected = used = true;
+            }
     };
 
     @Override
