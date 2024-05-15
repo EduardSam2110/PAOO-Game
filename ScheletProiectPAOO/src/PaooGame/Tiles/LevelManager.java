@@ -34,10 +34,10 @@ public class LevelManager {
     public void update(Player p)
     {
         //functie de update pentru a trece la nivelurile urmatoare
-        setLevel();
         entitiesUpdate();
         passLevel(p);
-        clippers.pickItem(p);
+        if(clippers != null)
+            clippers.pickItem(p);
     }
 
     private void entitiesUpdate()
@@ -53,7 +53,8 @@ public class LevelManager {
         for(Entity e: entities)
             e.render(g);
 
-        clippers.render(g);
+        if(clippers != null)
+            clippers.render(g);
     }
 
     private void setLevel()
@@ -92,7 +93,7 @@ public class LevelManager {
                 break;
             case 2:
                 entities.clear();
-                entities.add(f.factoryMethod("simple", 900, 200, false));
+                entities.add(f.factoryMethod("simple", 900, 200, true));
                 break;
             case 3:
                 entities.clear();

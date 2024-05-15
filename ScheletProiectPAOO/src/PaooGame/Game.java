@@ -92,6 +92,7 @@ public class Game implements Runnable
     public static boolean START_PRESSED = false; // true daca s-a apasat butonul de start sau tasta ENTER
     public static boolean  EXIT_PRESSED = false;
     public static boolean  LOAD_SELECTED = false;
+    public static boolean  RESET_PRESSED = false;
 
     private KeyboardInput inputKeyboard;
     private MouseInput inputMouse;
