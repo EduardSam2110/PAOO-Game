@@ -18,7 +18,7 @@ public class LevelManager {
     private static int[][] map;
     private static BufferedImage background;
     public static int level = 1;
-    private static int i_index = 0, j_index = 0;
+    public static int gateXpos = 0, gateYpos = 0;
 
     private static ArrayList<Entity> entities =  new ArrayList<>();
 
@@ -35,9 +35,11 @@ public class LevelManager {
     {
         //functie de update pentru a trece la nivelurile urmatoare
         entitiesUpdate();
-        passLevel(p);
-        if(clippers != null)
+//        passLevel(p);
+        if(clippers != null) {
             clippers.pickItem(p);
+            clippers.useItem(p);
+        }
     }
 
     private void entitiesUpdate()
@@ -45,6 +47,8 @@ public class LevelManager {
         for(Entity e: entities)
             e.update();
 
+        if(clippers != null)
+            clippers.update();
 
     }
 
@@ -122,13 +126,13 @@ public class LevelManager {
 
     public void passLevel(Player p)
     {
-        if((p.getHitBox().x > j_index * 32) && (p.getHitBox().y > i_index * 32))
-        {
+//        if((p.getHitBox().x > gateYpos * 32) && (p.getHitBox().y > gateXpos * 32))
+//        {
             p.resetPlayerPos();
             ++level;
             setLevel();
             addEntities();
-        }
+//        }
     }
 
     private void getEscapePos()
@@ -136,10 +140,10 @@ public class LevelManager {
         for(int i = 0; i < map.length;i++)
             for(int j = 0; j < map[i].length; j++)
             {
-                if(map[i][j] == Tile.sewer_hole2.GetId())
+                if(map[i][j] == Tile.sewer_hole2.GetId()) // SCHIMBA SA FIE SI CELELALTE SEWER HOLES SI VEZI SA FGOLOSESTI DOAR ALEA 2 O DATA
                 {
-                    i_index = i;
-                    j_index = j;
+                    gateXpos = i;
+                    gateYpos = j;
                     break;
                 }
             }

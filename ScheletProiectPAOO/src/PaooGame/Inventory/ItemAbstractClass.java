@@ -12,10 +12,13 @@ public abstract class ItemAbstractClass {
     protected int x,y;
     protected Rectangle2D.Float hitBox;
     protected boolean collected = false;
+    protected boolean used = false;
+    protected SimpleEnemy e;
 
     protected ItemAbstractClass(SimpleEnemy e)
     {
         initHitbox(e.getHitBox().x, e.getHitBox().y + e.getHitBox().height, 8,8);
+        this.e = e;
     }
 
     protected void initHitbox(float x, float y, float width, float height) {
@@ -28,9 +31,9 @@ public abstract class ItemAbstractClass {
         g.drawRect((int)hitBox.x - xCamera,(int)hitBox.y,(int)hitBox.width,(int)hitBox.height);
     }
 
-    protected void request(){};
+    protected void update(){};
     protected void render(Graphics g){};
     protected void pickItem(Player p){};
-    protected void useItem(Player p){};
+    public void useItem(Player p){};
 }
 

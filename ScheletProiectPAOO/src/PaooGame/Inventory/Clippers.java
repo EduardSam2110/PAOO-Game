@@ -9,36 +9,38 @@ import PaooGame.entities.SimpleEnemy;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static PaooGame.Game.levelManager;
+import static PaooGame.Tiles.LevelManager.gateXpos;
+import static PaooGame.Tiles.LevelManager.gateYpos;
 import static PaooGame.utils.Camera.xCamera;
 
 public class Clippers extends ItemAbstractClass {
+
+    private int drawingOffset = 10;
+
     private Clippers(SimpleEnemy e) {
         super(e);
     }
 
-//    public static Clippers getInstnce()
-//    {
-//        if(clippers == null)
-//            clippers = new Clippers();
-//
-//        return clippers;
-//    }
 
     @Override
-    public void request()
+    public void update()
     {
-
+        this.hitBox.x = (int) e.hitBox.x + drawingOffset;
+        this.hitBox.y = (int) e.hitBox.y + drawingOffset;
     }
 
     @Override
     public void render(Graphics g)
     {
-       if(!collected)
-       {
-           g.drawImage(Assets.clipperstxt, (int) hitBox.x - xCamera, (int) hitBox.y,16,16,null);
-       }
-       else
-           g.drawImage(Assets.clipperstxt, 620, 20,32,32,null);
+        if(e.died){
+            if(!used) {
+                if (!collected) {
+                    g.drawImage(Assets.clipperstxt, (int) hitBox.x - xCamera, (int) hitBox.y, 16, 16, null);
+                } else
+                    g.drawImage(Assets.clipperstxt, 620, 20, 32, 32, null);
+            }
+        }
 
        if(Game.DEBUG)
            drawHitbox(g);
@@ -46,14 +48,23 @@ public class Clippers extends ItemAbstractClass {
 
     @Override
     public void pickItem(Player p){
-        if(hitBox.x > p.hitBox.x  && hitBox.x + hitBox.width < p.hitBox.x + p.hitBox.width)
-            if(hitBox.y > p.hitBox.y && hitBox.y + hitBox.height < p.hitBox.y + p.hitBox.height)
-                collected = true;
+        if(e.died){
+            if (hitBox.x > p.hitBox.x && hitBox.x + hitBox.width < p.hitBox.x + p.hitBox.width)
+                if (hitBox.y > p.hitBox.y && hitBox.y + hitBox.height < p.hitBox.y + p.hitBox.height)
+                    collected = true;
+        }
     };
 
     @Override
-    protected void useItem(Player p){
-
+    public void useItem(Player p){
+        if(collected)
+        {
+            if((p.getHitBox().x > gateYpos * 32) && (p.getHitBox().y > gateXpos * 32))
+            {
+                used = true;
+                levelManager.passLevel(p);
+            }
+        }
     };
 
     public static Clippers setTarget(ArrayList<Entity> arr) // seteaza care este inamicul care are variabila contiansClippers pe true

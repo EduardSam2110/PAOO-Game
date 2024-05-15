@@ -11,7 +11,7 @@ public class SuperPaw extends ItemAbstractClass {
     }
 
     @Override
-    public void request()
+    public void update()
     {
 
     }

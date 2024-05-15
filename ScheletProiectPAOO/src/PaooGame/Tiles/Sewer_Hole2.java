@@ -2,6 +2,8 @@ package PaooGame.Tiles;
 
 import PaooGame.Graphics.Assets;
 
+import java.awt.*;
+
 public class Sewer_Hole2 extends Tile{
     public Sewer_Hole2(int id)
     {
@@ -11,5 +13,10 @@ public class Sewer_Hole2 extends Tile{
     @Override
     public boolean IsSolid() {
         return false;
+    }
+
+    @Override
+    public void Update() {
+
     }
 }
