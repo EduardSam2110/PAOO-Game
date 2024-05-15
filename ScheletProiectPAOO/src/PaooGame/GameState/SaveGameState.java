@@ -8,6 +8,7 @@ import static PaooGame.Game.*;
 import java.awt.*;
 
 public class SaveGameState implements GameState {
+
     @Override
     public void renderRequest(Graphics g) {
 
