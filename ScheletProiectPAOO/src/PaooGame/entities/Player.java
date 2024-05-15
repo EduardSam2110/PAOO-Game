@@ -63,7 +63,7 @@ public class Player extends Entity {
     @Override
     public void render(Graphics g) {
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
-        HealthBar.render(g);
+        health.render(g);
         Score.update(g);
         //debugg
         if(Game.DEBUG)
@@ -228,7 +228,7 @@ public class Player extends Entity {
     {
         hitBox.x = x;
         hitBox.y = y;
-        HealthBar.health = health;
+        this.health.lifeCount = health;
         Score.current_score = (float) score;
         LevelManager.level = lvl;
         xCamera = xCam;
@@ -248,9 +248,12 @@ public class Player extends Entity {
 
     public void takeDamage()
     {
-        if(HealthBar.health > 0)
-            --HealthBar.health;
-        resetPlayerPos();
+        if(health.lifeCount > 1) {
+            --health.lifeCount;
+            resetPlayerPos();
+        }
+        else
+            died = true;
     }
 
     public void resetPlayerPos()
@@ -260,4 +263,12 @@ public class Player extends Entity {
         inAir = true;
         Camera.resetCamera();
     }
+
+    public void resetAll()
+    {
+        died = false;
+        health.lifeCount = 3;
+        resetPlayerPos();
+    }
+
 }

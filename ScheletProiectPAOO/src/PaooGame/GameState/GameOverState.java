@@ -14,6 +14,5 @@ public class GameOverState implements GameState{
 
     @Override
     public void updateRequest() {
-        START_PRESSED = false;
     }
 }

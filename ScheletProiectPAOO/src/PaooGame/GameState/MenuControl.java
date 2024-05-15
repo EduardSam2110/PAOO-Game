@@ -5,6 +5,7 @@ import java.awt.*;
 import PaooGame.Game;
 import PaooGame.Game.*;
 import PaooGame.entities.HealthBar;
+import PaooGame.entities.Player;
 
 import static PaooGame.Game.*;
 
@@ -13,15 +14,12 @@ public class MenuControl {
 
         if(RESET_PRESSED)
         {
-            START_PRESSED = true;
-            RESET_PRESSED = false;
+            g.setState(new ResetGameState());
         }
-
-        if(EXIT_PRESSED)
+        else if(EXIT_PRESSED)
             g.setState(new ExitState());
-        else if(HealthBar.health == 2) {
+        else if(Player.getInstance().died) {
             g.setState(new GameOverState());
-            HealthBar.health = 3;
         } else if(LOAD_SELECTED) {
             g.setState(new LoadGameState());
             LOAD_SELECTED = false;
@@ -30,7 +28,7 @@ public class MenuControl {
         else if(START_PRESSED) {
             g.setState(new StartState());
         }
-//        else if(!START_PRESSED)
+//        else
 //            g.setState(new PauseState());
     }
 }

@@ -241,24 +241,10 @@ public class Game implements Runnable
 
     private void Update() {
 
-//        if(START_PRESSED){
-//            state.updateRequest();
-//        }
-//        else if(LOAD_SELECTED)
-//        {
-//            LoadSave.LoadGame(Player.getInstance());
-//            LOAD_SELECTED = false;
-//        }
-//
-//        if(EXIT_PRESSED)
-//        {
-//            LoadSave.SaveGameState(Player.getInstance());
-//            System.exit(0);
-//        }
-
         MenuControl.updateRequest(this);
 
         state.updateRequest();
+
     }
 
     /*! \fn private void Draw()
@@ -292,13 +278,6 @@ public class Game implements Runnable
 
         g.setColor(Color.WHITE);
         g.fillRect(0,0,wnd.GetWndWidth(),wnd.GetWndHeight());
-
-//        if(START_PRESSED) {
-//            state.renderRequest(g);
-////                g.drawImage(game_over, 0, 0, 1280, 720, null);
-//        }
-//        else
-//            g.drawImage(start_game,0,0,1280,720,null);
 
         state.renderRequest(g);
 

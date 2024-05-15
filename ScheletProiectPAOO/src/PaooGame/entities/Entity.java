@@ -21,7 +21,7 @@ public abstract class Entity {
     // variabilele ce tin de gravitatie si jump
     protected float airSpeed = 0f;
     protected float gravity = 0.1f;
-    protected float jumpSpeed = -14f;
+    protected float jumpSpeed = -4f;
     protected float fallSpeedAfterCollision = 1f;
     protected boolean inAir = true;
 
@@ -31,6 +31,9 @@ public abstract class Entity {
     protected int aniSpeed = 4;
     protected int action;
     protected boolean attacking = false;
+    public boolean died = false;
+
+    public HealthBar health;
 
 
     public Entity(float x, float y, int width, int height)
@@ -39,6 +42,7 @@ public abstract class Entity {
         this.y = y;
         this.width = width;
         this.height = height;
+        health = new HealthBar();
         loadLvlData();
     }
 
@@ -129,6 +133,8 @@ public abstract class Entity {
     }
 
     public void update() {}
+
+    public void takeDamage(){}
 
     public void render(Graphics g) {}
 }

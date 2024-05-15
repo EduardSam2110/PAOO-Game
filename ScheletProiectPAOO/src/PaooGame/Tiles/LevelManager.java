@@ -26,9 +26,7 @@ public class LevelManager {
 
     public LevelManager()
     {
-        setLevel();
-        addEntities();
-        getEscapePos();
+        initALevel();
     }
 
     public void update(Player p)
@@ -154,4 +152,10 @@ public class LevelManager {
         return map;
     }
 
+    public void initALevel()
+    {
+        setLevel();
+        addEntities();
+        getEscapePos();
+    }
 }

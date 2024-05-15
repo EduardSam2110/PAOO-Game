@@ -77,7 +77,7 @@ public class LoadSave {
             pstmt.setInt(1, (int) p.getHitBox().x);
             pstmt.setInt(2, (int) p.getHitBox().y);
             pstmt.setInt(3, (int) Score.current_score);
-            pstmt.setInt(4, HealthBar.health);
+            pstmt.setInt(4, (int) Player.getInstance().health.lifeCount);
             pstmt.setInt(5, LevelManager.level);
             pstmt.setInt(6, Camera.xCamera);
             pstmt.executeUpdate();

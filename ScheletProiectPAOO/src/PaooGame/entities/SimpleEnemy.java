@@ -17,17 +17,15 @@ public class SimpleEnemy extends Entity {
 
     private float xDrawOffset = 40;
     private float yDrawOffset = 60;
-    private float enemySpeed = 2f;
+    private float enemySpeed = 3.5f;
 
     private float xSpeedEnemy;
 
     private boolean movingLeft, movingRight;
 
-    public boolean died = false;
     public boolean shooting = false;
 
     public boolean continsClippers = false;
-
 
     private float deathAnimTick = 0;
 
@@ -161,13 +159,11 @@ public class SimpleEnemy extends Entity {
         if((coord_playerX + 10 >= enemyCoordX) && (coord_playerXLeft - 10 <= enemyCoordXWidth)
                 && (coord_playerY >= enemyCoordY) && (coord_playerY <= enemyCoordYHeight)) {
             if(Player.getInstance().attacking) {
-                action = EnemyDEATH;
-                aniIndex = 0;
-                died = true;
+                takeDamage();
             }
-            else {
+//            else {
 //                player.takeDamage();
-            }
+//            }
         }
     }
 
@@ -193,6 +189,19 @@ public class SimpleEnemy extends Entity {
                 shooting = true;
         }
     }
+
+    public void takeDamage()
+    {
+        if(health.lifeCount > 1){
+            health.lifeCount -= 1/32.; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :))
+        } else {
+            action = EnemyDEATH;
+            aniIndex = 0;
+            died = true;
+        }
+//        System.out.println(health.lifeCount);
+    }
+
 
     public boolean getMovingLeft() { return movingLeft; }
     public boolean getMovingRight() { return movingRight; }
