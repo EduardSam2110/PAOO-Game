@@ -56,6 +56,8 @@ public class Assets
 
     public static BufferedImage clipperstxt;
 
+    public static BufferedImage superPaw;
+
     public static int map_lvl1[][];
     public static BufferedImage background_lvl1 = ImageLoader.LoadImage("/textures/level1.png");
 
@@ -111,6 +113,8 @@ public class Assets
 
         SpriteSheet food = new SpriteSheet(ImageLoader.LoadImage("/textures/food.png"),16,16);
         bullet = food.crop(5,1);
+
+        superPaw = ImageLoader.LoadImage("/textures/superpaw.png");
 
         // animatiile pentru viata jucatorului
 

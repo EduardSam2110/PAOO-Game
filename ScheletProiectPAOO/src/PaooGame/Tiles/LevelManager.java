@@ -1,6 +1,7 @@
 package PaooGame.Tiles;
 
 import PaooGame.Inventory.Clippers;
+import PaooGame.Inventory.SuperPaw;
 import PaooGame.entities.EnemyFactory;
 import PaooGame.entities.Entity;
 import PaooGame.entities.Player;
@@ -23,6 +24,7 @@ public class LevelManager {
     private static ArrayList<Entity> entities =  new ArrayList<>();
 
     public static Clippers clippers;
+    public static SuperPaw superpaw = new SuperPaw(0,0);
 
     public LevelManager()
     {
@@ -38,6 +40,9 @@ public class LevelManager {
             clippers.pickItem(p);
             clippers.useItem(p);
         }
+
+        superpaw.pickItem(p);
+
     }
 
     private void entitiesUpdate()
@@ -57,6 +62,8 @@ public class LevelManager {
 
         if(clippers != null)
             clippers.render(g);
+
+        superpaw.render(g);
     }
 
     private void setLevel()
@@ -92,10 +99,12 @@ public class LevelManager {
                 entities.clear();
                 entities.add(f.factoryMethod("simple", 900, 200, true));
                 entities.add(f.factoryMethod("simple", 1800, 200, false));
+                superpaw.setNewPos(500,450);
                 break;
             case 2:
                 entities.clear();
                 entities.add(f.factoryMethod("simple", 900, 200, true));
+                superpaw.setNewPos(200,500);
                 break;
             case 3:
                 entities.clear();
