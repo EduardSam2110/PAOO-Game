@@ -12,6 +12,7 @@ import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static PaooGame.Tiles.Tile.waterBlock;
 import static PaooGame.utils.Camera.xCamera;
+import static PaooGame.utils.Camera.xCameraPos;
 import static PaooGame.utils.Constants.*;
 import static PaooGame.utils.GravityCollisionMethods.*;
 
@@ -68,8 +69,10 @@ public class Player extends Entity {
         health.render(g);
         Score.update(g);
         //debugg
-        if(Game.DEBUG)
+        if(Game.DEBUG) {
             drawHitbox(g);
+            Camera.Draw(g,this);
+        }
 
     }
     private void updatePos()
@@ -257,7 +260,7 @@ public class Player extends Entity {
     public void setSwimUP(boolean swimUP) {this.swimUP = swimUP;}
     public void setSwimDOWN(boolean swimDOWN) {this.swimDOWN = swimDOWN;}
 
-    public void LoadFromSave(float x, float y, int health, int score, int lvl, int xCam)
+    public void LoadFromSave(float x, float y, int health, int score, int lvl, int xCam, int xCamPos)
     {
         hitBox.x = x;
         hitBox.y = y;
@@ -265,6 +268,7 @@ public class Player extends Entity {
         Score.current_score = (float) score;
         LevelManager.level = lvl;
         xCamera = xCam;
+        xCameraPos = xCamPos;
     }
 
     public void resetIfSpike(){

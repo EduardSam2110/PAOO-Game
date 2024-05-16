@@ -50,15 +50,16 @@ public class LoadSave {
                 " SCORE INT, " +
                 " HEALTH INT, " +
                 " LEVEL INT NOT NULL," +
-                " CAMERAPOS INT )";
+                " CAMERAPOS INT, " +
+                " XCAMERAPOS INT )";
         stmt.execute(sql);
         stmt.close();
     }
 
     private static void initElements() throws SQLException {
         Statement stmt = c.createStatement();
-        String sql = "INSERT INTO " + TABLE_NAME + " (ID, XPOS,YPOS,SCORE,HEALTH,LEVEL,CAMERAPOS) " +
-                "VALUES (1,90,450,0,3,1,0)";
+        String sql = "INSERT INTO " + TABLE_NAME + " (ID, XPOS,YPOS,SCORE,HEALTH,LEVEL,CAMERAPOS,XCAMERAPOS) " +
+                "VALUES (1,90,450,0,3,1,0,0)";
         stmt.executeUpdate(sql);
         stmt.close();
         System.out.println("Records created successfully");
@@ -75,13 +76,15 @@ public class LoadSave {
     }
 
     public static void SaveGameState(Player p) {
-        try (PreparedStatement pstmt = c.prepareStatement("UPDATE " + TABLE_NAME + " set XPOS =?, YPOS =?, SCORE =?, HEALTH =?, LEVEL=?, CAMERAPOS=? where ID=1")) {
+        try (PreparedStatement pstmt = c.prepareStatement("UPDATE " + TABLE_NAME + " set XPOS =?, YPOS =?, SCORE =?, HEALTH =?, LEVEL=?, CAMERAPOS=?, XCAMERAPOS=? where ID=1")) {
             pstmt.setInt(1, (int) p.getHitBox().x);
             pstmt.setInt(2, (int) p.getHitBox().y);
-            pstmt.setInt(3, (int) Score.current_score);
+            pstmt.setInt(3, (int) Score.finalScore);
             pstmt.setInt(4, (int) Player.getInstance().health.lifeCount);
             pstmt.setInt(5, LevelManager.level);
             pstmt.setInt(6, Camera.xCamera);
+            pstmt.setInt(7, Camera.xCameraPos);
+
             pstmt.executeUpdate();
             System.out.println("Updated successfully");
         } catch (SQLException e) {
@@ -98,8 +101,9 @@ public class LoadSave {
                 int health = rs.getInt("HEALTH");
                 int lvl = rs.getInt("LEVEL");
                 int xCam = rs.getInt("CAMERAPOS");
+                int xCamPos = rs.getInt("XCAMERAPOS");
 
-                p.LoadFromSave((float) xpos, (float) ypos, health, score, lvl, xCam);
+                p.LoadFromSave((float) xpos, (float) ypos, health, score, lvl, xCam, xCamPos);
                 levelManager.initALevel();
             }
             System.out.println("Operation done successfully");

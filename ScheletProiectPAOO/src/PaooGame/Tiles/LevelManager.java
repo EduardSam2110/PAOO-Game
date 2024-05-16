@@ -5,6 +5,7 @@ import PaooGame.Inventory.SuperPaw;
 import PaooGame.entities.EnemyFactory;
 import PaooGame.entities.Entity;
 import PaooGame.entities.Player;
+import PaooGame.entities.Score;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -48,6 +49,8 @@ public class LevelManager {
 
     private void entitiesUpdate()
     {
+        System.out.println(Score.finalScore);
+
         for(Entity e: entities)
             e.update();
 
@@ -134,13 +137,11 @@ public class LevelManager {
 
     public void passLevel(Player p)
     {
-//        if((p.getHitBox().x > gateYpos * 32) && (p.getHitBox().y > gateXpos * 32))
-//        {
-            p.resetPlayerPos();
-            ++level;
-            setLevel();
-            addEntities();
-//        }
+        p.resetAll();
+        ++level;
+        setLevel();
+        addEntities();
+        Score.updateFinalScore();
     }
 
     private void getEscapePos()

@@ -7,6 +7,7 @@ import java.awt.*;
 import static PaooGame.Graphics.Assets.score;
 
 public class Score {
+    public static double finalScore = 0;
     public static double current_score = 0;
     private static int[] score_array = new int[4];
 
@@ -45,5 +46,9 @@ public class Score {
         g.drawImage(score[score_array[0]],1096,20,32,32,null);
     }
 
-
+    public static void updateFinalScore()
+    {
+        finalScore += current_score;
+        current_score = 0;
+    }
 }
