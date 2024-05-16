@@ -6,12 +6,14 @@ import PaooGame.Graphics.Assets;
 import java.awt.*;
 
 //import static PaooGame.Game.player;
+import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static PaooGame.utils.Camera.xCamera;
 
 public class Bullet extends Entity {
     private int x,y;
     private int startpoint;
-    private float bulletspeed = 2f;
+    private float bulletspeed = 5f;
+    private int shootingRange = 5 * TILE_SIZE;
     private SimpleEnemy e;
 
 
@@ -37,27 +39,25 @@ public class Bullet extends Entity {
        if(e.shooting) {
             if (e.getMovingLeft()) {
                 hitBox.x -= bulletspeed;
-                if(hitBox.x < e.getHitBox().x - 128)
+                if(hitBox.x < e.getHitBox().x - shootingRange)
                     hitBox.x = e.getHitBox().x;
             } else if (e.getMovingRight()) {
                 hitBox.x += bulletspeed;
-                if(hitBox.x > e.getHitBox().x + 128)
+                if(hitBox.x > e.getHitBox().x + shootingRange)
                     hitBox.x = e.getHitBox().x;
             }
        }else{
            hitBox.x = e.getHitBox().x;
            hitBox.y = e.getHitBox().y;
        }
-
-
     }
 
     public void SHOOT(Graphics g)
     {
         draw(g);
         movement();
-//        if(!e.died)
-//            die_if_attack();
+        if(!e.died && e.shooting)
+            die_if_attack();
     }
 
     private void die_if_attack()

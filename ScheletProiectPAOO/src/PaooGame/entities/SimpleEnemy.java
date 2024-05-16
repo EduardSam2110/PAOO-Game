@@ -19,7 +19,7 @@ public class SimpleEnemy extends Entity {
 
     private float xDrawOffset = 40;
     private float yDrawOffset = 60;
-    private float enemySpeed = 3.5f;
+    private float enemySpeed = 2f;
 
     private float xSpeedEnemy;
 
