@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.Tile.tiles;
+import static PaooGame.Tiles.Tile.waterBlock;
 import static PaooGame.utils.Camera.xCamera;
 
 
@@ -35,7 +36,7 @@ public class LevelManager {
     {
         //functie de update pentru a trece la nivelurile urmatoare
         entitiesUpdate();
-//        passLevel(p);
+
         if(clippers != null) {
             clippers.pickItem(p);
             clippers.useItem(p);
@@ -104,7 +105,7 @@ public class LevelManager {
             case 2:
                 entities.clear();
                 entities.add(f.factoryMethod("simple", 900, 200, true));
-                superpaw.setNewPos(200,500);
+                superpaw.setNewPos(832,672);
                 break;
             case 3:
                 entities.clear();

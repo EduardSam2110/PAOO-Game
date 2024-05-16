@@ -34,7 +34,7 @@ public class GravityCollisionMethods {
 
         int value = levelData[(int)yIndex][(int)xIndex];
 
-        if(value >= 112 || value < 0)
+        if(value >= tiles.length || value < 0)
                 return true;
         else
             if(tiles[value] != null)

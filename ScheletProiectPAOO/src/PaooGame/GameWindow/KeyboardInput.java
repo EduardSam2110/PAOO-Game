@@ -20,6 +20,7 @@ public class KeyboardInput implements KeyListener {
             case KeyEvent.VK_W:
                 player.setUp(true);
                 player.setDown(false);
+                player.setSwimUP(true);
                 break;
             case KeyEvent.VK_A:
                 player.setLeft(true);
@@ -27,6 +28,7 @@ public class KeyboardInput implements KeyListener {
             case KeyEvent.VK_S:
                 player.setDown(true);
                 player.setUp(false);
+                player.setSwimDOWN(true);
                 break;
             case KeyEvent.VK_D:
                 player.setRight(true);
@@ -69,7 +71,9 @@ public class KeyboardInput implements KeyListener {
         switch (e.getKeyCode())
         {
             case KeyEvent.VK_W:
+                player.setSwimUP(false);
             case KeyEvent.VK_S:
+                player.setSwimDOWN(false);
                 break;
             case KeyEvent.VK_A:
                 player.setLeft(false);

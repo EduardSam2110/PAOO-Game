@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 
 import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
+import static PaooGame.Tiles.Tile.waterBlock;
 import static PaooGame.utils.Camera.xCamera;
 import static PaooGame.utils.Constants.*;
 import static PaooGame.utils.GravityCollisionMethods.*;
@@ -20,6 +21,7 @@ public class Player extends Entity {
 
     private boolean moving = false;
     private boolean left, up = true, right, down = false, speed, jump;
+    private boolean swimUP = false, swimDOWN = false;
 
     private int playerSpeed = 2;
 
@@ -88,8 +90,20 @@ public class Player extends Entity {
 
         moving = false;
 
-        if(jump)
-            jump();
+        if(detectWater())
+        {
+            gravity = 0.001f;
+            fallSpeedAfterCollision = 0f;
+            WaterBehaviour();
+        }
+        else {
+            gravity = 0.1f;
+            fallSpeedAfterCollision = 1f;
+
+            if(jump)
+                jump();
+
+        }
 
         xSpeed = 0;
 
@@ -104,10 +118,10 @@ public class Player extends Entity {
         if(right)
             xSpeed += playerSpeed;
 
+        testGravity((int)xSpeed);
+
         if(!left && !right && !inAir)
             return;
-
-        testGravity((int)xSpeed);
 
         moving = true;
     }
@@ -149,9 +163,13 @@ public class Player extends Entity {
                 action = FALLING;
         }
 
+
         if(attacking) {
             action = ATTACK_1;
         }
+
+        if(detectWater())
+            action = SWIMMING;
 
         if(left)
             current_animation = player_animations_left[action];
@@ -236,6 +254,9 @@ public class Player extends Entity {
         return playerSpeed;
     }
 
+    public void setSwimUP(boolean swimUP) {this.swimUP = swimUP;}
+    public void setSwimDOWN(boolean swimDOWN) {this.swimDOWN = swimDOWN;}
+
     public void LoadFromSave(float x, float y, int health, int score, int lvl, int xCam)
     {
         hitBox.x = x;
@@ -283,4 +304,22 @@ public class Player extends Entity {
         resetPlayerPos();
     }
 
+    public void WaterBehaviour()
+    {
+        if(swimDOWN)
+            hitBox.y += 1;
+        else if(swimUP)
+            hitBox.y -= 1;
+    }
+
+    private boolean detectWater()
+    {
+        int playerX = (int) Player.getInstance().getHitBox().x / TILE_SIZE;
+        int playerY = (int) (Player.getInstance().getHitBox().y + TILE_SIZE) / TILE_SIZE;
+
+        if(levelData[playerY][playerX] == waterBlock.GetId())
+            return true;
+
+        return false;
+    }
 }

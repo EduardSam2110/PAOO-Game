@@ -47,6 +47,8 @@ public class Assets
     public static BufferedImage sewer_pipe_large_leftright_gold;
     public static BufferedImage sewer_pipe_large_rightleft_gold;
 
+    public static BufferedImage water;
+
     public static BufferedImage[] health_bar;
     public static BufferedImage[] score;
 
@@ -107,6 +109,8 @@ public class Assets
         sewer_pipe_large_down_gold = sheet.crop(5, 8);
         sewer_pipe_large_leftright_gold = sheet.crop(5, 9);
         sewer_pipe_large_rightleft_gold = sheet.crop(7, 9);
+
+        water = ImageLoader.LoadImage("/textures/watertexture.png");
 
         SpriteSheet spikes = new SpriteSheet(ImageLoader.LoadImage("/textures/spike.png"),16,16);
         spikeUp = spikes.crop(0,0);
