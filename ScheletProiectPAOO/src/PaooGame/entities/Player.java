@@ -74,6 +74,18 @@ public class Player extends Entity {
     {
         resetIfSpike();
 
+//        if(action == SIT_DOWN || action == CRAWLING)
+//        {
+//            hitBox.height = 20;
+//            yDrawOffset = 35;
+//        }
+//
+//        if(action == WALK || action == IDLE)
+//        {
+//            yDrawOffset = 22;
+//            hitBox.height = 28;
+//        }
+
         moving = false;
 
         if(jump)

@@ -8,10 +8,11 @@ import java.awt.*;
 //import static PaooGame.Game.player;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static PaooGame.utils.Camera.xCamera;
+import static PaooGame.utils.Constants.CRAWLING;
+import static PaooGame.utils.Constants.SIT_DOWN;
 
 public class Bullet extends Entity {
     private int x,y;
-    private int startpoint;
     private float bulletspeed = 5f;
     private int shootingRange = 5 * TILE_SIZE;
     private SimpleEnemy e;
@@ -28,7 +29,7 @@ public class Bullet extends Entity {
     private void draw(Graphics g)
     {
         if(e.shooting)
-            g.drawImage(Assets.bullet, (int) hitBox.x - xCamera, (int) hitBox.y,null);
+            g.drawImage(Assets.bullet, (int) hitBox.x - xCamera, (int) hitBox.y - 15,null);
 
         if(Game.DEBUG)
             drawHitbox(g);
@@ -67,7 +68,8 @@ public class Bullet extends Entity {
 
         if((hitBox.y >= playerY) && (hitBox.y + hitBox.height <= playerY + Player.getInstance().getHitBox().height))
             if((hitBox.x >= playerX) && (hitBox.x + hitBox.width <= playerX + Player.getInstance().getHitBox().width))
-                Player.getInstance().takeDamage();
+                if(Player.getInstance().action != CRAWLING && Player.getInstance().action != SIT_DOWN)
+                    Player.getInstance().takeDamage();
     }
 }
 

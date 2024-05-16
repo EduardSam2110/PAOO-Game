@@ -8,6 +8,8 @@ import PaooGame.entities.Score;
 import java.io.File;
 import java.sql.*;
 
+import static PaooGame.Game.levelManager;
+
 public class LoadSave {
     private static Connection c;
 
@@ -98,6 +100,7 @@ public class LoadSave {
                 int xCam = rs.getInt("CAMERAPOS");
 
                 p.LoadFromSave((float) xpos, (float) ypos, health, score, lvl, xCam);
+                levelManager.initALevel();
             }
             System.out.println("Operation done successfully");
         } catch (Exception e) {
