@@ -66,7 +66,7 @@ public class Player extends Entity {
     @Override
     public void render(Graphics g) {
         g.drawImage(current_animation[aniIndex], (int) (hitBox.x - xDrawOffset - xCamera),(int) (hitBox.y - yDrawOffset),width,height,null);
-        health.render(g);
+        health.render(g,50,20,96,32);
         Score.update(g);
         //debugg
         if(Game.DEBUG) {

@@ -77,6 +77,10 @@ public class SimpleEnemy extends Entity {
 
         b.SHOOT(g);
 
+        if(!died)
+            health.render(g,(int) (hitBox.x - xCamera),(int) (hitBox.y - yDrawOffset),48,16);
+
+
         //debugg
         if(Game.DEBUG)
             drawHitbox(g);
@@ -196,7 +200,7 @@ public class SimpleEnemy extends Entity {
     {
         if(health.lifeCount > 1){
             if(superpaw.used)
-                health.lifeCount -= 3 * 1/32.; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :))
+                health.lifeCount = 1; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :))
              else
                 health.lifeCount -= 1/32.; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :))
         } else {

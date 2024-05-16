@@ -31,9 +31,9 @@ public class LoadSave {
                 // daca nu exista, o creez
                 createTable();
                 initElements();
-                System.out.println("Database created");
+                System.out.println("Baza de date creata");
             } else {
-                System.out.println("Database exists");
+                System.out.println("Baza de date existenta");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,21 +62,22 @@ public class LoadSave {
                 "VALUES (1,90,450,0,3,1,0,0)";
         stmt.executeUpdate(sql);
         stmt.close();
-        System.out.println("Records created successfully");
+        System.out.println("Baza de date initializata");
     }
 
     public static void CloseConnection() {
         try {
             if (c!= null)
                 c.close();
-            System.out.println("Database closed");
+            System.out.println("Baza de date inchisa");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public static void SaveGameState(Player p) {
-        try (PreparedStatement pstmt = c.prepareStatement("UPDATE " + TABLE_NAME + " set XPOS =?, YPOS =?, SCORE =?, HEALTH =?, LEVEL=?, CAMERAPOS=?, XCAMERAPOS=? where ID=1")) {
+        try (PreparedStatement pstmt = c.prepareStatement("UPDATE " + TABLE_NAME +
+                " set XPOS =?, YPOS =?, SCORE =?, HEALTH =?, LEVEL=?, CAMERAPOS=?, XCAMERAPOS=? where ID=1")) {
             pstmt.setInt(1, (int) p.getHitBox().x);
             pstmt.setInt(2, (int) p.getHitBox().y);
             pstmt.setInt(3, (int) Score.finalScore);
@@ -86,7 +87,7 @@ public class LoadSave {
             pstmt.setInt(7, Camera.xCameraPos);
 
             pstmt.executeUpdate();
-            System.out.println("Updated successfully");
+            System.out.println("Game Saved");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -105,8 +106,9 @@ public class LoadSave {
 
                 p.LoadFromSave((float) xpos, (float) ypos, health, score, lvl, xCam, xCamPos);
                 levelManager.initALevel();
+
             }
-            System.out.println("Operation done successfully");
+            System.out.println("Game Loaded");
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);

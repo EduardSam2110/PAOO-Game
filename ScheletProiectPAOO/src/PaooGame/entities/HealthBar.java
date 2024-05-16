@@ -8,8 +8,8 @@ import static PaooGame.Graphics.Assets.health_bar;
 public class HealthBar {
     public float lifeCount = 3;
 
-    public void render(Graphics g)
+    public void render(Graphics g, int x, int y, int width, int height)
     {
-        g.drawImage(health_bar[health_bar.length - (int) lifeCount - 1],50,20,32*3,32, null);
+        g.drawImage(health_bar[health_bar.length - (int) lifeCount - 1],x,y,width,height, null);
     }
 }

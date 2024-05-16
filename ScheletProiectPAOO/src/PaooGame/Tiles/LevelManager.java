@@ -49,8 +49,6 @@ public class LevelManager {
 
     private void entitiesUpdate()
     {
-        System.out.println(Score.finalScore);
-
         for(Entity e: entities)
             e.update();
 
