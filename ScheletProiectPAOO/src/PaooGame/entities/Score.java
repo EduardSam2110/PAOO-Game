@@ -40,10 +40,10 @@ public class Score {
     public static void update(Graphics g)
     {
         Score_Processing();
-        g.drawImage(score[score_array[3]],1000,20,32,32,null);
-        g.drawImage(score[score_array[2]],1032,20,32,32,null);
-        g.drawImage(score[score_array[1]],1064,20,32,32,null);
-        g.drawImage(score[score_array[0]],1096,20,32,32,null);
+        g.drawImage(score[score_array[3]],620,20,32,32,null);
+        g.drawImage(score[score_array[2]],652,20,32,32,null);
+        g.drawImage(score[score_array[1]],684,20,32,32,null);
+        g.drawImage(score[score_array[0]],715,20,32,32,null);
     }
 
     public static void updateFinalScore()

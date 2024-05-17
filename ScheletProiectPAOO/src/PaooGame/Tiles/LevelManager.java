@@ -20,7 +20,7 @@ import static PaooGame.utils.Camera.xCamera;
 public class LevelManager {
     private static int[][] map;
     private static BufferedImage background;
-    public static int level = 1;
+    public static int level = 3;
     public static int gateXpos = 0, gateYpos = 0;
 
     private static ArrayList<Entity> entities =  new ArrayList<>();
@@ -110,7 +110,9 @@ public class LevelManager {
                 break;
             case 3:
                 entities.clear();
-
+//                entities.add(f.factoryMethod("boss", 900, 600, true));
+                entities.add(f.factoryMethod("simple", 900, 650, true));
+                superpaw.setNewPos(1470, 580);
                 break;
             default:
                 break;

@@ -61,6 +61,9 @@ public class Player extends Entity {
         updateAnimation(action, "player");
         setAnimation();
         super.loadLvlData();
+
+        System.out.println(hitBox.x );
+        System.out.println(hitBox.y );
     }
 
     @Override
@@ -77,19 +80,7 @@ public class Player extends Entity {
     }
     private void updatePos()
     {
-        resetIfSpike();
-
-//        if(action == SIT_DOWN || action == CRAWLING)
-//        {
-//            hitBox.height = 20;
-//            yDrawOffset = 35;
-//        }
-//
-//        if(action == WALK || action == IDLE)
-//        {
-//            yDrawOffset = 22;
-//            hitBox.height = 28;
-//        }
+        getSpikeDamage();
 
         moving = false;
 
@@ -271,9 +262,9 @@ public class Player extends Entity {
         xCameraPos = xCamPos;
     }
 
-    public void resetIfSpike(){
+    public void getSpikeDamage(){
         float xIndex = hitBox.x / TILE_SIZE;
-        float yIndex = (hitBox.y + hitBox.height + 16)  / TILE_SIZE;
+        float yIndex = (hitBox.y + hitBox.height + 8)  / TILE_SIZE;
 
         int value = levelData[(int)yIndex][(int)xIndex];
 

@@ -13,7 +13,7 @@ import static PaooGame.utils.Constants.SIT_DOWN;
 
 public class Bullet extends Entity {
     private int x,y;
-    private float bulletspeed = 5f;
+    private float bulletspeed = 3.5f;
     private int shootingRange = 5 * TILE_SIZE;
     private SimpleEnemy e;
 
@@ -57,8 +57,8 @@ public class Bullet extends Entity {
     {
         draw(g);
         movement();
-        if(!e.died && e.shooting)
-            die_if_attack();
+//        if(!e.died && e.shooting)
+//            die_if_attack();
     }
 
     private void die_if_attack()

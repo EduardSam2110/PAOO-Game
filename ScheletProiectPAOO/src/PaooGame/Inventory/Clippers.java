@@ -41,7 +41,7 @@ public class Clippers extends ItemAbstractClass {
                 if (!collected) {
                     g.drawImage(Assets.clipperstxt, (int) hitBox.x - xCamera, (int) hitBox.y, 16, 16, null);
                 } else
-                    g.drawImage(Assets.clipperstxt, 620, 20, 32, 32, null);
+                    g.drawImage(Assets.clipperstxt, 1080, 20, 32, 32, null);
             }
         }
 

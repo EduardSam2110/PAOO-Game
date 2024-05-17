@@ -3,6 +3,7 @@ package PaooGame.entities;
 import PaooGame.Game;
 import PaooGame.Inventory.Clippers;
 import PaooGame.Inventory.SuperPaw;
+import PaooGame.Tiles.Tile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -102,14 +103,14 @@ public class SimpleEnemy extends Entity {
 
         if (inAir == false) {
             if (movingRight && !shooting) {
-                if (value1 != 44)
+                if (value1 != 44 && value1 != Tile.spikeUp.GetId())
                     xSpeedEnemy += enemySpeed;
                 else {
                     movingRight = false;
                     movingLeft = true;
                 }
             } else if (movingLeft && !shooting) {
-                if (value2 != 44)
+                if (value2 != 44 && value2 != Tile.spikeUp.GetId())
                     xSpeedEnemy -= enemySpeed;
                 else {
                     movingLeft = false;
@@ -194,6 +195,7 @@ public class SimpleEnemy extends Entity {
             if((movingLeft && playerX >= hitBox.x - 128 && playerX < hitBox.x) || (movingRight && playerX <= hitBox.x + 128 && playerX > hitBox.x))
                 shooting = true;
         }
+
     }
 
     public void takeDamage()
@@ -201,13 +203,26 @@ public class SimpleEnemy extends Entity {
         if(health.lifeCount > 1){
             if(superpaw.used)
                 health.lifeCount = 1; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :))
-             else
-                health.lifeCount -= 1/32.; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :))
+            else
+                health.lifeCount -= 1/32.; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :)) /32.
+
+            if(movingLeft && !shooting)
+            {
+                movingLeft = false;
+                movingRight = true;
+            }
+            else if(movingRight && !shooting)
+            {
+                movingRight = false;
+                movingLeft = true;
+            }
+
         } else {
             action = EnemyDEATH;
             aniIndex = 0;
             died = true;
         }
+
 //        System.out.println(health.lifeCount);
     }
 
