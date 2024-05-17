@@ -74,7 +74,7 @@ public class Clippers extends ItemAbstractClass {
     {
         for(Entity e : arr)
             if(e instanceof SimpleEnemy)
-                if(((SimpleEnemy) e).continsClippers)
+                if(((SimpleEnemy) e).containsClippers)
                     return new Clippers((SimpleEnemy) e);
         return null;
     }

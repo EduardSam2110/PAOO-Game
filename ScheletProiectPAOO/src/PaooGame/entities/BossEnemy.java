@@ -18,36 +18,31 @@ public class BossEnemy extends SimpleEnemy{
         movingRight = true;
         b = new Bullet(this);
         current_animation = boss_animations_right[EnemyIDLE];
+        current_animation_left = boss_animations_left;
+        current_animation_right = boss_animations_right;
     }
 
-    protected void setAnimation()
-    {
-        action = EnemyWALK;
-
-//        shoot();
-
-        if(died)
-            action = EnemyDEATH;
-
-        if (inAir == false) {
-
-            if(shooting)
-                action = EnemyATTACK;
-
-            if (movingRight) {
-                current_animation = boss_animations_right[action];
-            } else if (movingLeft) {
-                current_animation = boss_animations_left[action];
-            }
-        }
-        else
-            current_animation = boss_animations_right[EnemyIDLE];
-    }
-
-    @Override
-    public void update()
-    {
-        super.update();
-        setAnimation();
-    }
+//    protected void setAnimation()
+//    {
+//        action = EnemyWALK;
+//
+////        shoot();
+//
+//        if(died)
+//            action = EnemyDEATH;
+//
+//        if (inAir == false) {
+//
+//            if(shooting)
+//                action = EnemyATTACK;
+//
+//            if (movingRight) {
+//                current_animation = boss_animations_right[action];
+//            } else if (movingLeft) {
+//                current_animation = boss_animations_left[action];
+//            }
+//        }
+//        else
+//            current_animation = boss_animations_right[EnemyIDLE];
+//    }
 }

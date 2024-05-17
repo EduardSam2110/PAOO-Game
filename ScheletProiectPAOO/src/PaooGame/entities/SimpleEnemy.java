@@ -1,15 +1,12 @@
 package PaooGame.entities;
 
 import PaooGame.Game;
-import PaooGame.Inventory.Clippers;
-import PaooGame.Inventory.SuperPaw;
 import PaooGame.Tiles.Tile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static PaooGame.Graphics.Assets.*;
-import static PaooGame.Tiles.LevelManager.clippers;
 import static PaooGame.Tiles.LevelManager.superpaw;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static PaooGame.utils.Camera.xCamera;
@@ -28,13 +25,18 @@ public class SimpleEnemy extends Entity {
 
     public boolean shooting = false;
 
-    public boolean continsClippers = false;
+    public boolean containsClippers = false;
 
     protected float deathAnimTick = 0;
 
     protected int enemyCoordX, enemyCoordY, enemyCoordYHeight, enemyCoordXWidth;
 
     protected BufferedImage[] current_animation = enemy_animations_right[EnemyIDLE];
+
+    protected BufferedImage[][] current_animation_right = enemy_animations_right;
+
+    protected BufferedImage[][] current_animation_left = enemy_animations_left;
+
 
     protected Bullet b;
 
@@ -52,7 +54,7 @@ public class SimpleEnemy extends Entity {
         initHitbox(x,y,28,28);
         movingRight = true;
         b = new Bullet(this);
-        this.continsClippers = containsClippers;
+        this.containsClippers = containsClippers;
     }
 
     @Override
@@ -122,7 +124,7 @@ public class SimpleEnemy extends Entity {
         testGravity((int) xSpeedEnemy);
     }
 
-    private void setAnimation()
+    protected void setAnimation()
     {
         action = EnemyWALK;
 
@@ -137,13 +139,13 @@ public class SimpleEnemy extends Entity {
                 action = EnemyATTACK;
 
             if (movingRight) {
-                current_animation = enemy_animations_right[action];
+                current_animation = current_animation_right[action];
             } else if (movingLeft) {
-                current_animation = enemy_animations_left[action];
+                current_animation = current_animation_left[action];
             }
         }
         else
-            current_animation = enemy_animations_right[EnemyIDLE];
+            current_animation = current_animation_left[EnemyIDLE];
     }
 
 
@@ -183,16 +185,17 @@ public class SimpleEnemy extends Entity {
         }
     }
 
-    private void shoot()
+    protected void shoot()
     {
         int playerX = (int) Player.getInstance().getHitBox().x;
+        int playerXwidth = (int) (Player.getInstance().getHitBox().x + Player.getInstance().hitBox.width);
         int playerY = (int) Player.getInstance().getHitBox().y;
 
         shooting = false;
 
         if(!died && playerY == hitBox.y)
         {
-            if((movingLeft && playerX >= hitBox.x - 128 && playerX < hitBox.x) || (movingRight && playerX <= hitBox.x + 128 && playerX > hitBox.x))
+            if((movingLeft && playerXwidth >= hitBox.x - 128 && playerXwidth < hitBox.x) || (movingRight && playerX <= hitBox.x + hitBox.width + 128 && playerX > hitBox.x + hitBox.width))
                 shooting = true;
         }
 
