@@ -110,8 +110,8 @@ public class LevelManager {
                 break;
             case 3:
                 entities.clear();
-//                entities.add(f.factoryMethod("boss", 900, 600, true));
-                entities.add(f.factoryMethod("simple", 900, 650, true));
+                entities.add(f.factoryMethod("boss", 900, 300, true));
+                entities.add(f.factoryMethod("simple", 900, 650, false));
                 superpaw.setNewPos(1470, 580);
                 break;
             default:

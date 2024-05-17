@@ -18,25 +18,25 @@ import static PaooGame.utils.Constants.*;
 public class SimpleEnemy extends Entity {
 
 
-    private float xDrawOffset = 40;
-    private float yDrawOffset = 60;
-    private float enemySpeed = 2f;
+    protected float xDrawOffset = 40;
+    protected float yDrawOffset = 60;
+    protected float enemySpeed = 2f;
 
-    private float xSpeedEnemy;
+    protected float xSpeedEnemy;
 
-    private boolean movingLeft, movingRight;
+    protected boolean movingLeft, movingRight;
 
     public boolean shooting = false;
 
     public boolean continsClippers = false;
 
-    private float deathAnimTick = 0;
+    protected float deathAnimTick = 0;
 
-    private int enemyCoordX, enemyCoordY, enemyCoordYHeight, enemyCoordXWidth;
+    protected int enemyCoordX, enemyCoordY, enemyCoordYHeight, enemyCoordXWidth;
 
-    private BufferedImage[] current_animation = enemy_animations_right[EnemyIDLE];
+    protected BufferedImage[] current_animation = enemy_animations_right[EnemyIDLE];
 
-    private Bullet b;
+    protected Bullet b;
 
     public SimpleEnemy(float x, float y, int width, int height)
     {
@@ -87,7 +87,7 @@ public class SimpleEnemy extends Entity {
             drawHitbox(g);
     }
 
-    private void updatePos()
+    protected void updatePos()
     {
         xSpeedEnemy = 0;
 

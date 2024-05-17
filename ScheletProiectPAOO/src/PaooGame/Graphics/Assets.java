@@ -22,6 +22,9 @@ public class Assets
     public static BufferedImage[][] enemy_animations_right;
     public static BufferedImage[][] enemy_animations_left;
 
+    public static BufferedImage[][] boss_animations_right;
+    public static BufferedImage[][] boss_animations_left;
+
     public static BufferedImage solidBlock1_dark;
     public static BufferedImage solidBlock2_dark;
     public static BufferedImage solidBlock3_dark;
@@ -194,6 +197,32 @@ public class Assets
             for(int j = enemy_animations_left[i].length-1; j >= 0 ; j--)
             {
                 enemy_animations_left[i][jj] = enemyLeft.crop(j,i);
+                ++jj;
+            }
+            jj = 0;
+        }
+
+        boss_animations_right = new BufferedImage[4][8];
+        boss_animations_left = new BufferedImage[4][8];
+
+        SpriteSheet BossRight = new SpriteSheet(ImageLoader.LoadImage("/textures/BossRight.png"),64,64);
+
+        for(int i = 0; i <  boss_animations_right.length; i++)
+        {
+            for(int j = 0; j < boss_animations_right[i].length; j++)
+            {
+                boss_animations_right[i][j] = BossRight.crop(j,i);
+            }
+        }
+
+        SpriteSheet BossLeft = new SpriteSheet(ImageLoader.LoadImage("/textures/BossLeft.png"),64,64);
+
+        jj = 0;
+        for(int i = 0; i < boss_animations_left.length; i++)
+        {
+            for(int j = boss_animations_left[i].length-1; j >= 0 ; j--)
+            {
+                boss_animations_left[i][jj] = BossLeft.crop(j,i);
                 ++jj;
             }
             jj = 0;

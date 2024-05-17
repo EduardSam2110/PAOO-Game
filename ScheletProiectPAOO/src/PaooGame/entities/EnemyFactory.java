@@ -9,7 +9,7 @@ public class EnemyFactory {
             else
                 return new SimpleEnemy(x,y,128,128);
         else if(enemyType.equalsIgnoreCase("boss"))
-            return new BossEnemy(x,y,256,256);
+            return new BossEnemy(x,y,256,256, containsClippers);
         else
             return null;
     }

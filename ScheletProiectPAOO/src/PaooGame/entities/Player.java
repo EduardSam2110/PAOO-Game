@@ -62,8 +62,8 @@ public class Player extends Entity {
         setAnimation();
         super.loadLvlData();
 
-        System.out.println(hitBox.x );
-        System.out.println(hitBox.y );
+//        System.out.println(hitBox.x );
+//        System.out.println(hitBox.y );
     }
 
     @Override
