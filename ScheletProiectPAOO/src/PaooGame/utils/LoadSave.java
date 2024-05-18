@@ -111,8 +111,9 @@ public class LoadSave {
                 boolean clippersPicked = rs.getInt("CLIPPERS") == 1 ? true : false;
                 boolean superPawPicked = rs.getInt("SUPERPAW") == 1 ? true : false;
 
+                LevelManager.level = lvl;
                 levelManager.initALevel();
-                p.LoadFromSave((float) xpos, (float) ypos, health, score, lvl, xCam, xCamPos, clippersPicked, superPawPicked);
+                p.LoadFromSave((float) xpos, (float) ypos, health, score, xCam, xCamPos, clippersPicked, superPawPicked);
             }
             System.out.println("Game Loaded");
         } catch (Exception e) {

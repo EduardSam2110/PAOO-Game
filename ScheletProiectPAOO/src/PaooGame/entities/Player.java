@@ -255,13 +255,12 @@ public class Player extends Entity {
     public void setSwimUP(boolean swimUP) {this.swimUP = swimUP;}
     public void setSwimDOWN(boolean swimDOWN) {this.swimDOWN = swimDOWN;}
 
-    public void LoadFromSave(float x, float y, int health, int score, int lvl, int xCam, int xCamPos, boolean clipperPicked, boolean superPawPicked)
+    public void LoadFromSave(float x, float y, int health, int score, int xCam, int xCamPos, boolean clipperPicked, boolean superPawPicked)
     {
         hitBox.x = x;
         hitBox.y = y;
         this.health.lifeCount = health;
         Score.current_score = (float) score;
-        LevelManager.level = lvl;
         xCamera = xCam;
         xCameraPos = xCamPos;
         LevelManager.clippers.collected = clipperPicked;
