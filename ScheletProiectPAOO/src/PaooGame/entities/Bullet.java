@@ -13,7 +13,7 @@ import static PaooGame.utils.Constants.SIT_DOWN;
 
 public class Bullet extends Entity {
     private int x,y;
-    private float bulletspeed = 3.5f;
+    public float bulletspeed = 2f;
     private int shootingRange = 5 * TILE_SIZE;
     private SimpleEnemy e;
 
@@ -24,6 +24,7 @@ public class Bullet extends Entity {
         x = (int) e.getHitBox().x;
         y = (int) e.getHitBox().y+75;
         initHitbox(x,y,8,8);
+        gravity = 0.001f;
     }
 
     private void draw(Graphics g)
@@ -37,20 +38,43 @@ public class Bullet extends Entity {
 
     private void movement()
     {
-       if(e.shooting) {
-            if (e.getMovingLeft()) {
-                hitBox.x -= bulletspeed;
-                if(hitBox.x < e.getHitBox().x - shootingRange)
-                    hitBox.x = e.getHitBox().x;
-            } else if (e.getMovingRight()) {
-                hitBox.x += bulletspeed;
-                if(hitBox.x > e.getHitBox().x + shootingRange)
-                    hitBox.x = e.getHitBox().x;
+        if(e instanceof BossEnemy) {
+            if (e.shooting) {
+                if (e.getMovingLeft()) {
+                    hitBox.x -= bulletspeed;
+                    hitBox.y += 0.5;
+                    if (hitBox.x < e.getHitBox().x - shootingRange) {
+                        hitBox.x = e.getHitBox().x;
+                        hitBox.y = e.getHitBox().y;
+                    }
+                } else if (e.getMovingRight()) {
+                    hitBox.x += bulletspeed;
+                    hitBox.y += 0.5;
+                    if (hitBox.x < e.getHitBox().x + shootingRange) {
+                        hitBox.x = e.getHitBox().x;
+                        hitBox.y = e.getHitBox().y;
+                    }
+                }
+            } else {
+                hitBox.x = e.getHitBox().x;
+                hitBox.y = e.getHitBox().y;
             }
-       }else{
-           hitBox.x = e.getHitBox().x;
-           hitBox.y = e.getHitBox().y;
-       }
+        } else if(e instanceof SimpleEnemy){
+            if (e.shooting) {
+                if (e.getMovingLeft()) {
+                    hitBox.x -= bulletspeed;
+                    if (hitBox.x < e.getHitBox().x - shootingRange)
+                        hitBox.x = e.getHitBox().x;
+                } else if (e.getMovingRight()) {
+                    hitBox.x += bulletspeed;
+                    if (hitBox.x > e.getHitBox().x + shootingRange)
+                        hitBox.x = e.getHitBox().x;
+                }
+            } else {
+                hitBox.x = e.getHitBox().x;
+                hitBox.y = e.getHitBox().y;
+            }
+        }
     }
 
     public void SHOOT(Graphics g)

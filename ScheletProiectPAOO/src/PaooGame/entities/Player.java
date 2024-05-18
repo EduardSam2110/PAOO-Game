@@ -296,6 +296,7 @@ public class Player extends Entity {
     {
         died = false;
         health.lifeCount = 3;
+        Score.current_score = 0;
         resetPlayerPos();
     }
 
