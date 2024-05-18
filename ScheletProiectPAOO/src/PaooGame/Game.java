@@ -67,6 +67,8 @@ public class Game implements Runnable
 
     private Graphics        g;          /*!< Referinta catre un context grafic.*/
 
+    public static long current_time, old_time;
+
     // dimensiunile ferestrei de joc
     public final static int TILES_IN_WIDTH = 40;
     public final static int TILES_IN_HEIGHT = 22;
@@ -94,6 +96,7 @@ public class Game implements Runnable
     public static boolean  LOAD_SELECTED = false;
     public static boolean  SAVE_SELECTED = false;
     public static boolean  RESET_PRESSED = false;
+    public static boolean  GAME_FINISHED = false;
 
     private KeyboardInput inputKeyboard;
     private MouseInput inputMouse;
@@ -166,6 +169,7 @@ public class Game implements Runnable
         {
                 /// Se obtine timpul curent
             curentTime = System.nanoTime();
+            this.current_time = System.currentTimeMillis();
                 /// Daca diferenta de timp dintre curentTime si oldTime mai mare decat 16.6 ms
             if((curentTime - oldTime) > timeFrame)
             {
@@ -173,6 +177,7 @@ public class Game implements Runnable
                 Update();
                 /// Deseneaza elementele grafica in fereastra.
                 Draw();
+
                 oldTime = curentTime;
             }
         }
@@ -277,7 +282,7 @@ public class Game implements Runnable
         g = bs.getDrawGraphics();
             /// Se sterge ce era
 
-        g.setColor(Color.WHITE);
+        g.setColor(Color.BLACK);
         g.fillRect(0,0,wnd.GetWndWidth(),wnd.GetWndHeight());
 
         state.renderRequest(g);

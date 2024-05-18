@@ -18,6 +18,8 @@ public class MenuControl {
         else if (RESET_PRESSED)
             g.setState(new ResetGameState());
 
+        else if(GAME_FINISHED)
+            g.setState(new GameFinishedState());
 
         else if (SAVE_SELECTED)
             g.setState(new SaveGameState());

@@ -1,5 +1,6 @@
 package PaooGame.Tiles;
 
+import PaooGame.Game;
 import PaooGame.Inventory.Clippers;
 import PaooGame.Inventory.SuperPaw;
 import PaooGame.entities.EnemyFactory;
@@ -95,6 +96,9 @@ public class LevelManager {
                 map = map_lvl3;
                 background = background_lvl3;
                 break;
+            case 4:
+                Game.GAME_FINISHED = true;
+                Game.old_time = System.currentTimeMillis();
             default:
                 break;
         }
