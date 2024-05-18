@@ -56,7 +56,8 @@ public class LoadSave {
                 " CLIPPERS INT," +
                 " SUPERPAW INT ," +
                 " ENTITIES_TABLE1 INT," +
-                " ENTITIES_TABLE2 INT )";
+                " ENTITIES_TABLE2 INT, " +
+                " FINAL_SCORE INT )";
 
         stmt.execute(sql);
         stmt.close();
@@ -64,8 +65,8 @@ public class LoadSave {
 
     private static void initElements() throws SQLException {
         Statement stmt = c.createStatement();
-        String sql = "INSERT INTO " + TABLE_NAME + " (ID, XPOS,YPOS,SCORE,HEALTH,LEVEL,CAMERAPOS,XCAMERAPOS,CLIPPERS,SUPERPAW, ENTITIES_TABLE1, ENTITIES_TABLE2) " +
-                "VALUES (1,90,450,0,3,1,0,0,0,0,1,1)";
+        String sql = "INSERT INTO " + TABLE_NAME + " (ID, XPOS,YPOS,SCORE,HEALTH,LEVEL,CAMERAPOS,XCAMERAPOS,CLIPPERS,SUPERPAW, ENTITIES_TABLE1, ENTITIES_TABLE2, FINAL_SCORE) " +
+                "VALUES (1,90,450,0,3,1,0,0,0,0,1,1,0)";
         stmt.executeUpdate(sql);
         stmt.close();
         System.out.println("Baza de date initializata");
@@ -83,10 +84,10 @@ public class LoadSave {
 
     public static void SaveGameState(Player p) {
         try (PreparedStatement pstmt = c.prepareStatement("UPDATE " + TABLE_NAME +
-                " set XPOS =?, YPOS =?, SCORE =?, HEALTH =?, LEVEL=?, CAMERAPOS=?, XCAMERAPOS=?, CLIPPERS=?, SUPERPAW=?, ENTITIES_TABLE1=?, ENTITIES_TABLE2=? where ID=1")) {
+                " set XPOS =?, YPOS =?, SCORE =?, HEALTH =?, LEVEL=?, CAMERAPOS=?, XCAMERAPOS=?, CLIPPERS=?, SUPERPAW=?, ENTITIES_TABLE1=?, ENTITIES_TABLE2=?, FINAL_SCORE=? where ID=1")) {
             pstmt.setInt(1, (int) p.getHitBox().x);
             pstmt.setInt(2, (int) p.getHitBox().y);
-            pstmt.setInt(3, (int) Score.finalScore);
+            pstmt.setInt(3, (int) Score.current_score);
             pstmt.setInt(4, (int) Player.getInstance().health.lifeCount);
             pstmt.setInt(5, LevelManager.level);
             pstmt.setInt(6, Camera.xCamera);
@@ -95,6 +96,7 @@ public class LoadSave {
             pstmt.setInt(9, (LevelManager.superpaw.collected == true ? 1 : 0));
             pstmt.setInt(10, LevelManager.entities_spawn_table[0]);
             pstmt.setInt(11, LevelManager.entities_spawn_table[1]);
+            pstmt.setInt(12, (int) Score.finalScore);
 
             pstmt.executeUpdate();
             System.out.println("Game Saved");
@@ -109,7 +111,7 @@ public class LoadSave {
             while (rs.next()) {
                 int xpos = rs.getInt("XPOS");
                 int ypos = rs.getInt("YPOS");
-                int score = rs.getInt("SCORE");
+                int current_score = rs.getInt("SCORE");
                 int health = rs.getInt("HEALTH");
                 int lvl = rs.getInt("LEVEL");
                 int xCam = rs.getInt("CAMERAPOS");
@@ -118,12 +120,13 @@ public class LoadSave {
                 boolean superPawPicked = rs.getInt("SUPERPAW") == 1 ? true : false;
                 int ent1 = rs.getInt("ENTITIES_TABLE1");
                 int ent2 = rs.getInt("ENTITIES_TABLE2");
+                int final_score = rs.getInt("FINAL_SCORE");
 
                 LevelManager.level = lvl;
                 LevelManager.loadedFromSave = true;
                 LevelManager.set_entities_table(ent1, ent2);
                 levelManager.initALevel();
-                p.LoadFromSave((float) xpos, (float) ypos, health, score, xCam, xCamPos, clippersPicked, superPawPicked);
+                p.LoadFromSave((float) xpos, (float) ypos, health, current_score, xCam, xCamPos, clippersPicked, superPawPicked, final_score);
                 LevelManager.loadedFromSave = false;
             }
             System.out.println("Game Loaded");
