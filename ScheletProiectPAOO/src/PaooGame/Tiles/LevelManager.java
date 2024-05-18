@@ -8,12 +8,12 @@ import PaooGame.entities.Player;
 import PaooGame.entities.Score;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.Tile.tiles;
-import static PaooGame.Tiles.Tile.waterBlock;
 import static PaooGame.utils.Camera.xCamera;
 
 
@@ -28,6 +28,8 @@ public class LevelManager {
 
     public static Clippers clippers = new Clippers(null);
     public static SuperPaw superpaw = new SuperPaw(0,0);
+
+    public static boolean loadedFromSave = false;
 
     public LevelManager()
     {
@@ -58,6 +60,8 @@ public class LevelManager {
 
         if(clippers != null)
             clippers.update();
+
+        update_entities_table();
 
     }
 
@@ -110,8 +114,8 @@ public class LevelManager {
                 break;
             case 2:
                 entities.clear();
-                entities.add(f.factoryMethod("simple", 900, 200, true,entities_spawn_table[0]));
-                entities.add(f.factoryMethod("simple", 900, 200, true,entities_spawn_table[1]));
+                entities.add(f.factoryMethod("simple", 700, 200, true,entities_spawn_table[0]));
+                entities.add(f.factoryMethod("simple", 900, 200, false,entities_spawn_table[1]));
                 superpaw.setNewPos(832,672);
                 break;
             case 3:
@@ -166,8 +170,35 @@ public class LevelManager {
         return map;
     }
 
+    private void update_entities_table()
+    {
+        for(Entity e : entities)
+            if(e != null) {
+                if (e.died)
+                    entities_spawn_table[entities.indexOf(e)] = 0;
+                else
+                    entities_spawn_table[entities.indexOf(e)] = 1;
+            }
+            else
+                entities_spawn_table[entities.indexOf(e)] = 0;
+
+            for(int a : entities_spawn_table)
+                System.out.println(a);
+
+    }
+
+    public static void set_entities_table(int a, int b)
+    {
+        entities_spawn_table[0] = a;
+        entities_spawn_table[1] = b;
+    }
+
     public void initALevel()
     {
+        if(loadedFromSave == false) {
+            set_entities_table(1, 1);
+        }
+
         superpaw.setState(false);
         setLevel();
         addEntities();
