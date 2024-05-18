@@ -20,16 +20,19 @@ import static PaooGame.utils.Camera.xCamera;
 public class LevelManager {
     private static int[][] map;
     private static BufferedImage background;
-    public static int level = 1;
+    public static int level = 2;
     public static int gateXpos = 0, gateYpos = 0;
 
     private static ArrayList<Entity> entities =  new ArrayList<>();
+    public static int[] entities_spawn_table = new int[2];
 
     public static Clippers clippers = new Clippers(null);
     public static SuperPaw superpaw = new SuperPaw(0,0);
 
     public LevelManager()
     {
+        entities_spawn_table[0] = 1;
+        entities_spawn_table[1] = 1;
         initALevel();
     }
 
@@ -50,7 +53,8 @@ public class LevelManager {
     private void entitiesUpdate()
     {
         for(Entity e: entities)
-            e.update();
+            if(e != null)
+                e.update();
 
         if(clippers != null)
             clippers.update();
@@ -60,7 +64,8 @@ public class LevelManager {
     private void entitiesRender(Graphics g)
     {
         for(Entity e: entities)
-            e.render(g);
+            if(e != null)
+                e.render(g);
 
         if(clippers != null)
             clippers.render(g);
@@ -99,19 +104,20 @@ public class LevelManager {
         {
             case 1:
                 entities.clear();
-                entities.add(f.factoryMethod("simple", 900, 200, true));
-                entities.add(f.factoryMethod("simple", 1800, 200, false));
+                entities.add(f.factoryMethod("simple", 900, 200, true, entities_spawn_table[0]));
+                entities.add(f.factoryMethod("simple", 1800, 200, false,entities_spawn_table[1]));
                 superpaw.setNewPos(500,450);
                 break;
             case 2:
                 entities.clear();
-                entities.add(f.factoryMethod("simple", 900, 200, true));
+                entities.add(f.factoryMethod("simple", 900, 200, true,entities_spawn_table[0]));
+                entities.add(f.factoryMethod("simple", 900, 200, true,entities_spawn_table[1]));
                 superpaw.setNewPos(832,672);
                 break;
             case 3:
                 entities.clear();
-                entities.add(f.factoryMethod("boss", 900, 300, true));
-                entities.add(f.factoryMethod("simple", 900, 650, false));
+                entities.add(f.factoryMethod("boss", 900, 300, true,entities_spawn_table[0]));
+                entities.add(f.factoryMethod("simple", 900, 650, false,entities_spawn_table[1]));
                 superpaw.setNewPos(1470, 580);
                 break;
             default:
@@ -137,8 +143,7 @@ public class LevelManager {
     {
         p.resetAll();
         ++level;
-        setLevel();
-        addEntities();
+        initALevel();
         Score.updateFinalScore();
     }
 
@@ -163,10 +168,10 @@ public class LevelManager {
 
     public void initALevel()
     {
+        superpaw.setState(false);
         setLevel();
         addEntities();
         clippers = Clippers.setTarget(entities);
-        superpaw.setState(false);
         getEscapePos();
     }
 }
