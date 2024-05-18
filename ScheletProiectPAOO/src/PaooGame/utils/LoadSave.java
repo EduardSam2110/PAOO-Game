@@ -51,15 +51,17 @@ public class LoadSave {
                 " HEALTH INT, " +
                 " LEVEL INT NOT NULL," +
                 " CAMERAPOS INT, " +
-                " XCAMERAPOS INT )";
+                " XCAMERAPOS INT," +
+                " CLIPPERS INT," +
+                " SUPERPAW INT )";
         stmt.execute(sql);
         stmt.close();
     }
 
     private static void initElements() throws SQLException {
         Statement stmt = c.createStatement();
-        String sql = "INSERT INTO " + TABLE_NAME + " (ID, XPOS,YPOS,SCORE,HEALTH,LEVEL,CAMERAPOS,XCAMERAPOS) " +
-                "VALUES (1,90,450,0,3,1,0,0)";
+        String sql = "INSERT INTO " + TABLE_NAME + " (ID, XPOS,YPOS,SCORE,HEALTH,LEVEL,CAMERAPOS,XCAMERAPOS,CLIPPERS,SUPERPAW) " +
+                "VALUES (1,90,450,0,3,1,0,0,0,0)";
         stmt.executeUpdate(sql);
         stmt.close();
         System.out.println("Baza de date initializata");
@@ -77,7 +79,7 @@ public class LoadSave {
 
     public static void SaveGameState(Player p) {
         try (PreparedStatement pstmt = c.prepareStatement("UPDATE " + TABLE_NAME +
-                " set XPOS =?, YPOS =?, SCORE =?, HEALTH =?, LEVEL=?, CAMERAPOS=?, XCAMERAPOS=? where ID=1")) {
+                " set XPOS =?, YPOS =?, SCORE =?, HEALTH =?, LEVEL=?, CAMERAPOS=?, XCAMERAPOS=?, CLIPPERS=?, SUPERPAW=? where ID=1")) {
             pstmt.setInt(1, (int) p.getHitBox().x);
             pstmt.setInt(2, (int) p.getHitBox().y);
             pstmt.setInt(3, (int) Score.finalScore);
@@ -85,9 +87,12 @@ public class LoadSave {
             pstmt.setInt(5, LevelManager.level);
             pstmt.setInt(6, Camera.xCamera);
             pstmt.setInt(7, Camera.xCameraPos);
+            pstmt.setInt(8, (LevelManager.clippers.collected == true ? 1 : 0));
+            pstmt.setInt(9, (LevelManager.superpaw.collected == true ? 1 : 0));
 
             pstmt.executeUpdate();
             System.out.println("Game Saved");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -103,8 +108,10 @@ public class LoadSave {
                 int lvl = rs.getInt("LEVEL");
                 int xCam = rs.getInt("CAMERAPOS");
                 int xCamPos = rs.getInt("XCAMERAPOS");
+                boolean clippersPicked = rs.getInt("CLIPPERS") == 1 ? true : false;
+                boolean superPawPicked = rs.getInt("SUPERPAW") == 1 ? true : false;
 
-                p.LoadFromSave((float) xpos, (float) ypos, health, score, lvl, xCam, xCamPos);
+                p.LoadFromSave((float) xpos, (float) ypos, health, score, lvl, xCam, xCamPos, clippersPicked, superPawPicked);
                 levelManager.initALevel();
 
             }

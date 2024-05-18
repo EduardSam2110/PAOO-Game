@@ -1,6 +1,7 @@
 package PaooGame.entities;
 
 import PaooGame.Game;
+import PaooGame.Inventory.Clippers;
 import PaooGame.Tiles.LevelManager;
 import PaooGame.Tiles.Tile;
 import PaooGame.utils.Camera;
@@ -23,6 +24,9 @@ public class Player extends Entity {
     private boolean moving = false;
     private boolean left, up = true, right, down = false, speed, jump;
     private boolean swimUP = false, swimDOWN = false;
+
+    public boolean clipperPicked = false;
+    public boolean superPawPicked = false;
 
     private int playerSpeed = 2;
 
@@ -251,7 +255,7 @@ public class Player extends Entity {
     public void setSwimUP(boolean swimUP) {this.swimUP = swimUP;}
     public void setSwimDOWN(boolean swimDOWN) {this.swimDOWN = swimDOWN;}
 
-    public void LoadFromSave(float x, float y, int health, int score, int lvl, int xCam, int xCamPos)
+    public void LoadFromSave(float x, float y, int health, int score, int lvl, int xCam, int xCamPos, boolean clipperPicked, boolean superPawPicked)
     {
         hitBox.x = x;
         hitBox.y = y;
@@ -260,6 +264,8 @@ public class Player extends Entity {
         LevelManager.level = lvl;
         xCamera = xCam;
         xCameraPos = xCamPos;
+        LevelManager.clippers.collected = clipperPicked;
+        LevelManager.superpaw.collected = superPawPicked;
     }
 
     public void getSpikeDamage(){

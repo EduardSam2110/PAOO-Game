@@ -48,9 +48,11 @@ public class SuperPaw extends ItemAbstractClass {
 
     public void setNewPos(int x, int y)
     {
-        resetState();
-        hitBox.x = x;
-        hitBox.y = y;
+        if(!collected){
+            resetState();
+            hitBox.x = x;
+            hitBox.y = y;
+        }
     }
 
     public void resetState()

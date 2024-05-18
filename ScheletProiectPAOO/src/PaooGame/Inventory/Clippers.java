@@ -53,8 +53,9 @@ public class Clippers extends ItemAbstractClass {
     public void pickItem(Player p){
         if(e.died){
             if (hitBox.x > p.hitBox.x && hitBox.x + hitBox.width < p.hitBox.x + p.hitBox.width)
-                if (hitBox.y > p.hitBox.y && hitBox.y + hitBox.height < p.hitBox.y + p.hitBox.height)
+                if (hitBox.y > p.hitBox.y && hitBox.y + hitBox.height < p.hitBox.y + p.hitBox.height) {
                     collected = true;
+                }
         }
     };
 

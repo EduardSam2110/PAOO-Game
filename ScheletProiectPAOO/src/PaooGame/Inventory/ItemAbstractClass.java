@@ -11,7 +11,7 @@ import static PaooGame.utils.Camera.xCamera;
 public abstract class ItemAbstractClass {
     protected int x,y;
     protected Rectangle2D.Float hitBox;
-    protected boolean collected = false;
+    public boolean collected = false;
     public boolean used = false;
 
     protected void initHitbox(float x, float y, float width, float height) {
