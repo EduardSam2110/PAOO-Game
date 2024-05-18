@@ -25,7 +25,7 @@ public class LevelManager {
 
     private static ArrayList<Entity> entities =  new ArrayList<>();
 
-    public static Clippers clippers;
+    public static Clippers clippers = new Clippers(null);
     public static SuperPaw superpaw = new SuperPaw(0,0);
 
     public LevelManager()
@@ -117,8 +117,6 @@ public class LevelManager {
             default:
                 break;
         }
-
-        clippers = Clippers.setTarget(entities);
     }
 
     public void draw(Graphics g)
@@ -167,6 +165,8 @@ public class LevelManager {
     {
         setLevel();
         addEntities();
+        clippers = Clippers.setTarget(entities);
+        superpaw.setState(false);
         getEscapePos();
     }
 }

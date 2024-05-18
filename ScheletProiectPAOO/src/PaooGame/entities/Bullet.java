@@ -50,7 +50,7 @@ public class Bullet extends Entity {
                 } else if (e.getMovingRight()) {
                     hitBox.x += bulletspeed;
                     hitBox.y += 0.5;
-                    if (hitBox.x < e.getHitBox().x + shootingRange) {
+                    if (hitBox.x > e.getHitBox().x + shootingRange) {
                         hitBox.x = e.getHitBox().x;
                         hitBox.y = e.getHitBox().y;
                     }

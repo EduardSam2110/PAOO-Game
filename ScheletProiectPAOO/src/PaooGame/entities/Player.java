@@ -265,7 +265,7 @@ public class Player extends Entity {
         xCamera = xCam;
         xCameraPos = xCamPos;
         LevelManager.clippers.collected = clipperPicked;
-        LevelManager.superpaw.collected = superPawPicked;
+        LevelManager.superpaw.setState(superPawPicked);
     }
 
     public void getSpikeDamage(){

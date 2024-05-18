@@ -20,42 +20,49 @@ public class Clippers extends ItemAbstractClass {
 
     private int drawingOffset = 10;
 
-    private Clippers(SimpleEnemy e) {
-        initHitbox(e.getHitBox().x, e.getHitBox().y + e.getHitBox().height, 8,8);
-        this.e = e;
+    public Clippers(SimpleEnemy e) {
+        if(e != null){
+            initHitbox(e.getHitBox().x, e.getHitBox().y + e.getHitBox().height, 8, 8);
+            this.e = e;
+        }
+        else {
+            collected = true;
+        }
     }
-
 
     @Override
     public void update()
     {
-        this.hitBox.x = (int) e.hitBox.x + drawingOffset;
-        this.hitBox.y = (int) e.hitBox.y + drawingOffset;
+        if(e != null){
+            this.hitBox.x = (int) e.hitBox.x + drawingOffset;
+            this.hitBox.y = (int) e.hitBox.y + drawingOffset;
+        }
     }
 
     @Override
     public void render(Graphics g)
     {
-        if(e.died){
-            if(!used) {
-                if (!collected) {
+        if(e != null)
+            if (e.died)
+                if (!used && !collected)
                     g.drawImage(Assets.clipperstxt, (int) hitBox.x - xCamera, (int) hitBox.y, 16, 16, null);
-                } else
-                    g.drawImage(Assets.clipperstxt, 1080, 20, 32, 32, null);
-            }
-        }
 
-       if(Game.DEBUG)
+        if(collected)
+            g.drawImage(Assets.clipperstxt, 1080, 20, 32, 32, null);
+
+       if(Game.DEBUG && e != null)
            drawHitbox(g);
     }
 
     @Override
     public void pickItem(Player p){
-        if(e.died){
-            if (hitBox.x > p.hitBox.x && hitBox.x + hitBox.width < p.hitBox.x + p.hitBox.width)
-                if (hitBox.y > p.hitBox.y && hitBox.y + hitBox.height < p.hitBox.y + p.hitBox.height) {
-                    collected = true;
-                }
+        if(e != null){
+            if (e.died) {
+                if (hitBox.x > p.hitBox.x && hitBox.x + hitBox.width < p.hitBox.x + p.hitBox.width)
+                    if (hitBox.y > p.hitBox.y && hitBox.y + hitBox.height < p.hitBox.y + p.hitBox.height) {
+                        collected = true;
+                    }
+            }
         }
     };
 
@@ -77,6 +84,6 @@ public class Clippers extends ItemAbstractClass {
             if(e instanceof SimpleEnemy)
                 if(((SimpleEnemy) e).containsClippers)
                     return new Clippers((SimpleEnemy) e);
-        return null;
+        return new Clippers(null);
     }
 }

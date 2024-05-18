@@ -49,16 +49,16 @@ public class SuperPaw extends ItemAbstractClass {
     public void setNewPos(int x, int y)
     {
         if(!collected){
-            resetState();
+            setState(false);
             hitBox.x = x;
             hitBox.y = y;
         }
     }
 
-    public void resetState()
+    public void setState(boolean state)
     {
-        collected = false;
-        used = false;
+        collected = used = state;
     }
+
 
 }
