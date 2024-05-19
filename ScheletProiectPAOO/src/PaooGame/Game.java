@@ -288,6 +288,9 @@ public class Game implements Runnable
 
         state.renderRequest(g);
 
+        MenuControl.renderMenu(g,this);
+
+
             // end operatie de desenare
             /// Se afiseaza pe ecran
         bs.show();
@@ -306,5 +309,7 @@ public class Game implements Runnable
     {
         state = newState;
     }
+
+    public GameState getState() {return state;}
 }
 

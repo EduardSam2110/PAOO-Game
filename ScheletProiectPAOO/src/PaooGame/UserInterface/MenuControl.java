@@ -4,9 +4,13 @@ import PaooGame.Game;
 import PaooGame.GameState.*;
 import PaooGame.entities.Player;
 
+import java.awt.*;
+
 import static PaooGame.Game.*;
 
 public class MenuControl {
+    private static StartButton start = new StartButton();
+
     public static void updateRequest(Game g) {
 
         if (EXIT_PRESSED)
@@ -34,5 +38,12 @@ public class MenuControl {
             g.setState(new StartState());
         else
             g.setState(new PauseState());
+    }
+
+    public static void renderMenu(Graphics g, Game game){
+        if(game.getState() instanceof PauseState)
+        {
+            start.draw(g);
+        }
     }
 }
