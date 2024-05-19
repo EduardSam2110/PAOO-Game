@@ -134,6 +134,10 @@ public abstract class Entity {
 
     public void update() {}
 
+    protected void setAnimation() {}
+
+    protected void updatePos() {}
+
     public void takeDamage(){}
 
     public void render(Graphics g) {}

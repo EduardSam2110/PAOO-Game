@@ -18,8 +18,8 @@ public class ResetGameState implements GameState{
     public void updateRequest() {
         START_PRESSED = true;
         RESET_PRESSED = false;
-        Player.getInstance().resetAll();
-        levelManager.initALevel();
-        Score.current_score = 0;
+        Player.getInstance().resetPlayerPos();
+        //levelManager.initALevel();
+        //Score.current_score = 0;
     }
 }

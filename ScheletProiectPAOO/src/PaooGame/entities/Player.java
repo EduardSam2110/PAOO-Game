@@ -81,7 +81,8 @@ public class Player extends Entity {
         }
 
     }
-    private void updatePos()
+
+    protected void updatePos()
     {
         getSpikeDamage();
 
@@ -131,7 +132,7 @@ public class Player extends Entity {
         airSpeed = jumpSpeed;
     }
 
-    private void setAnimation()
+    protected void setAnimation()
     {
         int startAnimation = action;
 
