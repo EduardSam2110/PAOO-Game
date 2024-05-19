@@ -38,7 +38,7 @@ public abstract class ButtonInterface {
         int mouseX = mousePoint.x;
         int mouseY = mousePoint.y;
 
-        System.out.println(mouseX + "  " + mouseY);
+//        System.out.println(mouseX + "  " + mouseY);
 
         if(mouseX > this.x && mouseX < this.x + this.width && mouseY > this.y && mouseY < this.y + this.height) {
             isHovered = true;
