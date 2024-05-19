@@ -120,8 +120,8 @@ public class LevelManager {
                 break;
             case 2:
                 entities.clear();
-                entities.add(f.factoryMethod("simple", 700, 200, true,entities_spawn_table[0]));
-                entities.add(f.factoryMethod("simple", 900, 200, false,entities_spawn_table[1]));
+                entities.add(f.factoryMethod("simple", 500, 200, false,entities_spawn_table[0]));
+                entities.add(f.factoryMethod("simple", 1400, 50, true,entities_spawn_table[1]));
                 superpaw.setNewPos(832,672);
                 break;
             case 3:

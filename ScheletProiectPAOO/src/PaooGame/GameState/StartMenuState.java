@@ -1,5 +1,7 @@
 package PaooGame.GameState;
 
+import PaooGame.Game;
+
 import java.awt.*;
 
 import static PaooGame.Graphics.Assets.start_game;
@@ -13,6 +15,5 @@ public class StartMenuState implements GameState {
 
     @Override
     public void updateRequest() {
-
     }
 }
