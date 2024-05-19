@@ -278,7 +278,7 @@ public class Player extends Entity {
 
         int value = levelData[(int)yIndex][(int)xIndex];
 
-        if(value == Tile.spikeUp.GetId())
+        if(value == Tile.spikeUp.GetId() || value == Tile.underwaterSpike.GetId())
         {
             takeDamage();
         }

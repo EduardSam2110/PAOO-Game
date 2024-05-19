@@ -56,6 +56,7 @@ public class Assets
     public static BufferedImage[] score;
 
     public static BufferedImage spikeUp;
+    public static BufferedImage underWaterSpike;
 
     public static BufferedImage bullet;
 
@@ -117,6 +118,8 @@ public class Assets
 
         SpriteSheet spikes = new SpriteSheet(ImageLoader.LoadImage("/textures/spike.png"),16,16);
         spikeUp = spikes.crop(0,0);
+
+        underWaterSpike = ImageLoader.LoadImage("/textures/underWaterSpike.png");
 
         SpriteSheet food = new SpriteSheet(ImageLoader.LoadImage("/textures/food.png"),16,16);
         bullet = food.crop(5,1);

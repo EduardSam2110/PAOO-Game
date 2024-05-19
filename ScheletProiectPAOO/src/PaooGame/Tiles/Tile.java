@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
  */
 public class Tile
 {
-    private static final int NO_TILES   = 114;
+    private static final int NO_TILES   = 115;
     public static Tile[] tiles          = new Tile[NO_TILES];       /*!< Vector de referinte de tipuri de dale.*/
 
         /// De remarcat ca urmatoarele dale sunt statice si publice. Acest lucru imi permite sa le am incarcate
@@ -41,6 +41,7 @@ public class Tile
     public static Tile sewer_pipe_large_rightleft_gold = new Sewer_Pipe_Large_RightLeft_Gold(79);
 
     public static Tile spikeUp = new SpikeUp(112);
+    public static Tile underwaterSpike = new UnderWaterSpike(114, 32);
 
     public int TILE_WIDTH = 32;                       /*!< Latimea unei dale.*/
     public int TILE_HEIGHT = 32;                       /*!< Inaltimea unei dale.*/
