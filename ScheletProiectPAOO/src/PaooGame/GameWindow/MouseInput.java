@@ -34,6 +34,7 @@ public class MouseInput implements MouseListener, MouseInputListener {
             load.getClick(x,y);
             save.getClick(x,y);
             exit.getClick(x,y);
+            restart.getClick(x,y);
         }
     }
 

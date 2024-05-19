@@ -11,12 +11,14 @@ public class RestartButton extends ButtonInterface {
         this.x = x;
         this.y = y;
         buttonImageNormal = Assets.restart_button_normal;
-        buttonImagePressed = Assets.resume_button_pressed;
+        buttonImagePressed = Assets.restart_button_pressed;
     }
     @Override
     public void action(){
-        if(isPressed)
+        if(isPressed) {
             Game.RESET_PRESSED = true;
+            Game.InGamePause_PRESSED = false;
+        }
         isPressed = false;
     };
 }
