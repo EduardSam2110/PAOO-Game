@@ -40,34 +40,44 @@ public class LoadSave {
         }
     }
 
-    private static void createTable() throws SQLException {
-        Statement stmt = c.createStatement();
-        String sql = "CREATE TABLE " + TABLE_NAME + " " +
-                "( ID INT PRIMARY KEY NOT NULL, " +
-                " XPOS INT NOT NULL, " +
-                " YPOS INT NOT NULL, " +
-                " SCORE INT, " +
-                " HEALTH INT, " +
-                " LEVEL INT NOT NULL," +
-                " CAMERAPOS INT, " +
-                " XCAMERAPOS INT," +
-                " CLIPPERS INT," +
-                " SUPERPAW INT ," +
-                " ENTITIES_TABLE1 INT," +
-                " ENTITIES_TABLE2 INT, " +
-                " FINAL_SCORE INT )";
+    private static void createTable() {
+        try{
+            Statement stmt = c.createStatement();
+            String sql = "CREATE TABLE " + TABLE_NAME + " " +
+                    "( ID INT PRIMARY KEY NOT NULL, " +
+                    " XPOS INT NOT NULL, " +
+                    " YPOS INT NOT NULL, " +
+                    " SCORE INT, " +
+                    " HEALTH INT, " +
+                    " LEVEL INT NOT NULL," +
+                    " CAMERAPOS INT, " +
+                    " XCAMERAPOS INT," +
+                    " CLIPPERS INT," +
+                    " SUPERPAW INT ," +
+                    " ENTITIES_TABLE1 INT," +
+                    " ENTITIES_TABLE2 INT, " +
+                    " FINAL_SCORE INT )";
 
-        stmt.execute(sql);
-        stmt.close();
+            stmt.execute(sql);
+            stmt.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    private static void initElements() throws SQLException {
-        Statement stmt = c.createStatement();
-        String sql = "INSERT INTO " + TABLE_NAME + " (ID, XPOS,YPOS,SCORE,HEALTH,LEVEL,CAMERAPOS,XCAMERAPOS,CLIPPERS,SUPERPAW, ENTITIES_TABLE1, ENTITIES_TABLE2, FINAL_SCORE) " +
-                "VALUES (1,90,450,0,3,1,0,0,0,0,1,1,0)";
-        stmt.executeUpdate(sql);
-        stmt.close();
-        System.out.println("Baza de date initializata");
+    private static void initElements()  {
+        try {
+            Statement stmt = c.createStatement();
+            String sql = "INSERT INTO " + TABLE_NAME + " (ID, XPOS,YPOS,SCORE,HEALTH,LEVEL,CAMERAPOS,XCAMERAPOS,CLIPPERS,SUPERPAW, ENTITIES_TABLE1, ENTITIES_TABLE2, FINAL_SCORE) " +
+                    "VALUES (1,90,450,0,3,1,0,0,0,0,1,1,0)";
+            stmt.executeUpdate(sql);
+            stmt.close();
+            System.out.println("Baza de date initializata");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void CloseConnection() {
