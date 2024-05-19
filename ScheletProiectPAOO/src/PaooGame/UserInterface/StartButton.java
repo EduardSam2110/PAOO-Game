@@ -1,5 +1,6 @@
 package PaooGame.UserInterface;
 
+import PaooGame.Game;
 import PaooGame.Graphics.Assets;
 
 import java.awt.*;
@@ -14,5 +15,10 @@ public class StartButton extends ButtonInterface {
     }
 
     @Override
-    public void action(){};
+    public void action(){
+        if(isPressed)
+            Game.START_PRESSED = true;
+        isPressed = false;
+    };
+
 }

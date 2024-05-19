@@ -1,12 +1,15 @@
 package PaooGame.GameWindow;
 
 import PaooGame.Game;
+import PaooGame.UserInterface.ButtonInterface;
 import PaooGame.entities.Player;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import static PaooGame.UserInterface.MenuControl.*;
 
 public class MouseInput implements MouseListener, MouseInputListener {
 
@@ -22,10 +25,13 @@ public class MouseInput implements MouseListener, MouseInputListener {
             player.setAttacking(true);
             int x = e.getX();
             int y = e.getY();
-            if(Game.START_PRESSED == false)
-                if(x >= 545 && x <= 765)
-                    if(y >= 410 && y <= 490 )
-                        Game.START_PRESSED = true;
+//            if(Game.START_PRESSED == false)
+//                if(x >= 545 && x <= 765)
+//                    if(y >= 410 && y <= 490 )
+//                        Game.START_PRESSED = true;
+
+            start.getClick(x,y);
+
         }
     }
 

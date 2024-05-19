@@ -15,6 +15,8 @@ public abstract class ButtonInterface {
     protected boolean isPressed = false;
     protected boolean isHovered = false;
     protected static JFrame component;
+    protected int mouseXLocation, mouseYLocation;
+
 
     public void draw(Graphics g, Game game){
         hovering(game);
@@ -35,15 +37,22 @@ public abstract class ButtonInterface {
 
         SwingUtilities.convertPointFromScreen(mousePoint, component);
 
-        int mouseX = mousePoint.x;
-        int mouseY = mousePoint.y;
+        mouseXLocation = mousePoint.x;
+        mouseYLocation = mousePoint.y;
 
 //        System.out.println(mouseX + "  " + mouseY);
 
-        if(mouseX > this.x && mouseX < this.x + this.width && mouseY > this.y && mouseY < this.y + this.height) {
+        if(mouseXLocation >= this.x && mouseXLocation <= this.x + this.width && mouseYLocation >= this.y && mouseYLocation <= this.y + this.height)
             isHovered = true;
-        }
         else
             isHovered = false;
+    }
+
+    public void getClick(int clickX, int clickY){
+        if(clickX > this.x && clickX < this.x + this.width && clickY > this.y && clickY < this.y + this.height) {
+            isPressed = true;
+        }
+        else
+            isPressed = false;
     }
 }
