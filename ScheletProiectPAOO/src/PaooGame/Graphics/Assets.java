@@ -73,6 +73,21 @@ public class Assets
     public static int map_lvl3[][];
     public static BufferedImage background_lvl3 = ImageLoader.LoadImage("/textures/level1.png");
 
+    public static BufferedImage start_button_normal;
+    public static BufferedImage exit_button_normal;
+    public static BufferedImage restart_button_normal;
+    public static BufferedImage controls_button_normal;
+    public static BufferedImage resume_button_normal;
+    public static BufferedImage load_button_normal;
+    public static BufferedImage save_button_normal;
+
+    public static BufferedImage start_button_pressed;
+    public static BufferedImage exit_button_pressed;
+    public static BufferedImage restart_button_pressed;
+    public static BufferedImage controls_button_pressed;
+    public static BufferedImage resume_button_pressed;
+    public static BufferedImage load_button_pressed;
+    public static BufferedImage save_button_pressed;
 
     public static BufferedImage game_over = ImageLoader.LoadImage("/textures/game_over.jpg"); // temporara, va fi schimbata
     public static BufferedImage start_game = ImageLoader.LoadImage("/textures/start_game.png");
@@ -230,6 +245,26 @@ public class Assets
             }
             jj = 0;
         }
+
+        SpriteSheet normalButtons = new SpriteSheet(ImageLoader.LoadImage("/textures/buttons_normal.png"), 128,64);
+
+        start_button_normal = normalButtons.crop(0,0);
+        load_button_normal = normalButtons.crop(0,1);
+        exit_button_normal = normalButtons.crop(0,2);
+        controls_button_normal = normalButtons.crop(0,3);
+        resume_button_normal = normalButtons.crop(0,4);
+        restart_button_normal = normalButtons.crop(0,5);
+        save_button_normal = normalButtons.crop(0,6);
+
+        SpriteSheet pressedButtons = new SpriteSheet(ImageLoader.LoadImage("/textures/buttons_pressed.png"));
+
+        start_button_pressed = pressedButtons.crop(0,0);
+        load_button_pressed = pressedButtons.crop(0,1);
+        exit_button_pressed = pressedButtons.crop(0,2);
+        controls_button_pressed = pressedButtons.crop(0,3);
+        resume_button_pressed = pressedButtons.crop(0,4);
+        restart_button_pressed = pressedButtons.crop(0,5);
+        save_button_pressed = pressedButtons.crop(0,6);
 
         // hartile nivelelor
 

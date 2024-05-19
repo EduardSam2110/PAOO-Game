@@ -1,10 +1,7 @@
-package PaooGame.GameState;
-
-import java.awt.*;
+package PaooGame.UserInterface;
 
 import PaooGame.Game;
-import PaooGame.Game.*;
-import PaooGame.entities.HealthBar;
+import PaooGame.GameState.*;
 import PaooGame.entities.Player;
 
 import static PaooGame.Game.*;

@@ -6,6 +6,7 @@ import PaooGame.GameWindow.KeyboardInput;
 import PaooGame.GameWindow.MouseInput;
 import PaooGame.Graphics.Assets;
 import PaooGame.Tiles.LevelManager;
+import PaooGame.UserInterface.MenuControl;
 import PaooGame.entities.*;
 import PaooGame.utils.LoadSave;
 
