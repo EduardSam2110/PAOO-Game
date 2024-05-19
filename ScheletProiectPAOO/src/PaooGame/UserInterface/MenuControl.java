@@ -26,11 +26,11 @@ public class MenuControl {
         else if (RESET_PRESSED)
             game.setState(new ResetGameState());
 
-        else if(GAME_FINISHED)
-            game.setState(new GameFinishedState());
-
         else if (SAVE_SELECTED)
             game.setState(new SaveGameState());
+
+        else if(GAME_FINISHED)
+            game.setState(new GameFinishedState());
 
         else if (Player.getInstance().died)
             game.setState(new GameOverState());

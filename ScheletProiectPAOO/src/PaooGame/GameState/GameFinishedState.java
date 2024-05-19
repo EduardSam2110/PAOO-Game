@@ -17,13 +17,12 @@ public class GameFinishedState implements GameState {
 
     @Override
     public void updateRequest() {
-            LevelManager.level = 1;
-            levelManager.initALevel();
-            Game.START_PRESSED = false;
-            
-            if(current_time - old_time > 5_000) {
+            if(current_time - old_time > 3_000) {
+                LevelManager.level = 1;
+                levelManager.initALevel();
+                Score.resetAll();
+                Game.START_PRESSED = false;
                 GAME_FINISHED = false;
-                Score.finalScore = 0;
             }
 //        System.out.println(current_time + "    " + old_time);
     }

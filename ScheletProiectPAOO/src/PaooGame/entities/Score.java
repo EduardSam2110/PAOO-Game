@@ -51,4 +51,9 @@ public class Score {
         finalScore += current_score;
         current_score = 0;
     }
+
+    public static void resetAll()
+    {
+        current_score = finalScore = 0;
+    }
 }

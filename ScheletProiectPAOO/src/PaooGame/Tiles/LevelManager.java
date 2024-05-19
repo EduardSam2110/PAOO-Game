@@ -21,7 +21,7 @@ import static PaooGame.utils.Camera.xCamera;
 public class LevelManager {
     private static int[][] map;
     private static BufferedImage background;
-    public static int level = 1;
+    public static int level = 3;
     public static int gateXpos = 0, gateYpos = 0;
 
     private static ArrayList<Entity> entities =  new ArrayList<>();
@@ -100,6 +100,7 @@ public class LevelManager {
                 break;
             case 4:
                 Game.GAME_FINISHED = true;
+                Game.SAVE_SELECTED = true;
                 Game.old_time = System.currentTimeMillis();
             default:
                 break;

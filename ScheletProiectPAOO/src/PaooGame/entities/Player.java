@@ -290,8 +290,10 @@ public class Player extends Entity {
             --health.lifeCount;
             resetPlayerPos();
         }
-        else
+        else {
             died = true;
+            Game.old_time = System.currentTimeMillis();
+        }
     }
 
     public void resetPlayerPos()

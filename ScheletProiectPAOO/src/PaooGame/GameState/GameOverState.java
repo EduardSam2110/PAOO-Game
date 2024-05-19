@@ -1,9 +1,14 @@
 package PaooGame.GameState;
 
+import PaooGame.Game;
+import PaooGame.Tiles.LevelManager;
+import PaooGame.entities.Player;
+import PaooGame.entities.Score;
+
 import java.awt.*;
 import java.util.Timer;
 
-import static PaooGame.Game.START_PRESSED;
+import static PaooGame.Game.*;
 import static PaooGame.Graphics.Assets.game_over;
 
 public class GameOverState implements GameState{
@@ -16,5 +21,13 @@ public class GameOverState implements GameState{
 
     @Override
     public void updateRequest() {
+
+        if(current_time - old_time > 3_000) {
+            LevelManager.level = 1;
+            levelManager.initALevel();
+            Player.getInstance().resetAll();
+            Score.resetAll();
+            Game.START_PRESSED = false;
+        }
     }
 }
