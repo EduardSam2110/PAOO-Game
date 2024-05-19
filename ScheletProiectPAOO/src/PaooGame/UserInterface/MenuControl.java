@@ -15,7 +15,10 @@ public class MenuControl {
     public static ExitButton exit = new ExitButton(590,440);
     public static SaveButton save = new SaveButton(590,510);
 
+    public static boolean MousePerm = false;
+
     public static void updateRequest(Game game) {
+        MousePerm = false;
 
         if (EXIT_PRESSED)
             game.setState(new ExitState());
@@ -51,6 +54,7 @@ public class MenuControl {
 
         if(game.getState() instanceof StartMenuState)
         {
+            MousePerm = true;
             start.action();
             load.action();
             exit.action();
@@ -58,6 +62,7 @@ public class MenuControl {
 
         if(game.getState() instanceof InGamePauseState)
         {
+            MousePerm = true;
             start.action();
             save.action();
             exit.action();

@@ -137,7 +137,7 @@ public class LevelManager {
 
     public void draw(Graphics g)
     {
-        g.drawImage(background,0,0,null);
+        g.drawImage(background,0,0,1280,720,null);
         for(int i = 0; i<23;i++)
             for(int j = 0; j<80;j++)
             {

@@ -18,6 +18,7 @@ public class LoadButton extends ButtonInterface{
     public void action(){
         if(isPressed)
             Game.LOAD_SELECTED = true;
+
         isPressed = false;
     };
 }
