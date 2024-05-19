@@ -4,6 +4,7 @@ import PaooGame.Game;
 import PaooGame.Graphics.Assets;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 //import static PaooGame.Game.player;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
@@ -11,20 +12,24 @@ import static PaooGame.utils.Camera.xCamera;
 import static PaooGame.utils.Constants.CRAWLING;
 import static PaooGame.utils.Constants.SIT_DOWN;
 
-public class Bullet extends Entity {
+public class Bullet {
     private int x,y;
     public float bulletspeed = 2f;
     public int shootingRange = 5 * TILE_SIZE;
     private SimpleEnemy e;
+    public Rectangle2D.Float hitBox; // dreptunghiul pentru coliziuni
 
 
     public Bullet(SimpleEnemy e) {
-        super((int) e.getHitBox().x,(int) e.getHitBox().y, 16,16);
+        //super((int) e.getHitBox().x,(int) e.getHitBox().y, 16,16);
         this.e = e;
         x = (int) e.getHitBox().x;
         y = (int) e.getHitBox().y+75;
         initHitbox(x,y,8,8);
-        gravity = 0.001f;
+    }
+
+    protected void initHitbox(float x, float y, float width, float height) {
+        hitBox = new Rectangle2D.Float(x,y,width,height);
     }
 
     private void draw(Graphics g)
@@ -39,27 +44,6 @@ public class Bullet extends Entity {
     private void movement()
     {
         if(e instanceof BossEnemy) {
-//            if (e.shooting) {
-//                if (e.getMovingLeft()) {
-//                    hitBox.x -= bulletspeed;
-//                    hitBox.y += 0.5;
-//                    if (hitBox.x < e.getHitBox().x - shootingRange) {
-//                        hitBox.x = e.getHitBox().x;
-//                        hitBox.y = e.getHitBox().y;
-//                    }
-//                } else if (e.getMovingRight()) {
-//                    hitBox.x += bulletspeed;
-//                    hitBox.y += 0.5;
-//                    if (hitBox.x > e.getHitBox().x + shootingRange) {
-//                        hitBox.x = e.getHitBox().x;
-//                        hitBox.y = e.getHitBox().y;
-//                    }
-//                }
-//            } else {
-//                hitBox.x = e.getHitBox().x;
-//                hitBox.y = e.getHitBox().y;
-//            }
-
             if (e.getMovingLeft()) {
                 if (e.shooting) {
                     hitBox.x -= bulletspeed;
@@ -121,6 +105,12 @@ public class Bullet extends Entity {
             if((hitBox.x >= playerX) && (hitBox.x + hitBox.width <= playerX + Player.getInstance().getHitBox().width))
                 if(Player.getInstance().action != CRAWLING && Player.getInstance().action != SIT_DOWN)
                     Player.getInstance().takeDamage();
+    }
+
+    protected void drawHitbox(Graphics g)
+    {
+        g.setColor(Color.WHITE);
+        g.drawRect((int)hitBox.x -xCamera,(int)hitBox.y,(int)hitBox.width,(int)hitBox.height);
     }
 }
 
