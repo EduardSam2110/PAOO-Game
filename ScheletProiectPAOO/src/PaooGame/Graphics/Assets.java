@@ -93,6 +93,7 @@ public class Assets
     public static BufferedImage game_over = ImageLoader.LoadImage("/textures/game_over.jpg"); // temporara, va fi schimbata
     public static BufferedImage start_game = ImageLoader.LoadImage("/textures/start_game.png");
     public static BufferedImage transparent = ImageLoader.LoadImage("/textures/transparent.png");
+    public static BufferedImage gamefinished = ImageLoader.LoadImage("/textures/game_finished.png");
 
     /*! \fn public static void Init()
         \brief Functia initializaza referintele catre elementele grafice utilizate.

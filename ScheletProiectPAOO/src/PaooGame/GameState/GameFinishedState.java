@@ -1,6 +1,7 @@
 package PaooGame.GameState;
 
 import PaooGame.Game;
+import PaooGame.Graphics.Assets;
 import PaooGame.Tiles.LevelManager;
 import PaooGame.entities.Score;
 
@@ -11,8 +12,8 @@ import static PaooGame.Game.*;
 public class GameFinishedState implements GameState {
     @Override
     public void renderRequest(Graphics g) {
-        g.setColor(Color.WHITE);
-        g.drawString("Game Finished!\n Your score: " + (int) Score.finalScore, 500,500);
+        g.drawImage(Assets.gamefinished,0,0,1280,720,null);
+        Score.drawIfWon(g);
     }
 
     @Override
