@@ -72,7 +72,7 @@ public class Assets
     public static BufferedImage background_lvl2 = ImageLoader.LoadImage("/textures/level2.png");
 
     public static int map_lvl3[][];
-    public static BufferedImage background_lvl3 = ImageLoader.LoadImage("/textures/level1.png");
+    public static BufferedImage background_lvl3 = ImageLoader.LoadImage("/textures/level3.png");
 
     public static BufferedImage start_button_normal;
     public static BufferedImage exit_button_normal;
