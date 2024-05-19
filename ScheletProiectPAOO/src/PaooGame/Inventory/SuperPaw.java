@@ -2,6 +2,7 @@ package PaooGame.Inventory;
 
 import PaooGame.Game;
 import PaooGame.Graphics.Assets;
+import PaooGame.Tiles.LevelManager;
 import PaooGame.entities.Player;
 
 import java.awt.*;
@@ -20,7 +21,10 @@ public class SuperPaw extends ItemAbstractClass {
     @Override
     public void update()
     {
-
+        if(collected && LevelManager.level == 3)
+            Player.getInstance().setJumpSpeed(-8);
+        else
+            Player.getInstance().setJumpSpeed(-4);
     }
 
     @Override

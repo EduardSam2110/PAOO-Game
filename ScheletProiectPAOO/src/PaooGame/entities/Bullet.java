@@ -14,7 +14,7 @@ import static PaooGame.utils.Constants.SIT_DOWN;
 public class Bullet extends Entity {
     private int x,y;
     public float bulletspeed = 2f;
-    private int shootingRange = 5 * TILE_SIZE;
+    public int shootingRange = 5 * TILE_SIZE;
     private SimpleEnemy e;
 
 
@@ -39,26 +39,53 @@ public class Bullet extends Entity {
     private void movement()
     {
         if(e instanceof BossEnemy) {
-            if (e.shooting) {
-                if (e.getMovingLeft()) {
+//            if (e.shooting) {
+//                if (e.getMovingLeft()) {
+//                    hitBox.x -= bulletspeed;
+//                    hitBox.y += 0.5;
+//                    if (hitBox.x < e.getHitBox().x - shootingRange) {
+//                        hitBox.x = e.getHitBox().x;
+//                        hitBox.y = e.getHitBox().y;
+//                    }
+//                } else if (e.getMovingRight()) {
+//                    hitBox.x += bulletspeed;
+//                    hitBox.y += 0.5;
+//                    if (hitBox.x > e.getHitBox().x + shootingRange) {
+//                        hitBox.x = e.getHitBox().x;
+//                        hitBox.y = e.getHitBox().y;
+//                    }
+//                }
+//            } else {
+//                hitBox.x = e.getHitBox().x;
+//                hitBox.y = e.getHitBox().y;
+//            }
+
+            if (e.getMovingLeft()) {
+                if (e.shooting) {
                     hitBox.x -= bulletspeed;
                     hitBox.y += 0.5;
                     if (hitBox.x < e.getHitBox().x - shootingRange) {
                         hitBox.x = e.getHitBox().x;
                         hitBox.y = e.getHitBox().y;
                     }
-                } else if (e.getMovingRight()) {
+                } else {
+                    hitBox.x = e.getHitBox().x;
+                    hitBox.y = e.getHitBox().y;
+                }
+            } else if(e.getMovingRight()) {
+                if(e.shooting) {
                     hitBox.x += bulletspeed;
                     hitBox.y += 0.5;
                     if (hitBox.x > e.getHitBox().x + shootingRange) {
-                        hitBox.x = e.getHitBox().x;
+                        hitBox.x = e.getHitBox().x + e.getHitBox().width;
                         hitBox.y = e.getHitBox().y;
                     }
+                } else {
+                    hitBox.x = e.getHitBox().x + e.getHitBox().width;
+                    hitBox.y = e.getHitBox().y;
                 }
-            } else {
-                hitBox.x = e.getHitBox().x;
-                hitBox.y = e.getHitBox().y;
             }
+
         } else if(e instanceof SimpleEnemy){
             if (e.shooting) {
                 if (e.getMovingLeft()) {

@@ -5,6 +5,7 @@ import PaooGame.Game;
 import java.awt.*;
 
 import static PaooGame.Graphics.Assets.*;
+import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static PaooGame.utils.Camera.xCamera;
 import static PaooGame.utils.Constants.*;
 import static PaooGame.utils.Constants.EnemyATTACK;
@@ -17,7 +18,8 @@ public class BossEnemy extends SimpleEnemy{
         super.xDrawOffset = 70;
         movingRight = true;
         b = new Bullet(this);
-        b.bulletspeed = 4f;
+        b.bulletspeed = 6f;
+        b.shootingRange = 7 * TILE_SIZE;
         current_animation = boss_animations_right[EnemyIDLE];
         current_animation_left = boss_animations_left;
         current_animation_right = boss_animations_right;

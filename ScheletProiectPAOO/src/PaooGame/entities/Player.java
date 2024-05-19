@@ -252,6 +252,10 @@ public class Player extends Entity {
         return playerSpeed;
     }
 
+    public void setJumpSpeed(float speed) {
+        jumpSpeed = speed;
+    }
+
     public void setSwimUP(boolean swimUP) {this.swimUP = swimUP;}
     public void setSwimDOWN(boolean swimDOWN) {this.swimDOWN = swimDOWN;}
 

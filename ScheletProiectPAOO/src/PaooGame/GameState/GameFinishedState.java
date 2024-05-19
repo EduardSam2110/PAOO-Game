@@ -21,7 +21,7 @@ public class GameFinishedState implements GameState {
             levelManager.initALevel();
             Game.START_PRESSED = false;
             
-            if(current_time - old_time > 10_000) {
+            if(current_time - old_time > 5_000) {
                 GAME_FINISHED = false;
                 Score.finalScore = 0;
             }
