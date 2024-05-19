@@ -16,8 +16,10 @@ public class StartButton extends ButtonInterface {
 
     @Override
     public void action(){
-        if(isPressed)
+        if(isPressed) {
             Game.START_PRESSED = true;
+            Game.InGamePause_PRESSED = false;
+        }
         isPressed = false;
     };
 

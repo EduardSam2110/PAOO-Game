@@ -31,7 +31,9 @@ public class MouseInput implements MouseListener, MouseInputListener {
 //                        Game.START_PRESSED = true;
 
             start.getClick(x,y);
-
+            load.getClick(x,y);
+            save.getClick(x,y);
+            exit.getClick(x,y);
         }
     }
 

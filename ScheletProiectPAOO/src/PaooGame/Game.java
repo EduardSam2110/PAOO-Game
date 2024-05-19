@@ -98,6 +98,7 @@ public class Game implements Runnable
     public static boolean  SAVE_SELECTED = false;
     public static boolean  RESET_PRESSED = false;
     public static boolean  GAME_FINISHED = false;
+    public static boolean  InGamePause_PRESSED = false;
 
     private KeyboardInput inputKeyboard;
     private MouseInput inputMouse;
@@ -144,7 +145,7 @@ public class Game implements Runnable
         Assets.Init();
         Assets.LoadBackgroudTiles();
         levelManager = new LevelManager();
-        state = new PauseState();
+        state = new StartMenuState();
     }
 
     /*! \fn public void run()

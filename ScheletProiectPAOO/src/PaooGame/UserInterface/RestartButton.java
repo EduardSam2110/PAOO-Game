@@ -1,5 +1,6 @@
 package PaooGame.UserInterface;
 
+import PaooGame.Game;
 import PaooGame.Graphics.Assets;
 
 import java.awt.*;
@@ -13,5 +14,9 @@ public class RestartButton extends ButtonInterface {
         buttonImagePressed = Assets.resume_button_pressed;
     }
     @Override
-    public void action(){};
+    public void action(){
+        if(isPressed)
+            Game.RESET_PRESSED = true;
+        isPressed = false;
+    };
 }
