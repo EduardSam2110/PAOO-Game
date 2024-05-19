@@ -65,7 +65,6 @@ public class Player extends Entity {
         updateAnimation(action, "player");
         setAnimation();
         super.loadLvlData();
-
 //        System.out.println(hitBox.x );
 //        System.out.println(hitBox.y );
     }
@@ -162,9 +161,8 @@ public class Player extends Entity {
         }
 
 
-        if(attacking) {
+        if(attacking)
             action = ATTACK_1;
-        }
 
         if(detectWater())
             action = SWIMMING;
