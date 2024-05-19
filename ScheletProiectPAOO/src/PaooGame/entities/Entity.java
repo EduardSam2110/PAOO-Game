@@ -21,7 +21,7 @@ public abstract class Entity {
     // variabilele ce tin de gravitatie si jump
     protected float airSpeed = 0f;
     protected float gravity = 0.1f;
-    protected float jumpSpeed = -14f;
+    protected float jumpSpeed = -4f;
     protected float fallSpeedAfterCollision = 1f;
     protected boolean inAir = true;
 

@@ -1,6 +1,7 @@
 package PaooGame.GameState;
 
 import PaooGame.entities.Player;
+import PaooGame.entities.Score;
 
 import java.awt.*;
 
@@ -19,5 +20,6 @@ public class ResetGameState implements GameState{
         RESET_PRESSED = false;
         Player.getInstance().resetAll();
         levelManager.initALevel();
+        Score.current_score = 0;
     }
 }

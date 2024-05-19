@@ -1,13 +1,11 @@
 package PaooGame.utils;
 
 import PaooGame.Tiles.LevelManager;
-import PaooGame.entities.HealthBar;
 import PaooGame.entities.Player;
 import PaooGame.entities.Score;
 
 import java.io.File;
 import java.sql.*;
-import java.util.logging.Level;
 
 import static PaooGame.Game.levelManager;
 
