@@ -134,4 +134,5 @@ public class GameWindow
     public Canvas GetCanvas() {
         return canvas;
     }
+    public JFrame getWndFrame() { return wndFrame; }
 }

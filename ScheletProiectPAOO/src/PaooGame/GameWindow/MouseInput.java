@@ -4,6 +4,7 @@ import PaooGame.Game;
 import PaooGame.entities.Player;
 
 import javax.swing.event.MouseInputListener;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 

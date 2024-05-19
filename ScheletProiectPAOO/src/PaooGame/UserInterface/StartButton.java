@@ -6,14 +6,11 @@ import java.awt.*;
 
 public class StartButton extends ButtonInterface {
 
-    public StartButton() {
+    public StartButton(int x, int y) {
+        this.x = x;
+        this.y = y;
         buttonImageNormal = Assets.start_button_normal;
         buttonImagePressed = Assets.start_button_pressed;
-    }
-    @Override
-    public void draw(Graphics g){
-        g.drawImage(Assets.start_button_normal,500,500,128,128,null);
-        System.out.println("merge?");
     }
 
     @Override

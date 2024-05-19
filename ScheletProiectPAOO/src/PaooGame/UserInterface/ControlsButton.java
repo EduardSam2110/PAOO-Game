@@ -4,8 +4,7 @@ import java.awt.*;
 
 public class ControlsButton extends ButtonInterface{
 
-    @Override
-    public void draw(Graphics g){}
+
 
     @Override
     public void action(){};

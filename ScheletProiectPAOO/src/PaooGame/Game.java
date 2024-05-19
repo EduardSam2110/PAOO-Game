@@ -311,5 +311,7 @@ public class Game implements Runnable
     }
 
     public GameState getState() {return state;}
+
+    public GameWindow getWnd() { return wnd; }
 }
 

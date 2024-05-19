@@ -90,7 +90,7 @@ public class Assets
     public static BufferedImage save_button_pressed;
 
     public static BufferedImage game_over = ImageLoader.LoadImage("/textures/game_over.jpg"); // temporara, va fi schimbata
-    public static BufferedImage start_game = ImageLoader.LoadImage("/textures/start_game.png");
+    public static BufferedImage start_game = ImageLoader.LoadImage("/textures/start_game_nou.png");
 
     /*! \fn public static void Init()
         \brief Functia initializaza referintele catre elementele grafice utilizate.
@@ -256,7 +256,7 @@ public class Assets
         restart_button_normal = normalButtons.crop(0,5);
         save_button_normal = normalButtons.crop(0,6);
 
-        SpriteSheet pressedButtons = new SpriteSheet(ImageLoader.LoadImage("/textures/buttons_pressed.png"));
+        SpriteSheet pressedButtons = new SpriteSheet(ImageLoader.LoadImage("/textures/buttons_pressed.png"),128,64);
 
         start_button_pressed = pressedButtons.crop(0,0);
         load_button_pressed = pressedButtons.crop(0,1);
