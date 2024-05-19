@@ -49,9 +49,8 @@ public abstract class ButtonInterface {
     }
 
     public void getClick(int clickX, int clickY){
-        if(clickX > this.x && clickX < this.x + this.width && clickY > this.y && clickY < this.y + this.height) {
+        if(clickX > this.x && clickX < this.x + this.width && clickY > this.y && clickY < this.y + this.height)
             isPressed = true;
-        }
         else
             isPressed = false;
     }
