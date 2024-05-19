@@ -91,7 +91,7 @@ public class Assets
     public static BufferedImage save_button_pressed;
 
     public static BufferedImage game_over = ImageLoader.LoadImage("/textures/game_over.jpg"); // temporara, va fi schimbata
-    public static BufferedImage start_game = ImageLoader.LoadImage("/textures/start_game_nou.png");
+    public static BufferedImage start_game = ImageLoader.LoadImage("/textures/start_game.png");
     public static BufferedImage transparent = ImageLoader.LoadImage("/textures/transparent.png");
 
     /*! \fn public static void Init()
