@@ -7,7 +7,16 @@ import PaooGame.entities.Player;
 import java.awt.*;
 
 import static PaooGame.Game.*;
+/*
+Clasa se ocupa cu gestionarea starilor jocului si cu meniurile
 
+Modul de functionare este asemanator cu o masina de stari finite gestionata prin variabile booleene
+, adaugand faptul ca unele comenzi au o prioritate mai mare
+ca altele (spre exemplu ExitGame este prioritar lui StartGame)
+
+Totodata aici se actualizeaza si butoanele meniului, atunci cand campul
+state din clasa Game se afla in starile StartMenuState si InGamePauseState
+ */
 public class MenuControl {
     public static StartButton start = new StartButton(590,300);
     public static LoadButton load = new LoadButton(590,370);
@@ -48,8 +57,6 @@ public class MenuControl {
                 game.setState(new StartState());
         else
             game.setState(new StartMenuState());
-
-//        System.out.println(MouseInfo.getPointerInfo().getLocation().x + "," + MouseInfo.getPointerInfo().getLocation().y);
 
 
         if(game.getState() instanceof StartMenuState)

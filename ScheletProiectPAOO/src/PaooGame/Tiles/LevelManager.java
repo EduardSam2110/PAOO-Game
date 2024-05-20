@@ -17,15 +17,18 @@ import static PaooGame.Graphics.Assets.*;
 import static PaooGame.Tiles.Tile.tiles;
 import static PaooGame.utils.Camera.xCamera;
 
+/*
+Clasa se ocupa cu gestionarea nivelelor si a tot ce tine de ele
+ */
 
 public class LevelManager {
     private static int[][] map; // matricea hartii
     private static BufferedImage background;
     public static int level = 1;
-    public static int gateXpos = 0, gateYpos = 0;
+    public static int gateXpos = 0, gateYpos = 0; // pozitiile x si y ale portii de trecere la alt nivel
 
-    private static ArrayList<Entity> entities =  new ArrayList<>();
-    public static int[] entities_spawn_table = new int[2];
+    private static ArrayList<Entity> entities =  new ArrayList<>(); // array list de inamici
+    public static int[] entities_spawn_table = new int[2]; // tabel pentru a tine evidenta inamicilor daca sunt omorati sau nu
 
     public static Clippers clippers = new Clippers(null);
     public static SuperPaw superpaw = new SuperPaw(0,0);
@@ -158,12 +161,13 @@ public class LevelManager {
         Score.updateFinalScore();
     }
 
+    // functia obtine pozitia portii spre urmatorul nivel
     private void getEscapePos()
     {
         for(int i = 0; i < map.length;i++)
             for(int j = 0; j < map[i].length; j++)
             {
-                if(map[i][j] == Tile.sewer_hole2.GetId()) // SCHIMBA SA FIE SI CELELALTE SEWER HOLES SI VEZI SA FGOLOSESTI DOAR ALEA 2 O DATA
+                if(map[i][j] == Tile.sewer_hole2.GetId())
                 {
                     gateXpos = i;
                     gateYpos = j;
@@ -177,6 +181,11 @@ public class LevelManager {
         return map;
     }
 
+    /*
+    metoda actualizeaza tabelul de entitati, pe baza daca entitatea e omorata sau nu
+    0 - da
+    1 - nu
+     */
     private void update_entities_table()
     {
         for(Entity e : entities)
@@ -188,10 +197,6 @@ public class LevelManager {
             }
             else
                 entities_spawn_table[entities.indexOf(e)] = 0;
-
-//            for(int a : entities_spawn_table)
-//                System.out.println(a);
-
     }
 
     public static void set_entities_table(int a, int b)
@@ -200,6 +205,7 @@ public class LevelManager {
         entities_spawn_table[1] = b;
     }
 
+    // metoda de initializare a unui nivel
     public void initALevel()
     {
         if(loadedFromSave == false) {

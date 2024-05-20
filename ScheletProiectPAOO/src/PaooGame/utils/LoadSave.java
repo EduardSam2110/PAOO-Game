@@ -9,13 +9,13 @@ import java.sql.*;
 
 import static PaooGame.Game.levelManager;
 
+// clasa incapsuleaza metode pentru a gestiona baza de date
 public class LoadSave {
     private static Connection c;
-
-    // Use constants for database file name and table name
     private static final String DATABASE_FILE = "savegame.db";
     private static final String TABLE_NAME = "LOADSAVE";
 
+    // initializare bza de date - verifica daca exista si o creeaza daca nu, creand totodata conexiunea la ea
     public static void InitDataBase() {
         try {
             File file = new File(DATABASE_FILE);
@@ -40,6 +40,7 @@ public class LoadSave {
         }
     }
 
+    // metoda de creere a tabelei bazei de date
     private static void createTable() {
         try{
             Statement stmt = c.createStatement();
@@ -66,6 +67,7 @@ public class LoadSave {
         }
     }
 
+    // metoda de intializare a campurilor din baza de date
     private static void initElements()  {
         try {
             Statement stmt = c.createStatement();
@@ -90,6 +92,8 @@ public class LoadSave {
         }
     }
 
+    // metoda de a salva starea jocului in baza de date
+    // s-a folosit PreparedStatement pentru a putea utiliza variabile
     public static void SaveGame(Player p) {
         try (PreparedStatement pstmt = c.prepareStatement("UPDATE " + TABLE_NAME +
                 " set XPOS =?, YPOS =?, SCORE =?, HEALTH =?, LEVEL=?, CAMERAPOS=?, XCAMERAPOS=?, CLIPPERS=?, SUPERPAW=?, ENTITIES_TABLE1=?, ENTITIES_TABLE2=?, FINAL_SCORE=? where ID=1")) {
@@ -114,6 +118,7 @@ public class LoadSave {
         }
     }
 
+    // functie de load game
     public static void LoadGame(Player p) {
         try (Statement stmt = c.createStatement(); ResultSet rs = stmt.executeQuery("SELECT * FROM " + TABLE_NAME)) {
             while (rs.next()) {
