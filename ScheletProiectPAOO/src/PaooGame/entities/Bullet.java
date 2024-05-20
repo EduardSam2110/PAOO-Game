@@ -12,6 +12,10 @@ import static PaooGame.utils.Camera.xCamera;
 import static PaooGame.utils.Constants.CRAWLING;
 import static PaooGame.utils.Constants.SIT_DOWN;
 
+/*
+clasa modeleaza obiectul glont
+fiecare inamic are o instanta a acestei clase
+*/
 public class Bullet {
     private int x,y;
     public float bulletspeed = 2f;
@@ -43,11 +47,17 @@ public class Bullet {
 
     private void movement()
     {
+        /* miscarea glontului are 2 etape:
+        - cand inamicul nu trage, pozitia se actualizeaza cu cea a inamicului - practic inamicul poarta glontul
+        - cand inamicul trage, glontul se misca pe distanta shootingRange, resetandu-se la inamic cand ajunge la capatul distantei
+        sau daca inamicul se misca
+         */
         if(e instanceof BossEnemy) {
             if (e.getMovingLeft()) {
                 if (e.shooting) {
                     hitBox.x -= bulletspeed;
-                    hitBox.y += 0.5;
+                    hitBox.y += 0.5;// la inamicul Boss glontul se misca oblic,
+                                    // pentru ca are dimensiunea mult mai mare decat un inamic normal
                     if (hitBox.x < e.getHitBox().x - shootingRange) {
                         hitBox.x = e.getHitBox().x;
                         hitBox.y = e.getHitBox().y;
@@ -88,7 +98,7 @@ public class Bullet {
         }
     }
 
-    public void SHOOT(Graphics g)
+    public void SHOOT(Graphics g) // metoda shoot apelata in clasele de inamici
     {
         draw(g);
         movement();
@@ -96,14 +106,14 @@ public class Bullet {
             die_if_attack();
     }
 
-    private void die_if_attack()
+    private void die_if_attack() // metoda care testeaza daca glontul face coliziune cu player-ul
     {
         int playerX = (int) Player.getInstance().getHitBox().x;
         int playerY = (int) Player.getInstance().getHitBox().y;
 
         if((hitBox.y >= playerY) && (hitBox.y + hitBox.height <= playerY + Player.getInstance().getHitBox().height))
             if((hitBox.x >= playerX) && (hitBox.x + hitBox.width <= playerX + Player.getInstance().getHitBox().width))
-                if(Player.getInstance().action != CRAWLING && Player.getInstance().action != SIT_DOWN)
+                if(Player.getInstance().action != CRAWLING && Player.getInstance().action != SIT_DOWN) // daca player-ul este jos sau se taraste, nu ia damage
                     Player.getInstance().takeDamage();
     }
 

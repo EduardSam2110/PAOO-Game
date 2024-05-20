@@ -10,6 +10,11 @@ import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static PaooGame.utils.Camera.xCamera;
 import static PaooGame.utils.Constants.*;
 
+/*
+Clasa abstractizeaza inamicul Boss, extins din inamicul simplu
+diferentele majore constau in viata, viteza de atac, aria de atac
+*/
+
 public class BossEnemy extends SimpleEnemy{
     public BossEnemy(int x, int y, int width, int height, boolean containsClippers) {
         super(x,y,width,height, containsClippers);
