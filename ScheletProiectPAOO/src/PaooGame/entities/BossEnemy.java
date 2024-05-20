@@ -33,8 +33,6 @@ public class BossEnemy extends SimpleEnemy{
 
         b.SHOOT(g);
 
-        System.out.println(health.lifeCount);
-
         //debugg
         if(Game.DEBUG)
             drawHitbox(g);
