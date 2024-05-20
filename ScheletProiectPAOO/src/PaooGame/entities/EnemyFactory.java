@@ -1,6 +1,9 @@
 package PaooGame.entities;
 
 public class EnemyFactory {
+    /*
+    Implementarea design-ului Factory pentru cele 2 tipuri de inamici
+     */
     public Entity factoryMethod(String enemyType, int x, int y, boolean containsClippers, int toSpawn)
     {
         if(toSpawn == 1){

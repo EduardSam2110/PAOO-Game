@@ -6,12 +6,18 @@ import java.awt.*;
 
 import static PaooGame.Graphics.Assets.score;
 
+/*
+sistemul se scor din joc bazat pe trecerea secundelor
+ */
 public class Score {
-    public static double finalScore = 0;
-    public static double current_score = 0;
-    private static int[] score_array = new int[4];
+    public static double finalScore = 0; // scorul final, poate fi aflat doar la completarea jocului
+    public static double current_score = 0; // scorul curent din cadrul feicarui nivel
+    private static int[] score_array = new int[4]; // pentru afisarea scorului
 
 
+    /*
+    functia desparte scorul final/curent cifra cu cifra, il stocheaza in score_array, pentru a-l afisa pe ecran
+     */
     private static void Score_Processing(double score)
     {
         int i = 0;
@@ -29,6 +35,11 @@ public class Score {
 
     }
 
+    /*
+    sistemul scorului
+    se actualizeaza cu 1/60 pe frame, adica 1 pct/secunda
+    scor final cat mai mic -> castigator
+     */
     public static void Score_System(Player p)
     {
         if(Game.START_PRESSED)
@@ -57,6 +68,9 @@ public class Score {
         current_score = finalScore = 0;
     }
 
+    /*
+    pentru afisarea scorului pe ecranul de castigare
+     */
     public static void drawIfWon(Graphics g)
     {
         Score_Processing(finalScore);

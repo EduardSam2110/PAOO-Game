@@ -9,6 +9,11 @@ import java.awt.*;
 
 import static PaooGame.utils.Camera.xCamera;
 
+/*
+itemul superputere
+ajuta la a a da damage isntant inamicilor simpli si dublu pentru Boss
+la ultimul nivel ajuta si printr o super saritura
+ */
 public class SuperPaw extends ItemAbstractClass {
 
     public SuperPaw(float x, float y)

@@ -19,7 +19,7 @@ import static PaooGame.utils.Camera.xCamera;
 
 
 public class LevelManager {
-    private static int[][] map;
+    private static int[][] map; // matricea hartii
     private static BufferedImage background;
     public static int level = 1;
     public static int gateXpos = 0, gateYpos = 0;

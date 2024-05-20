@@ -9,31 +9,34 @@ import static PaooGame.utils.Camera.xCamera;
 import static PaooGame.utils.Constants.*;
 import static PaooGame.utils.GravityCollisionMethods.*;
 
+/*
+Abstractizarea conceptului de entitate
+ */
+
 public abstract class Entity {
 
     protected float x,y;
     protected int width, height;
     public Rectangle2D.Float hitBox; // dreptunghiul pentru coliziuni
 
-
-    protected static int[][] levelData;
+    protected static int[][] levelData; // matricea nivelului curent, rol in testarea coliziunilor
 
     // variabilele ce tin de gravitatie si jump
-    protected float airSpeed = 0f;
-    protected float gravity = 0.1f;
-    protected float jumpSpeed = -4f;
-    protected float fallSpeedAfterCollision = 1f;
+    protected float airSpeed = 0f; // viteza in aer
+    protected float gravity = 0.1f; // gravitatia
+    protected float jumpSpeed = -4f; // viteza sariturii
+    protected float fallSpeedAfterCollision = 1f; // viteza cu care se deplaseaza in jos atunci cand loveste tavanul/o platforma
     protected boolean inAir = true;
 
     // variabile ce tin de animatiile actiunilor
-    protected int aniIndex;
-    protected int aniTick;
-    protected int aniSpeed = 4;
-    protected int action;
+    protected int aniIndex; // indexul animatiei
+    protected int aniTick; // tick-ul animatiei
+    protected int aniSpeed = 4; // viteza animatiei
+    protected int action; // actiunea entitatii
     protected boolean attacking = false;
     public boolean died = false;
 
-    public HealthBar health;
+    public HealthBar health; // viata entitatii
 
 
     public Entity(float x, float y, int width, int height)
@@ -62,6 +65,9 @@ public abstract class Entity {
         return hitBox;
     }
 
+    /*
+    Functia de update a animatiei
+     */
     protected void updateAnimation(int action, String enemyType)
     {
         aniTick++;
@@ -76,9 +82,15 @@ public abstract class Entity {
         }
     }
     
-    
+    /*
+    Functia ce testeaza gravitatia in joc
+    Metodele apelate sunt in clasa GravityCollisionMethods din pachetul utils
+     */
     protected void testGravity(int xSpeed)
     {
+        /*
+        daca entitatea initial nu se afla in aer si nici pe podea, atunci este in aer
+         */
         if(!inAir)
         {
             if(!IsEntityOnFloor(hitBox,levelData))
@@ -87,6 +99,9 @@ public abstract class Entity {
             }
         }
 
+        /*
+        daca se afla in aer, testam daca se poate misca unde se afla, actualizand pozitia si gravitatia
+         */
         if(inAir)
         {
             if(CanMoveHere(hitBox.x,hitBox.y + airSpeed, hitBox.width,hitBox.height,levelData))
@@ -98,7 +113,7 @@ public abstract class Entity {
             else
             {
                 hitBox.y = GetEntityYPosUnderRoofFloor(hitBox,airSpeed);
-                if(airSpeed > 0) // mergem in jos, lovim ceva
+                if(airSpeed > 0) // mergem in jos sau lovim ceva
                     resetInAir();
                 else
                     airSpeed = fallSpeedAfterCollision;
@@ -116,12 +131,12 @@ public abstract class Entity {
         airSpeed = 0;
     }
 
-    protected void updateXPos(float xSpeed) {
-        if(CanMoveHere(hitBox.x+xSpeed,hitBox.y,hitBox.width,hitBox.height,levelData))
+    protected void updateXPos(float xSpeed) { // actualizam pozitia X
+        if(CanMoveHere(hitBox.x+xSpeed,hitBox.y,hitBox.width,hitBox.height,levelData)) // daca se poate misca
         {
             hitBox.x += xSpeed;
         }
-        else
+        else // daca nu se poate misca, sta langa un perete
         {
             hitBox.x = GetEntityXPosNextToWall(hitBox,xSpeed);
         }

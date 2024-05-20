@@ -14,12 +14,19 @@ import static PaooGame.Tiles.LevelManager.gateXpos;
 import static PaooGame.Tiles.LevelManager.gateYpos;
 import static PaooGame.utils.Camera.xCamera;
 
+/*
+Itemul cleste, necesar pentru a trece la alt nivel
+ */
 public class Clippers extends ItemAbstractClass {
 
     protected SimpleEnemy e;
 
     private int drawingOffset = 10;
 
+    /*
+    Deoarece este dependent de alt inamic, constructorul foloseste un inamic pentru a initializa pozitiile
+    daca nu are inamic, se presupune ca e deja colectat
+     */
     public Clippers(SimpleEnemy e) {
         if(e != null){
             initHitbox(e.getHitBox().x, e.getHitBox().y + e.getHitBox().height, 8, 8);
@@ -80,7 +87,9 @@ public class Clippers extends ItemAbstractClass {
         }
     };
 
-    public static Clippers setTarget(ArrayList<Entity> arr) // seteaza care este inamicul care are variabila contiansClippers pe true
+    // seteaza care este inamicul care are variabila contiansClippers pe true
+    // acel inamic va avea clestele si, cand va fi omorat, va da drop la cleste
+    public static Clippers setTarget(ArrayList<Entity> arr)
     {
         for(Entity e : arr)
             if(e instanceof SimpleEnemy)

@@ -19,7 +19,5 @@ public class ResetGameState implements GameState{
         START_PRESSED = true;
         RESET_PRESSED = false;
         Player.getInstance().resetPlayerPos();
-        //levelManager.initALevel();
-        //Score.current_score = 0;
     }
 }

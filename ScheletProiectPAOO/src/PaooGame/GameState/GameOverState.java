@@ -16,12 +16,14 @@ public class GameOverState implements GameState{
     @Override
     public void renderRequest(Graphics g) {
         g.drawImage(game_over, 0, 0, 1280, 720, null);
-
     }
 
     @Override
     public void updateRequest() {
 
+        /*
+        se asteapta 3 secunde si dupa se ia jocul de la inceput, din meniul de start
+         */
         if(current_time - old_time > 3_000) {
             LevelManager.level = 1;
             levelManager.initALevel();

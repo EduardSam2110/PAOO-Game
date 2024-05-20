@@ -17,6 +17,9 @@ import static PaooGame.utils.Camera.xCameraPos;
 import static PaooGame.utils.Constants.*;
 import static PaooGame.utils.GravityCollisionMethods.*;
 
+/*
+clasa modeleaza player-ul
+ */
 public class Player extends Entity {
 
     private BufferedImage[] current_animation;
@@ -24,9 +27,6 @@ public class Player extends Entity {
     private boolean moving = false;
     private boolean left, up = true, right, down = false, speed, jump;
     private boolean swimUP = false, swimDOWN = false;
-
-    public boolean clipperPicked = false;
-    public boolean superPawPicked = false;
 
     private int playerSpeed = 2;
 
@@ -37,7 +37,7 @@ public class Player extends Entity {
     // viteza jucatorului in timpul miscarii
     public static float xSpeed;
 
-    private static Player instance;
+    private static Player instance; // implementarea singleton
 
     private Player(float x,float y,int width, int height)
     {
@@ -48,7 +48,7 @@ public class Player extends Entity {
         action = IDLE;
     }
 
-    public static Player getInstance()
+    public static Player getInstance() // implementare singleton
     {
         if(instance == null)
             instance = new Player(90,450,64,64);
@@ -65,8 +65,6 @@ public class Player extends Entity {
         updateAnimation(action, "player");
         setAnimation();
         super.loadLvlData();
-//        System.out.println(hitBox.x );
-//        System.out.println(hitBox.y );
     }
 
     @Override
@@ -132,7 +130,7 @@ public class Player extends Entity {
         airSpeed = jumpSpeed;
     }
 
-    protected void setAnimation()
+    protected void setAnimation() // up si down se refera la pozitia in picioare, respectiv taras, a player-ului
     {
         int startAnimation = action;
 
@@ -174,7 +172,7 @@ public class Player extends Entity {
             current_animation = player_animations_right[action];
 
 
-        if(startAnimation != action)
+        if(startAnimation != action) // resetam tick-ul animatiei daca se schimba pe parcurs
             resetAnimationTick();
     }
 
@@ -258,6 +256,9 @@ public class Player extends Entity {
     public void setSwimUP(boolean swimUP) {this.swimUP = swimUP;}
     public void setSwimDOWN(boolean swimDOWN) {this.swimDOWN = swimDOWN;}
 
+    /*
+    Functia incarca din salvarea din baza de date
+     */
     public void LoadFromSave(float x, float y, int health, int score, int xCam, int xCamPos, boolean clipperPicked, boolean superPawPicked, int final_score)
     {
         hitBox.x = x;
@@ -271,9 +272,12 @@ public class Player extends Entity {
         LevelManager.superpaw.setState(superPawPicked);
     }
 
+    /*
+    metoda testeaza daca player-ul intra in contact cu tepii de pe harta
+     */
     public void getSpikeDamage(){
         float xIndex = hitBox.x / TILE_SIZE;
-        float yIndex = (hitBox.y + hitBox.height + 8)  / TILE_SIZE;
+        float yIndex = (hitBox.y + hitBox.height + 8)  / TILE_SIZE; // +8 e un offset pentru a testa dala de sub player daca are id ul dalei spike sau spike underwater
 
         int value = levelData[(int)yIndex][(int)xIndex];
 
@@ -283,6 +287,10 @@ public class Player extends Entity {
         }
     }
 
+    /*
+    metoda da a lua damage
+    reseteaza pozitia playeru-ului si scade o viata
+     */
     public void takeDamage()
     {
         if(health.lifeCount > 1) {
@@ -310,6 +318,9 @@ public class Player extends Entity {
         resetPlayerPos();
     }
 
+    /*
+    metoda se apeleaza cand player-ul se afla in apa
+     */
     public void WaterBehaviour()
     {
         if(swimDOWN)
@@ -318,6 +329,11 @@ public class Player extends Entity {
             hitBox.y -= 1;
     }
 
+    /*
+    metoda testeaza daca player-ul se afla in apa
+    verifica daca sub player, o dala mai jos, este apa
+    caz in care returneaza true
+     */
     private boolean detectWater()
     {
         int playerX = (int) Player.getInstance().getHitBox().x / TILE_SIZE;

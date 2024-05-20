@@ -8,9 +8,12 @@ import java.awt.geom.Rectangle2D;
 
 import static PaooGame.utils.Camera.xCamera;
 
+/*
+abstractizarea itemelor din joc
+ */
 public abstract class ItemAbstractClass {
     protected int x,y;
-    protected Rectangle2D.Float hitBox;
+    protected Rectangle2D.Float hitBox; // dreptunghiul pentru coliziuni
     public boolean collected = false;
     public boolean used = false;
 
