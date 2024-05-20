@@ -161,6 +161,8 @@ public class SimpleEnemy extends Entity {
     //functia verifica coliziunea playerului cu inamicul si seteaza care din cei doi moare
     private void die_if_attack()
     {
+        checkIfDead();
+
         int coord_playerX = (int) (Player.getInstance().getHitBox().x + Player.getInstance().getHitBox().width);
         int coord_playerXLeft = (int) (Player.getInstance().getHitBox().x);
         int coord_playerY = (int) (Player.getInstance().getHitBox().y);
@@ -170,9 +172,6 @@ public class SimpleEnemy extends Entity {
             if(Player.getInstance().attacking) {
                 takeDamage();
             }
-//            else {
-//                player.takeDamage();
-//            }
         }
     }
 
@@ -203,12 +202,9 @@ public class SimpleEnemy extends Entity {
 
     public void takeDamage()
     {
-        if(health.lifeCount > 1){
+        if(health.lifeCount > 0){
             if(superpaw.used) {
                 health.lifeCount = 0;
-                action = EnemyDEATH;
-                aniIndex = 0;
-                died = true;
             }
             else
                 health.lifeCount -= 1;
@@ -226,13 +222,16 @@ public class SimpleEnemy extends Entity {
                 movingLeft = true;
             }
 
-        } else {
+        }
+    }
+
+    protected void checkIfDead()
+    {
+        if(health.lifeCount == 0) {
             action = EnemyDEATH;
             aniIndex = 0;
             died = true;
         }
-
-//        System.out.println(health.lifeCount);
     }
 
 

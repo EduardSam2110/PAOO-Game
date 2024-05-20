@@ -9,7 +9,6 @@ import static PaooGame.Tiles.LevelManager.superpaw;
 import static PaooGame.Tiles.Tile.TILE_SIZE;
 import static PaooGame.utils.Camera.xCamera;
 import static PaooGame.utils.Constants.*;
-import static PaooGame.utils.Constants.EnemyATTACK;
 
 public class BossEnemy extends SimpleEnemy{
     public BossEnemy(int x, int y, int width, int height, boolean containsClippers) {
@@ -34,6 +33,7 @@ public class BossEnemy extends SimpleEnemy{
 
         b.SHOOT(g);
 
+        System.out.println(health.lifeCount);
 
         //debugg
         if(Game.DEBUG)
@@ -41,11 +41,15 @@ public class BossEnemy extends SimpleEnemy{
     }
 
     public void takeDamage() {
-        if (health.lifeCount > 1) {
+        super.checkIfDead();
+
+        if (health.lifeCount > 0) {
             if (superpaw.used)
                 health.lifeCount -= 2; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :))
             else
                 health.lifeCount -= 1; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :)) /32.
+
+            Player.getInstance().setAttacking(false);
 
             if (movingLeft && !shooting) {
                 movingLeft = false;
@@ -54,11 +58,6 @@ public class BossEnemy extends SimpleEnemy{
                 movingRight = false;
                 movingLeft = true;
             }
-
-        } else {
-            action = EnemyDEATH;
-            aniIndex = 0;
-            died = true;
         }
     }
 }

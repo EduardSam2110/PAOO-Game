@@ -10,7 +10,7 @@ public class SpikeUp extends Tile{
 
     @Override
     public boolean IsSolid() {
-        return true;
+        return false;
     }
 
     @Override
