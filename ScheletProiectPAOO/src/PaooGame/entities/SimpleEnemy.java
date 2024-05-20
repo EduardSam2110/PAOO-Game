@@ -207,7 +207,9 @@ public class SimpleEnemy extends Entity {
             if(superpaw.used)
                 health.lifeCount = 1; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :))
             else
-                health.lifeCount -= 1/32.; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :)) /32.
+                health.lifeCount -= 1; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :)) /32.
+
+            Player.getInstance().setAttacking(false);
 
             if(movingLeft && !shooting)
             {

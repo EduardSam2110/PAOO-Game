@@ -68,11 +68,6 @@ public class MenuControl {
             exit.action();
             restart.action();
         }
-
-        if(game.getState() instanceof GameFinishedState)
-        {
-
-        }
     }
 
     public static void renderMenu(Graphics g, Game game){
