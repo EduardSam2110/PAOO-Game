@@ -18,7 +18,7 @@ fiecare inamic are o instanta a acestei clase
 */
 public class Bullet {
     private int x,y;
-    public float bulletspeed = 2f;
+    public float bulletspeed = 3f;
     public int shootingRange = 5 * TILE_SIZE;
     private SimpleEnemy e;
     public Rectangle2D.Float hitBox; // dreptunghiul pentru coliziuni
