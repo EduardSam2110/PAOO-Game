@@ -90,7 +90,7 @@ public class LoadSave {
         }
     }
 
-    public static void SaveGameState(Player p) {
+    public static void SaveGame(Player p) {
         try (PreparedStatement pstmt = c.prepareStatement("UPDATE " + TABLE_NAME +
                 " set XPOS =?, YPOS =?, SCORE =?, HEALTH =?, LEVEL=?, CAMERAPOS=?, XCAMERAPOS=?, CLIPPERS=?, SUPERPAW=?, ENTITIES_TABLE1=?, ENTITIES_TABLE2=?, FINAL_SCORE=? where ID=1")) {
             pstmt.setInt(1, (int) p.getHitBox().x);

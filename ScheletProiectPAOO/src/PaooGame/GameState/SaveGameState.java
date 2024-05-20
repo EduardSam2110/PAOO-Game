@@ -16,7 +16,7 @@ public class SaveGameState implements GameState {
 
     @Override
     public void updateRequest() {
-        LoadSave.SaveGameState(Player.getInstance());
+        LoadSave.SaveGame(Player.getInstance());
         SAVE_SELECTED = false;
     }
 }

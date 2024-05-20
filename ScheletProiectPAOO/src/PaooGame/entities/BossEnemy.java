@@ -43,9 +43,9 @@ public class BossEnemy extends SimpleEnemy{
     public void takeDamage() {
         if (health.lifeCount > 1) {
             if (superpaw.used)
-                health.lifeCount -= 2 / 32. ; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :))
+                health.lifeCount -= 2; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :))
             else
-                health.lifeCount -= 1 / 32.; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :)) /32.
+                health.lifeCount -= 1; // nu inteleg de ce se apeleaza de 32 de ori cand da o lovitura player-ul :)) /32.
 
             if (movingLeft && !shooting) {
                 movingLeft = false;
